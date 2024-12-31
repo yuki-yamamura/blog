@@ -6,6 +6,7 @@ import { Footer } from '@/components/ui/footer';
 import type { Metadata } from 'next';
 
 import styles from './layout.module.css';
+import '@unocss/reset/tailwind.css';
 import './globals.css';
 
 export const metadata: Metadata = {
