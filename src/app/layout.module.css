@@ -1,0 +1,23 @@
+.base {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  max-width: 768px;
+  width: 100%;
+  margin-inline: auto;
+  flex-grow: 1;
+  padding-inline: 16px;
+  padding-block: 24px;
+
+  @media (min-width: 768px) {
+    padding-inline: 24px;
+  }
+}
+
+.header {
+  top: 0;
+  position: sticky;
+}

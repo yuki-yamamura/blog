@@ -1,7 +1,11 @@
 import { jost } from '@/lib/next';
 
+import { Header } from '@/components/ui/header';
+import { Footer } from '@/components/ui/footer';
+
 import type { Metadata } from 'next';
 
+import styles from './layout.module.css';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -12,10 +16,20 @@ export const metadata: Metadata = {
 
 type Props = React.PropsWithChildren;
 
-const RootLayout = ({ children }: Props) => (
+const Layout = ({ children }: Props) => (
   <html lang="en">
-    <body className={jost.className}>{children}</body>
+    <body className={jost.className}>
+      <div className={styles.base}>
+        <div className={styles.header}>
+          <Header />
+        </div>
+        <main className={styles.main}>{children}</main>
+        <div className={styles.footer}>
+          <Footer />
+        </div>
+      </div>
+    </body>
   </html>
 );
 
-export default RootLayout;
+export default Layout;

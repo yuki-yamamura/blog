@@ -1,3 +1,3 @@
-const Page = () => <div>Hello, World!</div>;
+const Page = () => <div>Hello</div>;
 
 export default Page;

@@ -1,0 +1,20 @@
+.base {
+  height: 64px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-block-start: 1px solid #8a8988;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 768px;
+  margin-inline: auto;
+}
+
+.copyright {
+  text-transform: uppercase;
+}
