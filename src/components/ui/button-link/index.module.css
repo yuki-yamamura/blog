@@ -1,0 +1,22 @@
+.base {
+  --foreground-color: white;
+  --background-color: black;
+
+  background-color: var(--background-color);
+  color: var(--foreground-color);
+
+  &:hover {
+    --foreground-color: black;
+    --background-color: white;
+  }
+}
+
+.small {
+  padding-inline: 32px;
+  padding-block: 16px;
+}
+
+.medium {
+  padding-inline: 32px;
+  padding-block: 48px;
+}
