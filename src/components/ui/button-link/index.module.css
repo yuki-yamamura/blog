@@ -2,16 +2,22 @@
   --link-foreground-color: var(--foreground-color);
   --link-background-color: var(--background-color);
 
-  background-color: var(--link-background-color);
-  color: var(--link-foreground-color);
-  min-width: 200px;
-  border: 1px solid var(--link-foreground-color);
   display: inline-flex;
-  justify-content: center;
-  align-items: center;
   column-gap: 12px;
-  border-radius: 12px;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
   padding-block: 16px;
+  color: var(--link-foreground-color);
+  background-color: var(--link-background-color);
+  border: 1px solid var(--link-foreground-color);
+  border-radius: 12px;
+
+  .icon {
+    width: 20px;
+    height: 20px;
+    margin: 4px;
+  }
 
   &:hover {
     .icon {
@@ -20,16 +26,11 @@
   }
 }
 
-.icon {
-  margin: 4px;
-  height: 20px;
-  width: 20px;
-}
-
 @keyframes move {
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(10px);
   }

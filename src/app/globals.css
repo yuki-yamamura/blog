@@ -1,6 +1,6 @@
 :root {
   --background-color: #fcfbfa;
-  --foreground-color: #444444;
+  --foreground-color: #444;
 }
 
 html,
@@ -9,9 +9,9 @@ body {
 }
 
 body {
+  font-family: Arial, sans-serif;
   color: var(--foreground-color);
   background-color: var(--background-color);
-  font-family: Arial, sans-serif;
 }
 
 * {
