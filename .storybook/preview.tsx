@@ -1,7 +1,8 @@
-import React from "react";
-import { jost } from "../src/lib/next";
+import React from 'react';
 
-import type { Preview } from "@storybook/react";
+import { jost } from '../src/lib/next';
+
+import type { Preview } from '@storybook/react';
 
 const preview: Preview = {
   parameters: {

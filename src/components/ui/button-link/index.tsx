@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { cva } from "class-variance-authority";
-import { Link } from "react-aria-components";
+import { cva } from 'class-variance-authority';
+import { Link } from 'react-aria-components';
 
-import type { VariantProps } from "class-variance-authority";
+import type { VariantProps } from 'class-variance-authority';
 
-import styles from "./index.module.css";
+import styles from './index.module.css';
 
 const linkButton = cva(styles.base, {
   variants: {
@@ -15,7 +15,7 @@ const linkButton = cva(styles.base, {
     },
   },
   defaultVariants: {
-    size: "medium",
+    size: 'medium',
   },
 });
 

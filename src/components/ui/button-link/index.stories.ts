@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { ButtonLink } from "./";
+import { ButtonLink } from './';
 
 const meta = {
   component: ButtonLink,
@@ -15,6 +15,6 @@ export const Default: Story = {
 
 export const Small: Story = {
   args: {
-    size: "small",
+    size: 'small',
   },
 };
