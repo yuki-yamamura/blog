@@ -4,6 +4,8 @@ import { jost } from '../src/lib/next';
 
 import type { Preview } from '@storybook/react';
 
+import '@unocss/reset/tailwind.css';
+
 const preview: Preview = {
   parameters: {
     controls: {
