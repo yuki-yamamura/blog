@@ -16,10 +16,10 @@ export const PostPagination = ({ currentPage, posts }: Props) => {
   const router = useRouter();
   const pageCount = calculatePageCount(posts, MAX_POSTS_COUNT_PER_PAGE);
   const hrefBuilder: ReactPaginateProps['hrefBuilder'] = (pageIndex: number) => {
-    return `/posts/${pageIndex + 1}`;
+    return `/posts/page/${pageIndex + 1}`;
   };
   const onPageChange: ReactPaginateProps['onPageChange'] = ({ selected }) => {
-    router.push(`/posts/${selected + 1}`);
+    router.push(`/posts/page/${selected + 1}`);
   };
 
   return (

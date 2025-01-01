@@ -1,6 +1,8 @@
 :root {
   --background-color: #fcfbfa;
   --foreground-color: #444;
+  --link-color: #7ab6d9;
+  --code-background-color: #f2f8fb;
 }
 
 html,
@@ -18,4 +20,5 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  line-height: 1.7;
 }

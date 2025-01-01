@@ -1,8 +1,8 @@
-import { calculatePageCount } from '../api';
-import { getPosts } from '../api/fetcher';
-import { PostList } from '../components';
-import { PostPagination } from '../components/post-pagination';
-import { MAX_POSTS_COUNT_PER_PAGE } from '../constants';
+import { calculatePageCount } from '../../api';
+import { getPosts } from '../../api/fetcher';
+import { PostList } from '../../components';
+import { PostPagination } from '../../components/post-pagination';
+import { MAX_POSTS_COUNT_PER_PAGE } from '../../constants';
 
 type Params = {
   page: string;
