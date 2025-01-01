@@ -1,4 +1,4 @@
-import { getPosts } from '../../api';
+import { getPosts } from '../../api/fetcher';
 import { Component } from './presenter';
 
 export const PostList = async () => {

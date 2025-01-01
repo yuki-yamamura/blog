@@ -11,7 +11,7 @@ type Props = {
 export const Component = ({ posts }: Props) => (
   <ol className={styles.base}>
     {posts.map((post) => (
-      <li key={post.title}>
+      <li key={post.id}>
         <PostItem {...post} />
       </li>
     ))}
