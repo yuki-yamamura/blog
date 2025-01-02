@@ -1,6 +1,9 @@
 :root {
   --background-color: #fcfbfa;
-  --foreground-color: #444;
+
+  /* --foreground-color: #444; */
+  --foreground-color: #000000a8;
+  --accent-color: #0076bd;
   --link-color: #7ab6d9;
   --code-background-color: #f2f8fb;
 }

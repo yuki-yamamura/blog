@@ -1,12 +1,17 @@
 import { Component } from './presenter';
 import { getPosts } from '../../api/fetcher';
 
-export const PostList = async () => {
-  const posts = await getPosts();
+type Props = {
+  limit?: number;
+};
 
-  if (posts.length === 0) {
+export const PostList = async ({ limit }: Props) => {
+  const posts = await getPosts();
+  const displayPosts = limit ? posts.slice(0, limit) : posts;
+
+  if (displayPosts.length === 0) {
     return null;
   }
 
-  return <Component posts={posts} />;
+  return <Component posts={displayPosts} />;
 };

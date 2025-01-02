@@ -19,5 +19,10 @@
 }
 
 .heading {
+  padding-block: 24px;
   font-size: 1.75rem;
+}
+
+.content {
+  padding-block-start: 48px;
 }

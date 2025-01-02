@@ -7,15 +7,24 @@ import type { ReactPaginateProps } from 'react-paginate';
 
 import styles from './index.module.css';
 
-type Props = ReactPaginateProps;
+type Props = Required<
+  Pick<ReactPaginateProps, 'initialPage' | 'pageCount' | 'onPageChange' | 'hrefBuilder'>
+> &
+  ReactPaginateProps;
 
-export const Pagination = ({ pageRangeDisplayed = 5, ...props }: Props) => (
+export const Pagination = ({ ...props }: Props) => (
   <ReactPaginate
     {...props}
     containerClassName={styles.base}
-    pageRangeDisplayed={pageRangeDisplayed}
-    previousLabel={<CaretLeftIcon />}
-    nextLabel={<CaretRightIcon />}
+    pageLinkClassName={styles.link}
     activeClassName={styles.active}
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    previousClassName={styles.previous}
+    nextClassName={styles.next}
+    previousLinkClassName={styles.previousLink}
+    nextLinkClassName={styles.nextLink}
+    previousLabel={<CaretLeftIcon className={styles.icon} />}
+    nextLabel={<CaretRightIcon className={styles.icon} />}
   />
 );

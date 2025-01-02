@@ -4,6 +4,8 @@ import { PostList } from '../../components';
 import { PostPagination } from '../../components/post-pagination';
 import { MAX_POSTS_COUNT_PER_PAGE } from '../../constants';
 
+import styles from './page.module.css';
+
 type Params = {
   page: string;
 };
@@ -29,7 +31,9 @@ const Page = async ({ params }: Props) => {
   return (
     <div>
       <PostList />
-      <PostPagination currentPage={currentPage} posts={posts} />
+      <div className={styles.paginationWrapper}>
+        <PostPagination currentPage={currentPage} posts={posts} />
+      </div>
     </div>
   );
 };

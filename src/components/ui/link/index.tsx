@@ -8,7 +8,6 @@ type Props = ComponentPropsWithoutRef<typeof ReactAriaLink>;
 
 export const Link = ({ href, ...props }: Props) => {
   const isExternalLink = href && /^https?:\/\//.test(href);
-  console.log({ isExternalLink });
 
   if (isExternalLink) {
     return <ReactAriaLink target="_blank" href={href} {...props} />;

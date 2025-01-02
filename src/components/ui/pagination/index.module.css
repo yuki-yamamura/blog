@@ -1,9 +1,42 @@
 .base {
   display: flex;
-  column-gap: 12px;
+  column-gap: 4px;
   align-items: center;
 }
 
-.active {
-  color: red;
+.previous,
+.next {
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  padding-inline: 12px;
+}
+
+.previousLink,
+.nextLink {
+  padding-inline: 6px;
+}
+
+.link,
+.previousLink,
+.nextLink {
+  display: inline-block;
+  padding-block: 6px;
+  font-size: 0.875rem;
+
+  &:hover:not([aria-disabled='true']) {
+    background-color: #f7f2f0;
+    border-radius: 6px;
+  }
+
+  &[aria-disabled='true'] {
+    pointer-events: none;
+  }
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
 }

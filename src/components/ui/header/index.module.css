@@ -22,7 +22,7 @@
 }
 
 .logo {
-  text-decoration: underline;
+  font-size: 1.5rem;
 }
 
 .navigationList {
@@ -32,4 +32,14 @@
 
 .navigationItem {
   list-style: none;
+}
+
+.link {
+  padding-block: 4px;
+  padding-inline: 8px;
+
+  &:hover {
+    background-color: #f7f2f0;
+    border-radius: 8px;
+  }
 }

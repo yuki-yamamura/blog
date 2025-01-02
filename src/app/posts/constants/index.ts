@@ -1,1 +1,1 @@
-export const MAX_POSTS_COUNT_PER_PAGE = 2;
+export const MAX_POSTS_COUNT_PER_PAGE = 10;

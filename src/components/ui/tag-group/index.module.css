@@ -1,14 +1,14 @@
 .tags {
   display: flex;
   flex-wrap: wrap;
-  column-gap: 16px;
+  column-gap: 12px;
 }
 
 .tag {
   width: fit-content;
-  padding-block: 4px;
-  padding-inline: 16px;
-  font-size: 0.875rem;
+  padding-block: 2px;
+  padding-inline: 8px;
+  font-size: 0.675rem;
   color: #8a8988;
   border: 1px solid #8a8988;
   border-radius: 24px;

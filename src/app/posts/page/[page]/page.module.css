@@ -1,9 +1,4 @@
-.base {
-  display: flex;
-  flex-direction: column;
-}
-
-.linkWrapper {
+.paginationWrapper {
   display: flex;
   justify-content: center;
   margin-block-start: 48px;
