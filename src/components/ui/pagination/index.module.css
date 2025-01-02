@@ -26,12 +26,18 @@
   padding-block: 6px;
   font-size: 0.875rem;
 
-  &:hover:not([aria-disabled='true']) {
+  &:hover:not([aria-disabled='true'], [aria-current='page']) {
     background-color: #f7f2f0;
     border-radius: 6px;
   }
 
   &[aria-disabled='true'] {
+    pointer-events: none;
+  }
+
+  &[aria-current='page'] {
+    text-decoration: underline;
+    text-underline-offset: 4px;
     pointer-events: none;
   }
 }

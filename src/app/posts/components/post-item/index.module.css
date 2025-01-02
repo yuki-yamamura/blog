@@ -24,5 +24,7 @@
 }
 
 .hr {
-  margin-block: 8px;
+  height: 1px;
+  margin-block: 12px;
+  border-top: 1px solid #c5c6c7;
 }

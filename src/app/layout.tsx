@@ -18,13 +18,11 @@ type Props = React.PropsWithChildren;
 
 const Layout = ({ children }: Props) => (
   <html lang="en">
-    <body className={jost.className}>
-      <div className={styles.base}>
-        <div className={styles.header}>
-          <Header />
-        </div>
-        <main className={styles.main}>{children}</main>
+    <body className={`${jost.className} ${styles.base}`}>
+      <div className={styles.header}>
+        <Header />
       </div>
+      <main className={styles.main}>{children}</main>
     </body>
   </html>
 );
