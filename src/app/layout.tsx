@@ -2,10 +2,10 @@ import { Footer } from '@/components/ui/footer';
 import { Header } from '@/components/ui/header';
 import { jost } from '@/lib/next';
 
-
 import type { Metadata } from 'next';
 
 import styles from './layout.module.css';
+
 import '@unocss/reset/tailwind.css';
 import './globals.css';
 
