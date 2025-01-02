@@ -1,5 +1,5 @@
 import { Header } from '@/components/ui/header';
-import { jost } from '@/lib/next';
+import { jost } from '@/lib/next/fonts';
 
 import type { Metadata } from 'next';
 

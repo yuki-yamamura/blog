@@ -1,12 +1,12 @@
 'use client';
 
-import { MAX_POSTS_COUNT_PER_PAGE } from '../../constants';
+import { MAX_POSTS_COUNT_PER_PAGE } from '@/app/posts/constants';
 import { Pagination } from '@/components/ui/pagination';
 import { ListWithPagination } from '@/utils/list-with-pagination';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 
-import type { Post } from '../../types';
+import type { Post } from '@/app/posts/types/post';
 import type { ReactPaginateProps } from 'react-paginate';
 
 type Props = {

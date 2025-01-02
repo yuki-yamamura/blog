@@ -1,5 +1,5 @@
-import { Link } from '../link';
-import { yomogi } from '@/lib/next';
+import { Link } from '@/components/ui/link';
+import { yomogi } from '@/lib/next/fonts';
 
 import styles from './index.module.css';
 

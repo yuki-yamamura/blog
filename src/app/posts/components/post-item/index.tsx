@@ -1,7 +1,8 @@
-import { Link, TagGroup } from '@/components/ui';
+import { Link } from '@/components/ui/link';
+import { TagGroup } from '@/components/ui/tag-group';
 import { dayjs } from '@/lib/dayjs';
 
-import type { Post } from '../../types';
+import type { Post } from '@/app/posts/types/post';
 
 import styles from './index.module.css';
 

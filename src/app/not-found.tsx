@@ -1,4 +1,4 @@
-import { yomogi } from '@/lib/next';
+import { yomogi } from '@/lib/next/fonts';
 
 import styles from './not-found.module.css';
 

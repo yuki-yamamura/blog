@@ -1,4 +1,4 @@
-import { Link } from '@/components/ui';
+import { Link } from '@/components/ui/link';
 import * as prod from 'react/jsx-runtime';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeReact from 'rehype-react';

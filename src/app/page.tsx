@@ -1,7 +1,7 @@
-import { PostList } from './posts/components/post-list';
-import { MAX_POSTS_COUNT_PER_PAGE } from './posts/constants';
 import { getPosts } from '@/app/posts/api/fetcher';
-import { ButtonLink } from '@/components/ui';
+import { PostList } from '@/app/posts/components/post-list';
+import { MAX_POSTS_COUNT_PER_PAGE } from '@/app/posts/constants';
+import { ButtonLink } from '@/components/ui/button-link';
 import { ListWithPagination } from '@/utils/list-with-pagination';
 
 import styles from './page.module.css';

@@ -1,6 +1,6 @@
-import { PostContent } from '../components/post-content';
 import { getPosts } from '@/app/posts/api/fetcher';
-import { TagGroup } from '@/components/ui';
+import { PostContent } from '@/app/posts/components/post-content';
+import { TagGroup } from '@/components/ui/tag-group';
 import { dayjs } from '@/lib/dayjs';
 import { notFound } from 'next/navigation';
 

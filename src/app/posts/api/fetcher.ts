@@ -1,11 +1,12 @@
-import { client } from '@/lib/microcms';
+import { client } from '@/lib/microcms/client';
 
-import type { Post } from '../types';
-import type { GetAllContentIdsRequest } from 'microcms-js-sdk';
+import type { Post } from '@/app/posts/types/post';
 
 const endpoint = 'posts';
 
-export const getPosts = async (params?: Omit<GetAllContentIdsRequest, 'endpoint'>) => {
+export const getPosts = async (
+  params?: Omit<Parameters<typeof client.getAllContents>, 'endpoint'>,
+) => {
   return client.getAllContents<Post>({
     ...params,
     endpoint,
