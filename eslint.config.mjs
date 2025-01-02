@@ -52,6 +52,7 @@ const eslintConfig = [
         },
       ],
       '@typescript-eslint/consistent-type-imports': 'error',
+      '@next/next/no-img-element': 'off',
     },
   },
 ];

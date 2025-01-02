@@ -37,7 +37,6 @@ const Page = async ({ params }: Props) => {
     <div className={styles.base}>
       <time className={styles.date}>{formattedDate}</time>
       <div className={styles.inner}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={thumbnail.url} alt="" className={styles.image} />
         <h1 className={styles.heading}>{title}</h1>
         <TagGroup tags={tags} />

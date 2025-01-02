@@ -5,7 +5,6 @@ import styles from './page.module.css';
 const Page = () => (
   <div className={styles.base}>
     <div className={styles.inner}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/avatar.jpg" alt="Yuki Yamamura" className={styles.image} />
       <div className={styles.name}>Yuki Yamamura</div>
       <div>A software engineer @Japan</div>
