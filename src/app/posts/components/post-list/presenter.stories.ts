@@ -1,6 +1,7 @@
+import { Component } from './presenter';
+
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Component } from './presenter';
 
 const meta = {
   component: Component,

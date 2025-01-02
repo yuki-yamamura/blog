@@ -1,5 +1,5 @@
-import { getPosts } from '../../api/fetcher';
 import { Component } from './presenter';
+import { getPosts } from '../../api/fetcher';
 
 export const PostList = async () => {
   const posts = await getPosts();

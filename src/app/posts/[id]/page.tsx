@@ -1,10 +1,10 @@
-import { notFound } from 'next/navigation';
 import { getPosts } from '../api';
-import { dayjs } from '@/lib/dayjs';
+import { PostContent } from '../components/post-content';
 import { TagGroup } from '@/components/ui';
+import { dayjs } from '@/lib/dayjs';
+import { notFound } from 'next/navigation';
 
 import styles from './page.module.css';
-import { PostContent } from '../components/post-content';
 
 type Params = {
   id: string;
@@ -16,7 +16,6 @@ type Props = {
 
 export const generateStaticParams = async (): Promise<Params[]> => {
   const posts = await getPosts();
-
   return posts.map(({ id }) => ({
     id,
   }));

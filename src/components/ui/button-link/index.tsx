@@ -1,7 +1,7 @@
 'use client';
 
-import { Link } from 'react-aria-components';
 import { ArrowRightIcon } from '@radix-ui/react-icons';
+import { Link } from 'react-aria-components';
 
 import styles from './index.module.css';
 

@@ -1,6 +1,7 @@
+import { ButtonLink } from './';
+
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { ButtonLink } from './';
 
 const meta = {
   component: ButtonLink,

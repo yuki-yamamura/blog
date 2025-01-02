@@ -2,8 +2,9 @@
 
 import { Tag as ReactAriaTag, TagList, TagGroup as ReactAriaTagGroup } from 'react-aria-components';
 
+import type { Tag } from '@/app/posts/types';
+
 import styles from './index.module.css';
-import { Tag } from '@/app/posts/types';
 
 type Props = {
   tags: Tag[];

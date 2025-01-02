@@ -1,7 +1,7 @@
+import { Footer } from '@/components/ui/footer';
+import { Header } from '@/components/ui/header';
 import { jost } from '@/lib/next';
 
-import { Header } from '@/components/ui/header';
-import { Footer } from '@/components/ui/footer';
 
 import type { Metadata } from 'next';
 

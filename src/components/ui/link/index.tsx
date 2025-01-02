@@ -1,7 +1,8 @@
 'use client';
 
-import { ComponentPropsWithoutRef } from 'react';
 import { Link as ReactAriaLink } from 'react-aria-components';
+
+import type { ComponentPropsWithoutRef } from 'react';
 
 type Props = ComponentPropsWithoutRef<typeof ReactAriaLink>;
 

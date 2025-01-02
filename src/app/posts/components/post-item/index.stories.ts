@@ -1,6 +1,7 @@
+import { PostItem } from '.';
+
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { PostItem } from '.';
 
 const meta = {
   component: PostItem,

@@ -1,5 +1,5 @@
-import { MicroCMSContentId, MicroCMSDate, MicroCMSImage } from 'microcms-js-sdk';
-import { Tag } from './tag';
+import type { Tag } from './tag';
+import type { MicroCMSContentId, MicroCMSDate, MicroCMSImage } from 'microcms-js-sdk';
 
 export type Post = {
   title: string;

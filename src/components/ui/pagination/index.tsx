@@ -1,7 +1,7 @@
 'use client';
 
-import ReactPaginate from 'react-paginate';
 import { CaretLeftIcon, CaretRightIcon } from '@radix-ui/react-icons';
+import ReactPaginate from 'react-paginate';
 
 import type { ReactPaginateProps } from 'react-paginate';
 

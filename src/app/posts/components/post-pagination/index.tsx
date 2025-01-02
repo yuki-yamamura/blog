@@ -1,11 +1,12 @@
 'use client';
 
-import { Pagination } from '@/components/ui/pagination';
 import { calculatePageCount } from '../../api/calculator';
 import { MAX_POSTS_COUNT_PER_PAGE } from '../../constants';
-import { Post } from '../../types';
-import { ReactPaginateProps } from 'react-paginate';
+import { Pagination } from '@/components/ui/pagination';
 import { useRouter } from 'next/navigation';
+
+import type { Post } from '../../types';
+import type { ReactPaginateProps } from 'react-paginate';
 
 type Props = {
   currentPage: number;

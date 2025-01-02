@@ -1,7 +1,8 @@
 import { client } from '@/lib/microcms';
 
 import type { Post } from '../types';
-import { GetAllContentIdsRequest, GetListDetailRequest } from 'microcms-js-sdk';
+import type { GetAllContentIdsRequest, GetListDetailRequest } from 'microcms-js-sdk';
+
 
 const endpoint = 'posts';
 
