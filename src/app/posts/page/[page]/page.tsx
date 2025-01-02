@@ -1,8 +1,8 @@
-import { calculatePageCount } from '../../api';
 import { getPosts } from '../../api/fetcher';
 import { PostList } from '../../components';
 import { PostPagination } from '../../components/post-pagination';
 import { MAX_POSTS_COUNT_PER_PAGE } from '../../constants';
+import { ListWithPagination } from '@/utils/list-with-pagination';
 
 import styles from './page.module.css';
 
@@ -16,10 +16,14 @@ type Props = {
 
 export const generateStaticParams = async (): Promise<Params[]> => {
   const posts = await getPosts();
-  const totalPages = calculatePageCount(posts, MAX_POSTS_COUNT_PER_PAGE);
+  const { pageNumbers } = new ListWithPagination({
+    list: posts,
+    currentPage: 0,
+    maxItemsPerPage: MAX_POSTS_COUNT_PER_PAGE,
+  });
 
-  return Array.from(new Array(totalPages), (_, index) => ({
-    page: (index + 1).toString(),
+  return pageNumbers.map((pageNumber) => ({
+    page: pageNumber.toString(),
   }));
 };
 

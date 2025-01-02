@@ -1,8 +1,8 @@
 'use client';
 
-import { calculatePageCount } from '../../api/calculator';
 import { MAX_POSTS_COUNT_PER_PAGE } from '../../constants';
 import { Pagination } from '@/components/ui/pagination';
+import { ListWithPagination } from '@/utils/list-with-pagination';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 
@@ -16,7 +16,11 @@ type Props = {
 
 export const PostPagination = ({ currentPage, posts }: Props) => {
   const router = useRouter();
-  const pageCount = calculatePageCount(posts, MAX_POSTS_COUNT_PER_PAGE);
+  const { pageCount } = new ListWithPagination({
+    list: posts,
+    currentPage,
+    maxItemsPerPage: MAX_POSTS_COUNT_PER_PAGE,
+  });
 
   const hrefBuilder: ReactPaginateProps['hrefBuilder'] = useCallback((pageIndex: number) => {
     return `/posts/page/${pageIndex + 1}`;
