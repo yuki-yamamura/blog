@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "format": "prettier --write src/**/*.{ts,tsx,css}",
-    "lint": "next lint",
+    "lint:es": "eslint --fix 'src/**/*.{ts,tsx}'",
+    "lint:style": "stylelint --fix 'src/**/*.{ts,tsx}'",
+    "lint": "npm run lint:es; npm run lint:style",
+    "tsc": "tsc --noEmit",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
