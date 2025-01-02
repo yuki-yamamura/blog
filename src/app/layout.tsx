@@ -1,4 +1,3 @@
-import { Footer } from '@/components/ui/footer';
 import { Header } from '@/components/ui/header';
 import { jost } from '@/lib/next';
 
@@ -25,9 +24,6 @@ const Layout = ({ children }: Props) => (
           <Header />
         </div>
         <main className={styles.main}>{children}</main>
-        <div className={styles.footer}>
-          <Footer />
-        </div>
       </div>
     </body>
   </html>
