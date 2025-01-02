@@ -1,5 +1,5 @@
 import { Component } from './presenter';
-import { getPosts } from '../../api/fetcher';
+import { getPosts } from '@/app/posts/api/fetcher';
 
 type Props = {
   limit?: number;

@@ -1,6 +1,6 @@
-import { getPosts } from './posts/api';
 import { PostList } from './posts/components/post-list';
 import { MAX_POSTS_COUNT_PER_PAGE } from './posts/constants';
+import { getPosts } from '@/app/posts/api/fetcher';
 import { ButtonLink } from '@/components/ui';
 import { ListWithPagination } from '@/utils/list-with-pagination';
 

@@ -1,5 +1,5 @@
-import { getPosts } from '../api';
 import { PostContent } from '../components/post-content';
+import { getPosts } from '@/app/posts/api/fetcher';
 import { TagGroup } from '@/components/ui';
 import { dayjs } from '@/lib/dayjs';
 import { notFound } from 'next/navigation';
