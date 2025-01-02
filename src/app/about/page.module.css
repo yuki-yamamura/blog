@@ -1,0 +1,41 @@
+.base {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.image {
+  align-self: center;
+  width: 128px;
+  height: 128px;
+  border-radius: 100%;
+}
+
+.name {
+  align-self: center;
+  padding-block-start: 8px;
+  font-size: 1.25rem;
+}
+
+.hr {
+  width: 50%;
+  height: 1px;
+  margin-block: 12px;
+  border-top: 1px solid #8a8988;
+}
+
+.sns {
+  display: flex;
+  column-gap: 16px;
+  align-self: center;
+}
+
+.link {
+  text-decoration: underline;
+}
