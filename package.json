@@ -8,7 +8,7 @@
     "start": "next start",
     "format": "prettier --write src/**/*.{ts,tsx,css}",
     "lint:es": "eslint --fix 'src/**/*.{ts,tsx}'",
-    "lint:style": "stylelint --fix 'src/**/*.{ts,tsx}'",
+    "lint:style": "stylelint --fix 'src/**/*.css'",
     "lint": "npm run lint:es; npm run lint:style",
     "tsc": "tsc --noEmit",
     "storybook": "storybook dev -p 6006",
