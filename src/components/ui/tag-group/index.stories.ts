@@ -17,7 +17,6 @@ export const Default: Story = {
         updatedAt: '2024-11-03T01:12:30.344Z',
         publishedAt: '2024-11-03T01:12:30.344Z',
         revisedAt: '2024-11-03T01:12:30.344Z',
-        slug: 'react',
         name: 'React',
       },
       {
@@ -26,7 +25,6 @@ export const Default: Story = {
         updatedAt: '2024-11-03T01:12:30.344Z',
         publishedAt: '2024-11-03T01:12:30.344Z',
         revisedAt: '2024-11-03T01:12:30.344Z',
-        slug: 'next',
         name: 'Next.js',
       },
     ],

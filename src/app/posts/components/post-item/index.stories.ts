@@ -20,7 +20,6 @@ export const Default: Story = {
         updatedAt: '2024-10-12T03:32:24.135Z',
         publishedAt: '2024-10-12T03:32:24.135Z',
         revisedAt: '2024-10-12T03:32:24.135Z',
-        slug: 'react',
         name: 'React',
       },
       {
@@ -29,7 +28,6 @@ export const Default: Story = {
         updatedAt: '2024-10-12T03:32:24.135Z',
         publishedAt: '2024-10-12T03:32:24.135Z',
         revisedAt: '2024-10-12T03:32:24.135Z',
-        slug: 'next',
         name: 'Next.js',
       },
     ],
