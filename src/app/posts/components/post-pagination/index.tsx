@@ -3,6 +3,7 @@
 import { MAX_POSTS_COUNT_PER_PAGE } from '@/app/posts/constants';
 import { Pagination } from '@/components/ui/pagination';
 import { ListWithPagination } from '@/utils/list-with-pagination';
+import { getPath } from '@/utils/path';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 
@@ -23,11 +24,11 @@ export const PostPagination = ({ currentPage, posts }: Props) => {
   });
 
   const hrefBuilder: ReactPaginateProps['hrefBuilder'] = useCallback((pageIndex: number) => {
-    return `/posts/page/${pageIndex + 1}`;
+    return getPath['/posts/page:number'](pageIndex + 1);
   }, []);
   const onPageChange: ReactPaginateProps['onPageChange'] = useCallback(
     ({ selected }: { selected: number }) => {
-      router.push(`/posts/page/${selected + 1}`);
+      router.push(getPath['/posts/page:number'](selected + 1));
     },
     [router],
   );
