@@ -1,6 +1,6 @@
 import { client } from '@/lib/microcms/client';
 
-import type { Post } from '@/app/posts/types/post';
+import type { Post } from '@/app/posts/_types/post';
 
 const endpoint = 'posts';
 

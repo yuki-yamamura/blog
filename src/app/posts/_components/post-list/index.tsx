@@ -1,6 +1,6 @@
-import { PostItem } from '@/app/posts/components/post-item';
+import { PostItem } from '@/app/posts/_components/post-item';
 
-import type { Post } from '@/app/posts/types/post';
+import type { Post } from '@/app/posts/_types/post';
 
 import styles from './index.module.css';
 

@@ -1,5 +1,5 @@
-import { getPosts } from '@/app/posts/api/fetcher';
-import { PostContent } from '@/app/posts/components/post-content';
+import { getPosts } from '@/app/posts/_api/fetcher';
+import { PostContent } from '@/app/posts/_components/post-content';
 import { TagGroup } from '@/components/ui/tag-group';
 import { formatDate } from '@/lib/dayjs';
 import { notFound } from 'next/navigation';
@@ -33,6 +33,7 @@ const Page = async ({ params }: Props) => {
 
   const { publishedAt, thumbnail, title, tags, content } = post;
   const formattedDate = formatDate(publishedAt);
+  const tagNames = tags.map(({ name }) => name);
 
   return (
     <div className={styles.base}>
@@ -40,7 +41,7 @@ const Page = async ({ params }: Props) => {
       <div className={styles.inner}>
         <img src={thumbnail.url} alt="" className={styles.image} />
         <h1 className={styles.heading}>{title}</h1>
-        <TagGroup tags={tags} />
+        <TagGroup tags={tagNames} />
       </div>
       <div className={styles.content}>
         <PostContent content={content} />

@@ -1,7 +1,7 @@
-import { PostPagination } from '../../components/post-pagination';
-import { MAX_POSTS_COUNT_PER_PAGE } from '../../constants';
-import { getPosts } from '@/app/posts/api/fetcher';
-import { PostList } from '@/app/posts/components/post-list';
+import { getPosts } from '@/app/posts/_api/fetcher';
+import { PostList } from '@/app/posts/_components/post-list';
+import { PostPagination } from '@/app/posts/_components/post-pagination';
+import { MAX_POSTS_COUNT_PER_PAGE } from '@/app/posts/_constants';
 import { ListWithPagination } from '@/utils/list-with-pagination';
 
 import styles from './page.module.css';

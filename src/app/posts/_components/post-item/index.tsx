@@ -3,7 +3,7 @@ import { TagGroup } from '@/components/ui/tag-group';
 import { formatDate } from '@/lib/dayjs';
 import { getPath } from '@/utils/path';
 
-import type { Post } from '@/app/posts/types/post';
+import type { Post } from '@/app/posts/_types/post';
 
 import styles from './index.module.css';
 
@@ -15,6 +15,7 @@ export const PostItem = ({ id, title, publishedAt, tags }: Props) => {
   }
 
   const formattedDate = formatDate(publishedAt);
+  const tagNames = tags.map(({ name }) => name);
 
   return (
     <div className={styles.base}>
@@ -25,7 +26,7 @@ export const PostItem = ({ id, title, publishedAt, tags }: Props) => {
         <h2 className={styles.heading}>{title}</h2>
       </Link>
       <div className={styles.line} />
-      <TagGroup tags={tags} />
+      <TagGroup tags={tagNames} />
     </div>
   );
 };

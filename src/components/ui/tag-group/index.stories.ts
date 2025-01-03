@@ -10,24 +10,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    tags: [
-      {
-        id: 'c_0j2m3lbhvp',
-        createdAt: '2024-11-03T01:12:30.344Z',
-        updatedAt: '2024-11-03T01:12:30.344Z',
-        publishedAt: '2024-11-03T01:12:30.344Z',
-        revisedAt: '2024-11-03T01:12:30.344Z',
-        name: 'React',
-      },
-      {
-        id: 'c_0j2m3lbhvv',
-        createdAt: '2024-11-03T01:12:30.344Z',
-        updatedAt: '2024-11-03T01:12:30.344Z',
-        publishedAt: '2024-11-03T01:12:30.344Z',
-        revisedAt: '2024-11-03T01:12:30.344Z',
-        name: 'Next.js',
-      },
-    ],
+    tags: ['React', 'Next.js'],
   },
 };
 
