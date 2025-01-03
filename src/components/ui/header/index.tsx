@@ -1,5 +1,6 @@
 import { Link } from '@/components/ui/link';
 import { yomogi } from '@/lib/next/fonts';
+import { cx } from 'class-variance-authority';
 
 import styles from './index.module.css';
 
@@ -11,8 +12,8 @@ export const Header = () => {
 
   return (
     <header className={styles.base}>
-      <div className={styles.wrapper}>
-        <Link href="/" className={`${styles.logo} ${yomogi.className}`}>
+      <div className={styles.inner}>
+        <Link href="/" className={cx(styles.logo, yomogi.className)}>
           ymmr
         </Link>
         <nav>

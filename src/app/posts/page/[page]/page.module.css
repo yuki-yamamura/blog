@@ -1,5 +1,6 @@
-.paginationWrapper {
+.base {
   display: flex;
-  justify-content: center;
-  margin-block-start: 48px;
+  flex-direction: column;
+  row-gap: 48px;
+  align-items: center;
 }

@@ -2,7 +2,6 @@ import { Component } from './presenter';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-
 const meta = {
   component: Component,
 } satisfies Meta<typeof Component>;
@@ -19,8 +18,8 @@ export const Default: Story = {
         updatedAt: '2024-12-11T05:05:47.842Z',
         publishedAt: '2024-12-11T05:00:27.371Z',
         revisedAt: '2024-12-11T05:05:47.842Z',
-        title: 'custom filed testing',
-        content: 'testing',
+        title: 'title_1',
+        content: 'content',
         tags: [
           {
             id: 'sb2tvzuzwp',
@@ -44,8 +43,8 @@ export const Default: Story = {
         updatedAt: '2024-11-03T01:13:28.778Z',
         publishedAt: '2024-11-03T01:13:28.778Z',
         revisedAt: '2024-11-03T01:13:28.778Z',
-        title: 'title_3',
-        content: 'something',
+        title: 'title_2',
+        content: 'content',
         tags: [
           {
             id: 'c_0j2m3lbhvp',
@@ -53,8 +52,8 @@ export const Default: Story = {
             updatedAt: '2024-11-03T01:12:30.344Z',
             publishedAt: '2024-11-03T01:12:30.344Z',
             revisedAt: '2024-11-03T01:12:30.344Z',
-            slug: 'cooking',
-            name: 'Cooking',
+            slug: 'react',
+            name: 'React',
           },
         ],
         thumbnail: {

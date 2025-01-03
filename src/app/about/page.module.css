@@ -10,6 +10,13 @@
   flex-direction: column;
 }
 
+.bio {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  align-items: center;
+}
+
 .image {
   align-self: center;
   width: 128px;
@@ -19,15 +26,15 @@
 
 .name {
   align-self: center;
-  padding-block-start: 8px;
   font-size: 1.25rem;
+  line-height: 1.5;
 }
 
-.hr {
+.line {
   width: 50%;
   height: 1px;
   margin-block: 12px;
-  border-top: 1px solid #8a8988;
+  border-top: 1px solid var(--border-solid-color);
 }
 
 .sns {

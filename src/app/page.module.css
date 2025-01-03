@@ -1,10 +1,6 @@
 .base {
   display: flex;
   flex-direction: column;
-}
-
-.linkWrapper {
-  display: flex;
-  justify-content: center;
-  margin-block-start: 48px;
+  row-gap: 48px;
+  align-items: center;
 }

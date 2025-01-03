@@ -8,21 +8,19 @@ import styles from './page.module.css';
 
 const Page = async () => {
   const posts = await getPosts();
-  const listWithPagination = new ListWithPagination({
+  const { shouldShowPagination } = new ListWithPagination({
     list: posts,
     currentPage: 1,
     maxItemsPerPage: MAX_POSTS_COUNT_PER_PAGE,
   });
 
   return (
-    <div className={styles.page}>
-      <PostList limit={10} />
-      {listWithPagination.shouldShowPagination && (
-        <div className={styles.linkWrapper}>
-          <ButtonLink href="/posts/page/2" rightIcon>
-            See all posts
-          </ButtonLink>
-        </div>
+    <div className={styles.base}>
+      <PostList />
+      {shouldShowPagination && (
+        <ButtonLink href="/posts/page/2" rightIcon>
+          See all posts
+        </ButtonLink>
       )}
     </div>
   );

@@ -28,16 +28,14 @@ export const generateStaticParams = async (): Promise<Params[]> => {
 };
 
 const Page = async ({ params }: Props) => {
+  const posts = await getPosts();
   const { page } = await params;
   const currentPage = Number(page);
-  const posts = await getPosts();
 
   return (
-    <div>
+    <div className={styles.base}>
       <PostList />
-      <div className={styles.paginationWrapper}>
-        <PostPagination currentPage={currentPage} posts={posts} />
-      </div>
+      <PostPagination currentPage={currentPage} posts={posts} />
     </div>
   );
 };

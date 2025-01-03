@@ -4,14 +4,14 @@
   align-items: center;
 }
 
+.link {
+  padding-inline: 12px;
+}
+
 .previous,
 .next {
   display: flex;
   align-items: center;
-}
-
-.link {
-  padding-inline: 12px;
 }
 
 .previousLink,
@@ -26,11 +26,6 @@
   padding-block: 6px;
   font-size: 0.875rem;
 
-  &:hover:not([aria-disabled='true'], [aria-current='page']) {
-    background-color: #f7f2f0;
-    border-radius: 6px;
-  }
-
   &[aria-disabled='true'] {
     pointer-events: none;
   }
@@ -39,6 +34,11 @@
     text-decoration: underline;
     text-underline-offset: 4px;
     pointer-events: none;
+  }
+
+  &:hover:not([aria-disabled='true'], [aria-current='page']) {
+    background-color: #f7f2f0;
+    border-radius: 6px;
   }
 }
 

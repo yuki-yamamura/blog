@@ -13,18 +13,19 @@
   text-decoration: underline;
 
   &:hover {
-    color: var(--link-color);
+    color: var(--accent-color);
+  }
+
+  .heading {
+    display: inline;
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.5;
   }
 }
 
-.heading {
-  display: inline;
-  font-size: 1.5rem;
-  font-weight: 500;
-}
-
-.hr {
+.line {
   height: 1px;
-  margin-block: 12px;
-  border-top: 1px solid #c5c6c7;
+  margin-block: 8px;
+  border-top: 1px solid var(--border-grayish-color);
 }

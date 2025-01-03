@@ -9,7 +9,7 @@
   padding-block: 2px;
   padding-inline: 8px;
   font-size: 0.675rem;
-  color: #8a8988;
-  border: 1px solid #8a8988;
+  color: var(--border-solid-color);
+  border: 1px solid var(--border-solid-color);
   border-radius: 24px;
 }

@@ -4,10 +4,10 @@
   width: 100%;
   height: 64px;
   background-color: var(--background-color);
-  border-block-end: 1px solid #8a8988;
+  border-block-end: 1px solid var(--border-solid-color);
 }
 
-.wrapper {
+.inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,16 +30,12 @@
   column-gap: 16px;
 }
 
-.navigationItem {
-  list-style: none;
-}
-
 .link {
   padding-block: 4px;
   padding-inline: 8px;
 
   &:hover {
-    background-color: #f7f2f0;
+    background-color: var(--highlight-color);
     border-radius: 8px;
   }
 }

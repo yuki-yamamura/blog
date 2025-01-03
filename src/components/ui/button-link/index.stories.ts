@@ -1,4 +1,4 @@
-import { ButtonLink } from './';
+import { ButtonLink } from '.';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -11,6 +11,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: 'button',
+    children: 'See all posts',
+  },
+};
+
+export const WithRightIcon: Story = {
+  args: {
+    children: 'See all posts',
+    rightIcon: true,
   },
 };

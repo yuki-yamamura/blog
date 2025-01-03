@@ -1,16 +1,14 @@
 .base {
-  --link-foreground-color: var(--foreground-color);
-  --link-background-color: var(--background-color);
-
   display: inline-flex;
   column-gap: 12px;
   align-items: center;
   justify-content: center;
   min-width: 200px;
+  max-width: fit-content;
   padding-block: 16px;
-  color: var(--link-foreground-color);
-  background-color: var(--link-background-color);
-  border: 1px solid var(--link-foreground-color);
+  color: var(--foreground-color);
+  background-color: var(--background-color);
+  border: 1px solid var(--foreground-color);
   border-radius: 12px;
 
   .icon {

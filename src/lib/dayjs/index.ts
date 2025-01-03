@@ -1,3 +1,5 @@
-import dj from 'dayjs';
+import dayjs from 'dayjs';
 
-export const dayjs = dj;
+export const formatDate = (date: string, template: string = 'YYYY-MM-DD') => {
+  return dayjs(date).format(template);
+};

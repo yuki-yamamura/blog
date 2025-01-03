@@ -1,7 +1,7 @@
 import { getPosts } from '@/app/posts/api/fetcher';
 import { PostContent } from '@/app/posts/components/post-content';
 import { TagGroup } from '@/components/ui/tag-group';
-import { dayjs } from '@/lib/dayjs';
+import { formatDate } from '@/lib/dayjs';
 import { notFound } from 'next/navigation';
 
 import styles from './page.module.css';
@@ -16,6 +16,7 @@ type Props = {
 
 export const generateStaticParams = async (): Promise<Params[]> => {
   const posts = await getPosts();
+
   return posts.map(({ id }) => ({
     id,
   }));
@@ -26,12 +27,12 @@ const Page = async ({ params }: Props) => {
   const posts = await getPosts();
   const post = posts.find((post) => post.id === id);
 
-  if (!post) {
+  if (!post || !post.publishedAt) {
     notFound();
   }
 
   const { publishedAt, thumbnail, title, tags, content } = post;
-  const formattedDate = dayjs(publishedAt).format('YYYY-MM-DD');
+  const formattedDate = formatDate(publishedAt);
 
   return (
     <div className={styles.base}>

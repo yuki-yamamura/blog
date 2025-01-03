@@ -8,7 +8,7 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 
-const parseMarkdownToHtml = async (markdownContent: string) => {
+export const parseMarkdownToHtml = async (markdownContent: string) => {
   const production = { Fragment: prod.Fragment, jsx: prod.jsx, jsxs: prod.jsxs };
   const file = await unified()
     .use(remarkParse)
@@ -28,5 +28,3 @@ const parseMarkdownToHtml = async (markdownContent: string) => {
 
   return file.toString();
 };
-
-export { parseMarkdownToHtml };
