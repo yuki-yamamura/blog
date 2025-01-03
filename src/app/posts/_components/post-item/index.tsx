@@ -1,7 +1,7 @@
 import { Link } from '@/components/ui/link';
 import { TagGroup } from '@/components/ui/tag-group';
 import { formatDate } from '@/lib/dayjs';
-import { getPath } from '@/utils/path';
+import { pathMap } from '@/utils/path';
 
 import type { Post } from '@/app/posts/_types/post';
 
@@ -22,7 +22,7 @@ export const PostItem = ({ id, title, publishedAt, tags }: Props) => {
       <time dateTime={publishedAt} className={styles.date}>
         {formattedDate}
       </time>
-      <Link href={getPath['/posts:id'](id)} className={styles.link}>
+      <Link href={pathMap['/posts:id'].get(id)} className={styles.link}>
         <h2 className={styles.heading}>{title}</h2>
       </Link>
       <div className={styles.line} />

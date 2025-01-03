@@ -3,7 +3,7 @@ import { PostList } from '@/app/posts/_components/post-list';
 import { MAX_POSTS_COUNT_PER_PAGE } from '@/app/posts/_constants';
 import { ButtonLink } from '@/components/ui/button-link';
 import { ListWithPagination } from '@/utils/list-with-pagination';
-import { getPath } from '@/utils/path';
+import { pathMap } from '@/utils/path';
 
 import styles from './page.module.css';
 
@@ -21,7 +21,7 @@ const Page = async () => {
         <PostList posts={displayItems} />
       </div>
       {shouldShowPagination && (
-        <ButtonLink href={getPath['/posts/page:number'](2)} rightIcon>
+        <ButtonLink href={pathMap['/posts/page:number'].get(2)} rightIcon>
           See all posts
         </ButtonLink>
       )}
