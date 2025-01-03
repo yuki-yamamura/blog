@@ -5,6 +5,8 @@
 }
 
 .tag {
+  display: inline-flex;
+  column-gap: 2px;
   width: fit-content;
   padding-block: 2px;
   padding-inline: 8px;

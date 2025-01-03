@@ -18,7 +18,7 @@ export const PostItem = ({ id, title, publishedAt, tags }: Props) => {
 
   return (
     <div className={styles.base}>
-      <time dateTime={publishedAt} className={styles.time}>
+      <time dateTime={publishedAt} className={styles.date}>
         {formattedDate}
       </time>
       <Link href={getPath['/posts:id'](id)} className={styles.link}>

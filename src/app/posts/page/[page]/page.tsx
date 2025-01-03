@@ -38,7 +38,9 @@ const Page = async ({ params }: Props) => {
 
   return (
     <div className={styles.base}>
-      <PostList posts={displayItems} />
+      <div className={styles.posts}>
+        <PostList posts={displayItems} />
+      </div>
       {shouldShowPagination && <PostPagination currentPage={currentPage} posts={posts} />}
     </div>
   );

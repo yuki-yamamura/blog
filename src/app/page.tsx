@@ -17,7 +17,9 @@ const Page = async () => {
 
   return (
     <div className={styles.base}>
-      <PostList posts={displayItems} />
+      <div className={styles.posts}>
+        <PostList posts={displayItems} />
+      </div>
       {shouldShowPagination && (
         <ButtonLink href={getPath['/posts/page:number'](2)} rightIcon>
           See all posts

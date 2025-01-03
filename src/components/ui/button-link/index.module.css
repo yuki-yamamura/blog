@@ -19,7 +19,7 @@
 
   &:hover {
     .icon {
-      animation: move 0.5s ease-out forwards;
+      animation: move 0.5s linear forwards;
     }
   }
 }

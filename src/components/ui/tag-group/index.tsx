@@ -15,7 +15,8 @@ export const TagGroup = ({ tags }: Props) => (
     <TagList className={styles.tags}>
       {tags.map((tag) => (
         <ReactAriaTag key={tag.id} className={styles.tag}>
-          #{tag.name}
+          <span>#</span>
+          <span>{tag.name}</span>
         </ReactAriaTag>
       ))}
     </TagList>

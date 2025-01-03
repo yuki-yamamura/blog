@@ -3,4 +3,9 @@
   flex-direction: column;
   row-gap: 48px;
   align-items: center;
+  min-height: 100%;
+}
+
+.posts {
+  width: 100%;
 }
