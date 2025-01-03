@@ -18,8 +18,6 @@ export const Pagination = ({ ...props }: Props) => (
     containerClassName={styles.base}
     pageLinkClassName={styles.link}
     activeClassName={styles.active}
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
     previousClassName={styles.previous}
     nextClassName={styles.next}
     previousLinkClassName={styles.previousLink}
