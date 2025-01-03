@@ -3,7 +3,7 @@
 import { MAX_POSTS_COUNT_PER_PAGE } from '@/app/posts/_constants';
 import { Pagination } from '@/components/ui/pagination';
 import { ListWithPagination } from '@/utils/list-with-pagination';
-import { pathMap } from '@/utils/path';
+import { pathMap } from '@/utils/pathMap';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 

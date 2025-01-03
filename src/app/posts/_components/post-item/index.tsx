@@ -1,7 +1,7 @@
 import { Link } from '@/components/ui/link';
 import { TagGroup } from '@/components/ui/tag-group';
 import { formatDate } from '@/lib/dayjs';
-import { pathMap } from '@/utils/path';
+import { pathMap } from '@/utils/pathMap';
 
 import type { Post } from '@/app/posts/_types/post';
 

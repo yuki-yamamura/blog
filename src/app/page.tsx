@@ -3,7 +3,7 @@ import { PostList } from '@/app/posts/_components/post-list';
 import { MAX_POSTS_COUNT_PER_PAGE } from '@/app/posts/_constants';
 import { ButtonLink } from '@/components/ui/button-link';
 import { ListWithPagination } from '@/utils/list-with-pagination';
-import { pathMap } from '@/utils/path';
+import { pathMap } from '@/utils/pathMap';
 
 import styles from './page.module.css';
 

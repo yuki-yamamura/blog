@@ -1,6 +1,6 @@
 import { Link } from '@/components/ui/link';
 import { yomogi } from '@/lib/next/fonts';
-import { pathMap } from '@/utils/path';
+import { pathMap } from '@/utils/pathMap';
 import { cx } from 'class-variance-authority';
 
 import styles from './index.module.css';
