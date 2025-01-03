@@ -8,7 +8,7 @@ import styles from './index.module.css';
 export const Header = () => {
   const navigationItems = [
     { name: 'About', href: pathMap['/about'].get() },
-    { name: 'Posts', href: pathMap['/posts'].get() },
+    { name: 'Posts', href: pathMap['/posts/page:number'].get(1) },
   ];
 
   return (
