@@ -1,6 +1,7 @@
 .base {
   display: flex;
   flex-direction: column;
+  height: 100%;
   min-height: 100vh;
 }
 
@@ -8,11 +9,13 @@
   flex-grow: 1;
   width: 100%;
   max-width: 768px;
-  padding-block: 88px 128px;
-  padding-inline: 16px;
+  height: 100%;
+  padding-block: 40px 80px;
+  padding-inline: 8px;
   margin-inline: auto;
 
   @media (width >= 768px) {
+    padding-block: 88px 128px;
     padding-inline: 24px;
   }
 }
