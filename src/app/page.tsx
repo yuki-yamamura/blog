@@ -9,7 +9,7 @@ import styles from './page.module.css';
 
 const Page = async () => {
   const posts = await getPosts();
-  const { shouldShowPagination } = new ListWithPagination({
+  const { shouldShowPagination, displayItems } = new ListWithPagination({
     list: posts,
     currentPage: 1,
     maxItemsPerPage: MAX_POSTS_COUNT_PER_PAGE,
@@ -17,7 +17,7 @@ const Page = async () => {
 
   return (
     <div className={styles.base}>
-      <PostList />
+      <PostList posts={displayItems} />
       {shouldShowPagination && (
         <ButtonLink href={getPath['/posts/page:number'](2)} rightIcon>
           See all posts

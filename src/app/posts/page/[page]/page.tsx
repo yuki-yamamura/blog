@@ -18,7 +18,6 @@ export const generateStaticParams = async (): Promise<Params[]> => {
   const posts = await getPosts();
   const { pageNumbers } = new ListWithPagination({
     list: posts,
-    currentPage: 0,
     maxItemsPerPage: MAX_POSTS_COUNT_PER_PAGE,
   });
 
@@ -31,11 +30,16 @@ const Page = async ({ params }: Props) => {
   const posts = await getPosts();
   const { page } = await params;
   const currentPage = Number(page);
+  const { shouldShowPagination, displayItems } = new ListWithPagination({
+    list: posts,
+    currentPage,
+    maxItemsPerPage: MAX_POSTS_COUNT_PER_PAGE,
+  });
 
   return (
     <div className={styles.base}>
-      <PostList />
-      <PostPagination currentPage={currentPage} posts={posts} />
+      <PostList posts={displayItems} />
+      {shouldShowPagination && <PostPagination currentPage={currentPage} posts={posts} />}
     </div>
   );
 };

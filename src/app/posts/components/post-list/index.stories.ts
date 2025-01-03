@@ -1,10 +1,10 @@
-import { Component } from './presenter';
+import { PostList } from '.';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  component: Component,
-} satisfies Meta<typeof Component>;
+  component: PostList,
+} satisfies Meta<typeof PostList>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
