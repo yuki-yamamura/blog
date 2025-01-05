@@ -1,5 +1,5 @@
 import { PostContent } from '@/app/(models)/posts/components/post-content';
-import { getPosts } from '@/app/(models)/posts/logic/api';
+import { getPost, getPosts } from '@/app/(models)/posts/logic/api';
 import { TagGroup } from '@/components/ui/tag-group';
 import { formatDate } from '@/utils/dayjs';
 import { notFound } from 'next/navigation';
@@ -24,8 +24,7 @@ export const generateStaticParams = async (): Promise<Params[]> => {
 
 const Page = async ({ params }: Props) => {
   const { id } = await params;
-  const posts = await getPosts();
-  const post = posts.find((post) => post.id === id);
+  const post = await getPost(id);
 
   if (!post || !post.publishedAt) {
     notFound();

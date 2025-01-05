@@ -14,12 +14,6 @@ import styles from './index.module.css';
 
 type Props = Pick<Post, 'content'>;
 
-export const PostContent = async ({ content }: Props) => {
-  const parsedContent = await parseMarkdownToHtml(content);
-
-  return <div dangerouslySetInnerHTML={{ __html: parsedContent }} className={styles.base} />;
-};
-
 const parseMarkdownToHtml = async (markdownContent: string) => {
   const production = { Fragment: prod.Fragment, jsx: prod.jsx, jsxs: prod.jsxs };
   const file = await unified()
@@ -39,4 +33,10 @@ const parseMarkdownToHtml = async (markdownContent: string) => {
     .process(markdownContent);
 
   return file.toString();
+};
+
+export const PostContent = async ({ content }: Props) => {
+  const parsedContent = await parseMarkdownToHtml(content);
+
+  return <div dangerouslySetInnerHTML={{ __html: parsedContent }} className={styles.base} />;
 };
