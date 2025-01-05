@@ -1,4 +1,4 @@
-import type { Tag } from '@/app/posts/_types/tag';
+import type { Tag } from '@/app/(models)/tags/types/tag';
 import type { MicroCMSContentId, MicroCMSDate, MicroCMSImage } from 'microcms-js-sdk';
 
 export type Post = {

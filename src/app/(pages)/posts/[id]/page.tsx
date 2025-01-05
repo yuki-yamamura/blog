@@ -1,5 +1,5 @@
-import { getPosts } from '@/app/posts/_api/fetcher';
-import { PostContent } from '@/app/posts/_components/post-content';
+import { PostContent } from '@/app/(models)/posts/components/post-content';
+import { getPosts } from '@/app/(models)/posts/logic/api';
 import { TagGroup } from '@/components/ui/tag-group';
 import { formatDate } from '@/lib/dayjs';
 import { notFound } from 'next/navigation';

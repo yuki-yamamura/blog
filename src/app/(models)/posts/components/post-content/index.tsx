@@ -1,6 +1,6 @@
 import { parseMarkdownToHtml } from '@/lib/unified';
 
-import type { Post } from '@/app/posts/_types/post';
+import type { Post } from '@/app/(models)/posts/types/post';
 
 import styles from './index.module.css';
 
