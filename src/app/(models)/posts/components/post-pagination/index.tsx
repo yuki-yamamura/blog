@@ -24,11 +24,11 @@ export const PostPagination = ({ currentPage, posts }: Props) => {
   });
 
   const hrefBuilder: ReactPaginateProps['hrefBuilder'] = useCallback((pageIndex: number) => {
-    return pathMap['/posts/page:number'].get(pageIndex + 1);
+    return pathMap['/posts/page/:page/'].get(pageIndex + 1);
   }, []);
   const onPageChange: ReactPaginateProps['onPageChange'] = useCallback(
     ({ selected }: { selected: number }) => {
-      router.push(pathMap['/posts/page:number'].get(selected + 1));
+      router.push(pathMap['/posts/page/:page/'].get(selected + 1));
     },
     [router],
   );

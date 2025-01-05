@@ -21,7 +21,7 @@ const Page = async () => {
         <PostList posts={displayItems} />
       </div>
       {shouldShowPagination && (
-        <ButtonLink href={pathMap['/posts/page:number'].get(2)} rightIcon>
+        <ButtonLink href={pathMap['/posts/page/:page/'].get(2)} rightIcon>
           See all posts
         </ButtonLink>
       )}

@@ -2,16 +2,16 @@ export const pathMap = {
   '/': {
     get: () => '/',
   },
-  '/about': {
+  '/about/': {
     get: () => '/about/',
   },
-  '/posts': {
+  '/posts/': {
     get: () => '/posts/',
   },
-  '/posts:id': {
+  '/posts/:id/': {
     get: (id: string) => `/posts/${id}/`,
   },
-  '/posts/page:number': {
-    get: (pageNumber: number) => `/posts/page/${pageNumber}/`,
+  '/posts/page/:page/': {
+    get: (page: number) => `/posts/page/${page}/`,
   },
 } as const satisfies Record<string, { get: (...args: never) => string }>;

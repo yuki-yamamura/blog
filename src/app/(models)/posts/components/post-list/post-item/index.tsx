@@ -22,7 +22,7 @@ export const PostItem = ({ id, title, publishedAt, tags }: Props) => {
       <time dateTime={publishedAt} className={styles.date}>
         {formattedDate}
       </time>
-      <Link href={pathMap['/posts:id'].get(id)} className={styles.link}>
+      <Link href={pathMap['/posts/:id/'].get(id)} className={styles.link}>
         <h2 className={styles.heading}>{title}</h2>
       </Link>
       <div className={styles.line} />
