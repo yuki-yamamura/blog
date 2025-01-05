@@ -20,8 +20,8 @@ export const usePostPagination = ({ currentPage, posts }: Props) => {
     maxItemsPerPage: MAX_POSTS_COUNT_PER_PAGE,
   });
 
-  const hrefBuilder: ReactPaginateProps['hrefBuilder'] = useCallback((pageIndex: number) => {
-    return pathMap['/posts/page/:page/'].get(pageIndex + 1);
+  const hrefBuilder: ReactPaginateProps['hrefBuilder'] = useCallback((pageNumber: number) => {
+    return pathMap['/posts/page/:page/'].get(pageNumber);
   }, []);
   const onPageChange: ReactPaginateProps['onPageChange'] = useCallback(
     ({ selected }: { selected: number }) => {
