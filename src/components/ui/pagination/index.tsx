@@ -8,7 +8,7 @@ import type { ReactPaginateProps } from 'react-paginate';
 import styles from './index.module.css';
 
 type Props = Required<
-  Pick<ReactPaginateProps, 'initialPage' | 'pageCount' | 'onPageChange' | 'hrefBuilder'>
+  Pick<ReactPaginateProps, 'initialPage' | 'pageCount' | 'onClick' | 'hrefBuilder'>
 > &
   ReactPaginateProps;
 

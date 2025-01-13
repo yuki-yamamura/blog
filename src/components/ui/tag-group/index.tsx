@@ -6,10 +6,11 @@ import styles from './index.module.css';
 
 type Props = {
   tags: string[];
+  label?: string;
 };
 
-export const TagGroup = ({ tags }: Props) => (
-  <ReactAriaTagGroup aria-label="Tags">
+export const TagGroup = ({ tags, label = 'Tags' }: Props) => (
+  <ReactAriaTagGroup aria-label={label}>
     <TagList className={styles.tags}>
       {tags.map((tag) => (
         <ReactAriaTag key={tag} textValue={tag} className={styles.tag}>
