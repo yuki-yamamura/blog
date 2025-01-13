@@ -5,6 +5,8 @@ import type { Preview } from '@storybook/react';
 
 import '@unocss/reset/tailwind.css';
 
+import '../src/app/globals.css';
+
 const preview: Preview = {
   parameters: {
     controls: {
