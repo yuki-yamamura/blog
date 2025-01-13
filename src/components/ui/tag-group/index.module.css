@@ -14,4 +14,9 @@
   color: var(--border-solid-color);
   border: 1px solid var(--border-solid-color);
   border-radius: 24px;
+
+  &:hover {
+    color: var(--foreground-color);
+    background-color: var(--highlight-color);
+  }
 }

@@ -1,5 +1,5 @@
 import { Link } from '@/components/ui/link';
-import { TagGroup } from '@/components/ui/tag-group';
+import { TagGroup, TagLink } from '@/components/ui/tag-group';
 import { formatDate } from '@/utils/dayjs';
 import { pathMap } from '@/utils/pathMap';
 
@@ -15,7 +15,6 @@ export const PostItem = ({ id, title, publishedAt, tags }: Props) => {
   }
 
   const formattedDate = formatDate(publishedAt);
-  const tagNames = tags.map(({ name }) => name);
 
   return (
     <div className={styles.base}>
@@ -26,7 +25,13 @@ export const PostItem = ({ id, title, publishedAt, tags }: Props) => {
         <h2 className={styles.heading}>{title}</h2>
       </Link>
       <div className={styles.line} />
-      <TagGroup tags={tagNames} />
+      <TagGroup label="Links">
+        {tags.map(({ id, name }) => (
+          <TagLink key={name} href={`${pathMap['/posts/page/:page/'].get(1)}?tag=${id}`}>
+            {name}
+          </TagLink>
+        ))}
+      </TagGroup>
     </div>
   );
 };
