@@ -9,10 +9,10 @@ type Props = {
 };
 
 export const TagGroup = ({ tags }: Props) => (
-  <ReactAriaTagGroup>
+  <ReactAriaTagGroup aria-label="Tags">
     <TagList className={styles.tags}>
       {tags.map((tag) => (
-        <ReactAriaTag key={tag} className={styles.tag}>
+        <ReactAriaTag key={tag} textValue={tag} className={styles.tag}>
           <span>#</span>
           <span>{tag}</span>
         </ReactAriaTag>
