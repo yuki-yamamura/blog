@@ -18,6 +18,9 @@
   }
 
   &:hover {
+    background-color: var(--highlight-color);
+    transition-duration: 700ms;
+
     .icon {
       animation: move 0.5s linear forwards;
     }
