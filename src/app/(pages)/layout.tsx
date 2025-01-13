@@ -1,4 +1,4 @@
-import { Header } from '@/components/ui/header';
+import { Header } from '@/components/layout/header';
 import { jost } from '@/lib/next/fonts';
 import { cx } from 'class-variance-authority';
 
