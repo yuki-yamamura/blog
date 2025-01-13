@@ -12,7 +12,7 @@ export const Default: Story = {
   args: {
     pageCount: 5,
     initialPage: 0,
-    onPageChange: () => {},
+    onClick: () => {},
     hrefBuilder: () => {},
   },
 };
