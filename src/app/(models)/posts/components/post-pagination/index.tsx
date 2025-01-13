@@ -1,7 +1,7 @@
 'use client';
 
 import { usePostPagination } from './usePostPagination';
-import { useFilter } from '../post-list/useFilter';
+import { useFilter } from '@/app/(models)/posts/hooks/useFilter';
 import { Pagination } from '@/components/ui/pagination';
 import { Suspense } from 'react';
 

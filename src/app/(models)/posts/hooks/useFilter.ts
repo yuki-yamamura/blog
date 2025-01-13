@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 
 import type { Post } from '@/app/(models)/posts/types/post';
 
-export const useFilter = (posts: Post[]) => {
-  const [filteredPosts, setFilteredPosts] = useState<Post[]>(posts);
+export const useFilter = (initialPosts: Post[]) => {
+  const [filteredPosts, setFilteredPosts] = useState<Post[]>(initialPosts);
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -12,12 +12,12 @@ export const useFilter = (posts: Post[]) => {
 
     if (tag) {
       setFilteredPosts(
-        posts.filter((post) => {
+        initialPosts.filter((post) => {
           return post.tags.map(({ id }) => id).includes(tag);
         }),
       );
     }
-  }, [posts, searchParams]);
+  }, [initialPosts, searchParams]);
 
   return { posts: filteredPosts };
 };

@@ -1,7 +1,7 @@
 'use client';
 
 import { PostItem } from './post-item';
-import { useFilter } from './useFilter';
+import { useFilter } from '@/app/(models)/posts/hooks/useFilter';
 import { Suspense } from 'react';
 
 import type { Post } from '@/app/(models)/posts/types/post';
