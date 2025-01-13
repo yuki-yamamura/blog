@@ -36,7 +36,7 @@ export const usePostPagination = ({ currentPage, posts }: Props) => {
       }
 
       router.push(
-        `${pathMap['/posts/page/:page/'].get(nextSelectedPage + 1)}${tag ?? `?tag=${tag}`}`,
+        `${pathMap['/posts/page/:page/'].get(nextSelectedPage + 1)}${tag ? `?tag=${tag}` : ''}`,
       );
     },
     [router, tag],
