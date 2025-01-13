@@ -22,7 +22,7 @@ export const Default: Story = {
         content: 'content',
         tags: [
           {
-            id: 'sb2tvzuzwp',
+            id: 'nextjs',
             createdAt: '2024-10-12T03:32:24.135Z',
             updatedAt: '2024-10-12T03:32:24.135Z',
             publishedAt: '2024-10-12T03:32:24.135Z',
@@ -46,7 +46,7 @@ export const Default: Story = {
         content: 'content',
         tags: [
           {
-            id: 'c_0j2m3lbhvp',
+            id: 'react',
             createdAt: '2024-11-03T01:12:30.344Z',
             updatedAt: '2024-11-03T01:12:30.344Z',
             publishedAt: '2024-11-03T01:12:30.344Z',

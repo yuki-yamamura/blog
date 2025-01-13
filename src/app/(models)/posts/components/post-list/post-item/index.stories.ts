@@ -12,10 +12,10 @@ export const Default: Story = {
   args: {
     id: 'f07xdymrrl',
     publishedAt: '2024-12-11T05:00:27.371Z',
-    title: 'custom filed testing',
+    title: 'title',
     tags: [
       {
-        id: 'sb2tvzuzwz',
+        id: 'react',
         createdAt: '2024-10-12T03:32:24.135Z',
         updatedAt: '2024-10-12T03:32:24.135Z',
         publishedAt: '2024-10-12T03:32:24.135Z',
@@ -23,7 +23,7 @@ export const Default: Story = {
         name: 'React',
       },
       {
-        id: 'sb2tvzuzwp',
+        id: 'nextjs',
         createdAt: '2024-10-12T03:32:24.135Z',
         updatedAt: '2024-10-12T03:32:24.135Z',
         publishedAt: '2024-10-12T03:32:24.135Z',
