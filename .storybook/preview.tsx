@@ -1,6 +1,5 @@
-import { jost } from '../src/lib/next';
+import { jost } from '../src/lib/next/fonts';
 import React from 'react';
-
 
 import type { Preview } from '@storybook/react';
 
