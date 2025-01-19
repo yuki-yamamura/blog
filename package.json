@@ -13,7 +13,8 @@
     "tsc": "tsc --noEmit",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "vitest"
+    "test": "vitest --watch",
+    "test:ci": "vitest --ci --passWithNoTests --bail"
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.2",

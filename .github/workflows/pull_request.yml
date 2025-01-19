@@ -26,3 +26,5 @@ jobs:
         run: pnpm format
       - name: run ESLint and Stylelint
         run: pnpm lint
+      - name: run Vitest
+        run: pnpm test:ci
