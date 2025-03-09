@@ -1,0 +1,45 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install_dependencies
+      - name: run Prettier
+        run: pnpm run format
+      - name: run ESLint and Stylelint
+        run: pnpm run lint
+  tsc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install_dependencies
+      - name: run TypeScript Compiler
+        run: pnpm run tsc
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install_dependencies
+      - name: run Vitest
+        run: pnpm run test:ci
+  test-storybook:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install_dependencies
+      - name: install Playwright
+        run: pnpm dlx playwright install --with-deps
+      - name: build Storybook
+        run: pnpm run build-storybook --quiet
+      - name: serve Storybook and run tests
+        run: |
+          pnpm dlx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "pnpm dlx http-server storybook-static --port 6006 --silent" \
+            "pnpm dlx wait-on tcp:127.0.0.1:6006 && pnpm run test-storybook"
