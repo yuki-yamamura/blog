@@ -1,7 +1,7 @@
 import { client } from '@/lib/microcms/client';
 
 import type { Post } from '@/app/(models)/posts/types/post';
-import { MicroCMSQueries } from 'microcms-js-sdk';
+import type { MicroCMSQueries } from 'microcms-js-sdk';
 
 const endpoint = 'posts';
 

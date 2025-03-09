@@ -1,0 +1,41 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: .github/actions/install_dependencies/action.yaml
+      - name: run Prettier
+        run: npm run format
+      - name: run ESLint and Stylelint
+        run: npm run lint
+  tsc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: .github/actions/install_dependencies/action.yaml
+      - name: run TypeScript Compiler
+        run: npm run tsc
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: .github/actions/install_dependencies/action.yaml
+      - name: run Vitest
+        run: npm run test:ci
+  test-storybook:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: .github/actions/install_dependencies/action.yaml
+      - name: install Playwright
+        run: npx playwright install --with-deps
+      - name: build Storybook
+        run: npm run build-storybook --quiet
+      - name: serve Storybook and run tests
+        run: |
+          npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "npx http-server storybook-static --port 6006 --silent" \
+            "npx wait-on tcp:127.0.0.1:6006 && npm run test-storybook"
