@@ -14,18 +14,6 @@ type Props = {
   params: Promise<Params>;
 };
 
-export const generateStaticParams = async (): Promise<Params[]> => {
-  const posts = await getPosts();
-  const { pageNumbers } = new ListWithPagination({
-    list: posts,
-    maxItemsPerPage: MAX_POSTS_COUNT_PER_PAGE,
-  });
-
-  return pageNumbers.map((pageNumber) => ({
-    page: pageNumber.toString(),
-  }));
-};
-
 const Page = async ({ params }: Props) => {
   const posts = await getPosts();
   const { page } = await params;

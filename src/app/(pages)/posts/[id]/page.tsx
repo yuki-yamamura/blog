@@ -1,37 +1,31 @@
 import { PostContent } from '@/app/(models)/posts/components/post-content';
-import { getPost, getPosts } from '@/app/(models)/posts/logic/api';
+import { getPost } from '@/app/(models)/posts/logic/api';
 import { Tag, TagGroup } from '@/components/ui/tag-group';
 import { formatDate } from '@/utils/dayjs';
 import { notFound } from 'next/navigation';
 
 import styles from './page.module.css';
 
-type Params = {
-  id: string;
-};
-
 type Props = {
-  params: Promise<Params>;
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export const generateStaticParams = async (): Promise<Params[]> => {
-  const posts = await getPosts();
-
-  return posts.map(({ id }) => ({
-    id,
-  }));
-};
-
-const Page = async ({ params }: Props) => {
+const Page = async ({ params, searchParams }: Props) => {
   const { id } = await params;
-  const post = await getPost({ id });
+  const { draftKey } = await searchParams;
+  console.log({ draftKey });
+  if (typeof draftKey !== 'string' && typeof draftKey !== 'undefined') {
+    notFound();
+  }
+  const post = await getPost({ id, draftKey });
 
-  if (!post || !post.publishedAt) {
+  if (!post) {
     notFound();
   }
 
-  const { publishedAt, thumbnail, title, tags, content } = post;
-  const formattedDate = formatDate(publishedAt);
+  const { createdAt, thumbnail, title, tags, content } = post;
+  const formattedDate = formatDate(createdAt);
 
   return (
     <div className={styles.base}>
