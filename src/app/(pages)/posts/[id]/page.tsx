@@ -24,7 +24,7 @@ export const generateStaticParams = async (): Promise<Params[]> => {
 
 const Page = async ({ params }: Props) => {
   const { id } = await params;
-  const post = await getPost(id);
+  const post = await getPost({ id });
 
   if (!post || !post.publishedAt) {
     notFound();

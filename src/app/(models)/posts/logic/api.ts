@@ -1,14 +1,28 @@
 import { client } from '@/lib/microcms/client';
 
 import type { Post } from '@/app/(models)/posts/types/post';
+import type { MicroCMSQueries } from 'microcms-js-sdk';
 
 const endpoint = 'posts';
 
-export const getPost = async (id: Post['id']) => {
-  const allPosts = await getPosts();
-  const post = await allPosts.find((post) => post.id === id);
+console.log('something');
 
-  return post ?? null;
+export const getPost = async ({
+  id,
+  draftKey,
+}: {
+  id: Post['id'];
+  draftKey?: MicroCMSQueries['draftKey'];
+}) => {
+  const post = await client.getListDetail<Post>({
+    endpoint,
+    contentId: id,
+    queries: {
+      draftKey,
+    },
+  });
+
+  return post;
 };
 
 export const getPosts = async (
