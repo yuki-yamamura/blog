@@ -44,8 +44,43 @@
     border-radius: 4px;
   }
 
-  & figure > pre > code {
+  & figure {
+    padding: 24px;
     margin-block: 24px;
+    overflow-x: auto;
+    background-color: var(--highlight-color);
+    border-radius: 12px;
+  }
+
+  & figure > pre {
+    padding-block: 24px;
+    margin: 0;
+    overflow: visible;
+    background: transparent;
+    border-radius: 6px;
+  }
+
+  & figure > pre > code {
+    font-size: 14px;
+    line-height: 1.6;
+    counter-reset: line;
+  }
+
+  & figure > pre > code [data-line] {
+    display: block;
+    padding: 0 1rem;
+  }
+
+  & figure > pre > code [data-line]::before {
+    display: inline-block;
+    width: 2rem;
+    margin-right: 1rem;
+    font-size: 12px;
+    color: var(--text-secondary-color);
+    text-align: right;
+    content: counter(line);
+    counter-increment: line;
+    user-select: none;
   }
 
   &:not(ul) > ul,

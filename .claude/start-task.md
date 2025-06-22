@@ -26,6 +26,11 @@ Execute this protocol only when **ALL** of the following conditions are met:
 - Extract task information:
   - **Task ID**: From the `ID` property
   - **Task Title**: From the `Title` property
+  - **Status**: From the `Status` property
+  - **Started At**: From the `Started At` property
+- Update the Notion task:
+  - Set `Status` property to "In Progress" or equivalent completion status
+  - Set `Started At` property to current date and time (include precise timestamp)
 - Parse and understand the task requirements and acceptance criteria
 
 ### 2. Pull Request Setup
