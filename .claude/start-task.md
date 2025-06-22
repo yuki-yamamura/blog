@@ -12,16 +12,19 @@ Execute this protocol only when **ALL** of the following conditions are met:
 ## Preparation Phase
 
 ### Code Standards Review
+
 - Read `./docs/CODING_GUIDELINE.md` to understand project-specific coding standards and best practices
 - Ensure adherence to established patterns and conventions
 
 ### Branch Strategy
+
 - **If user specifies a base branch**: Use the specified branch (confirm with user if branch doesn't exist)
 - **If no branch specified**: Use `main` branch as the base
 
 ## Implementation Workflow
 
 ### 1. Notion Integration
+
 - Access the provided Notion link using available Notion API tools
 - Extract task information:
   - **Task ID**: From the `ID` property
@@ -34,6 +37,7 @@ Execute this protocol only when **ALL** of the following conditions are met:
 - Parse and understand the task requirements and acceptance criteria
 
 ### 2. Pull Request Setup
+
 Execute the following Git operations in sequence:
 
 ```bash
@@ -52,12 +56,14 @@ git push -u origin feature/<TASK-ID>
 ```
 
 Create a draft pull request with:
+
 - **Target**: `main` branch (or specified base branch)
 - **Title**: `【feature/<TASK-ID>】<TASK-TITLE>`
 - **Body**: Use `docs/PR_TEMPLATE.md` as the foundation, customizing for the specific task
 
 ### 3. Task Documentation
-- Create a detailed task breakdown file: `docs/tasks/<YYYY-MM-DD>.<TASK-ID>.md`
+
+- Create a detailed task breakdown file: `docs/tasks/<TASK-ID>.md`
 - Include:
   - Task overview and objectives
   - Subtask breakdown with clear deliverables
@@ -66,7 +72,9 @@ Create a draft pull request with:
   - Testing strategy
 
 ### 4. Completion Notification
+
 Report to the user that the initial setup phase is complete, including:
+
 - Feature branch creation confirmation
 - Draft PR link
 - Task documentation location
@@ -75,6 +83,7 @@ Report to the user that the initial setup phase is complete, including:
 ## Error Handling
 
 If any prerequisite fails:
+
 - **Missing Notion link**: Request the Notion task URL from user
 - **Dirty working directory**: Ask user to commit or stash changes before proceeding
 - **Branch conflicts**: Confirm intended base branch with user

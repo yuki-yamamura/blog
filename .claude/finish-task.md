@@ -5,13 +5,14 @@
 Execute this protocol only when **ALL** of the following conditions are met:
 
 - [ ] User has explicitly requested to complete/finish the task
-- [ ] All implementation tasks in `docs/tasks/<YYYY-MM-DD>.<TASK-ID>.md` have been completed
+- [ ] All implementation tasks in `docs/tasks/<TASK-ID>.md` have been completed
 - [ ] A Notion link has been provided for status updates
 - [ ] All code changes have been committed and pushed
 
 ## Implementation Workflow
 
 ### 1. Notion Integration
+
 - Access the provided Notion link using available Notion API tools
 - Extract current task information:
   - **Status**: From the `Status` property
@@ -23,7 +24,9 @@ Execute this protocol only when **ALL** of the following conditions are met:
 ### 2. Pull Request Finalization
 
 #### Pre-commit Verification
+
 Before proceeding with finalization:
+
 - Check for uncommitted or unpushed changes using `git status`
 - **If uncommitted files exist**:
   - List all uncommitted files to the user
@@ -32,29 +35,27 @@ Before proceeding with finalization:
   - Only proceed after explicit user confirmation
 
 #### Git Operations
+
 Execute the following Git operations in sequence (only after user confirmation if uncommitted files exist):
 
 ```bash
-git push origin feature/<TASK-ID>
-
-# Switch to main branch and pull latest changes
-git checkout main
-git pull origin main
+# Confirm that the current branch should be `feature/<TASK-ID>`
+git branch
 
 # Merge the pull request (via GitHub CLI or web interface)
-gh pr merge --squash feature/<TASK-ID>
-
-# Clean up local branch
-git branch -d feature/<TASK-ID>
+gh pr merge --merge --auto --delete-branch
 ```
 
 ### 3. Completion Verification
+
 - Verify the pull request has been successfully merged
 - Confirm the feature branch has been cleaned up
 - Validate Notion task status has been updated correctly
 
 ### 4. User Notification
+
 Report to the user that the task completion is finalized, including:
+
 - Notion task status update confirmation
 - Pull request merge confirmation
 - Local branch cleanup confirmation
@@ -63,6 +64,7 @@ Report to the user that the task completion is finalized, including:
 ## Error Handling
 
 If any step fails:
+
 - **Notion update issues**: Verify API permissions and retry with appropriate error handling
 - **PR merge conflicts**: Resolve conflicts before attempting merge
 - **Branch deletion issues**: Ensure all changes are properly merged before cleanup
