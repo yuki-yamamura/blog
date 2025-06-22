@@ -79,5 +79,6 @@
     "extends": [
       "plugin:storybook/recommended"
     ]
-  }
+  },
+  "packageManager": "pnpm@9.10.0"
 }
