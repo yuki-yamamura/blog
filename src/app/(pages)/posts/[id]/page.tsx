@@ -1,7 +1,7 @@
 import { PostContent } from '@/app/(models)/posts/components/post-content';
 import { getPost, getPosts } from '@/app/(models)/posts/logic/api';
 import { Tag, TagGroup } from '@/components/ui/tag-group';
-import { formatDate } from '@/utils/dayjs';
+import { formatDate } from '@/utils/date';
 import { notFound } from 'next/navigation';
 
 import styles from './page.module.css';

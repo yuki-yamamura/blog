@@ -1,6 +1,6 @@
 import { Link } from '@/components/ui/link';
 import { TagGroup, TagLink } from '@/components/ui/tag-group';
-import { formatDate } from '@/utils/dayjs';
+import { formatDate } from '@/utils/date';
 import { pathMap } from '@/utils/pathMap';
 
 import type { Post } from '@/app/(models)/posts/types/post';
