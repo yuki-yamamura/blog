@@ -1,5 +1,5 @@
 ---
-publish date: 2026-07-16
+publishDate: 2026-07-16
 title: The season of hiyashi chuka
 tags:
   - diary

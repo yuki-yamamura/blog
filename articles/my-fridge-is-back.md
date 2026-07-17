@@ -1,5 +1,5 @@
 ---
-publish date: 2026-07-17
+publishDate: 2026-07-17
 title: My fridge is back
 tags:
   - diary
