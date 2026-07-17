@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageProps } from './$types';
 
-	const { data }: PageProps = $props();
+	const props: PageProps = $props();
 </script>
 
-<h1>{data.title}</h1>
+<h1>{props.data.article.title}</h1>
