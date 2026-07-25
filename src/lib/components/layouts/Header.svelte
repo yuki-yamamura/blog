@@ -1,6 +1,14 @@
+<script>
+	import { pathMap } from '../../utils/path';
+</script>
+
 <header class="base">
 	<div class="inner">
-		<a href="/" class="logo"> ymmr.dev</a>
+		<a href={pathMap['/'].get()} class="logo link"> ymmr.dev</a>
+		<nav class="navigation">
+			<a href={pathMap['/articles'].get()} class="navigationItem link">Articles</a>
+			<a href={pathMap['/about'].get()} class="navigationItem link">About</a>
+		</nav>
 	</div>
 </header>
 
@@ -24,16 +32,40 @@
 		justify-content: space-between;
 		width: 100%;
 		max-width: 1280px;
-		padding-inline: 16px;
 		margin-inline: auto;
 
 		@media (768px <= width) {
-			padding-inline: 24px;
+			padding-inline: 8px;
 		}
 	}
 
 	.logo {
+		font-weight: 200;
+		font-style: italic;
+		font-size: 1.5rem;
+	}
+
+	.navigation {
+		display: flex;
+		column-gap: 24px;
+	}
+
+	.navigationItem {
+		font-weight: 200;
+		font-size: 1.25rem;
+	}
+
+	.link {
 		text-decoration: none;
 		color: currentColor;
+		@media (any-hover: hover) {
+			&:hover {
+				color: #1e7bdf;
+			}
+		}
+
+		&:focus-visible {
+			color: #1e7bdf;
+		}
 	}
 </style>

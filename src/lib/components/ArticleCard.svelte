@@ -2,6 +2,7 @@
 	import type { Article } from '$lib/models/article';
 	import { formatDate } from '$lib/utils/date';
 	import { tagSchema, uniqueTagsSchema, type Tag } from '../models/tag';
+	import { pathMap } from '../utils/path';
 	import TagBadge from './TagBadge.svelte';
 
 	const { article }: { article: Article } = $props();
@@ -13,7 +14,7 @@
 	});
 </script>
 
-<a href={`/articles/${article.slug}`} class="base">
+<a href={pathMap['/articles/:slug'].get(article.slug)} class="base">
 	<article class="card">
 		<div class="publish-date">{publishDate}</div>
 		<img
@@ -51,6 +52,7 @@
 		border: 1px solid black;
 		align-items: center;
 		height: 100%;
+		/* border-radius: 36px; */
 
 		&:focus-visible {
 			.thumbnail {
