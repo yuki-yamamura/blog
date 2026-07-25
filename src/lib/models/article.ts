@@ -17,4 +17,5 @@ export type Article = {
 	slug: string;
 	thumbnail: string;
 	tags: Tag[];
+	excerpt: string;
 } & Omit<ArticleMetadata, 'thumbnailFilename' | 'tags'>;

@@ -22,7 +22,7 @@
 		height="200"
 		class="thumbnail"
 	/>
-	<div class="article-info">
+	<div class="card-info">
 		<h2>{article.title}</h2>
 		<ul role="list" class="tags">
 			{#each tags as tag (tag)}
@@ -31,7 +31,7 @@
 				</li>
 			{/each}
 		</ul>
-		<p>{article.title}</p>
+		<p class="excerpt">{article.excerpt}</p>
 	</div>
 </a>
 
@@ -70,6 +70,13 @@
 		align-self: start;
 	}
 
+	.card-info {
+		display: flex;
+		flex-direction: column;
+		row-gap: 12px;
+		text-align: center;
+	}
+
 	.thumbnail {
 		object-fit: cover;
 		transition:
@@ -81,10 +88,13 @@
 		padding: 0;
 	}
 
-	.article-info {
-		display: flex;
-		flex-direction: column;
-		row-gap: 12px;
-		text-align: center;
+	.excerpt {
+		text-align: start;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+
+		line-clamp: 3;
+		overflow: hidden;
 	}
 </style>
