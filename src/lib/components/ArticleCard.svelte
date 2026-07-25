@@ -2,13 +2,14 @@
 	import type { Article } from '../types/article';
 
 	const { article }: { article: Article } = $props();
-	console.log(article.thumbnail);
 </script>
 
 <div class="base">
-	<img src={article.thumbnail} alt={`${article.title}'s thumbnail`} width="200" height="200" />
-	<h2>{article.title}</h2>
-	<div>{article.publishDate}</div>
+	<a href={`/articles/${article.slug}`}>
+		<img src={article.thumbnail} alt={`${article.title}'s thumbnail`} width="200" height="200" />
+		<h2>{article.title}</h2>
+		<div>{article.publishDate}</div>
+	</a>
 </div>
 
 <style>
