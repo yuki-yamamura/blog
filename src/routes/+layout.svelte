@@ -1,5 +1,7 @@
 <script lang="ts">
 	import favicon from '$lib/assets/favicon.svg';
+	import Header from '$lib/components/layouts/Header.svelte';
+	import WindChime from '$lib/components/layouts/WindChime.svelte';
 	import '../styles/reset.css';
 
 	let { children } = $props();
@@ -10,6 +12,8 @@
 </svelte:head>
 
 <div class="base">
+	<WindChime />
+	<Header />
 	{@render children()}
 </div>
 

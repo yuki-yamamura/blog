@@ -14,29 +14,35 @@
 </script>
 
 <a href={`/articles/${article.slug}`} class="base">
-	<div class="publish-date">{publishDate}</div>
-	<img
-		src={article.thumbnail}
-		alt={`${article.title}'s thumbnail`}
-		width="200"
-		height="200"
-		class="thumbnail"
-	/>
-	<div class="card-info">
-		<h2>{article.title}</h2>
-		<ul role="list" class="tags">
-			{#each tags as tag (tag)}
-				<li>
-					<TagBadge slug={tag} />
-				</li>
-			{/each}
-		</ul>
-		<p class="excerpt">{article.excerpt}</p>
-	</div>
+	<article class="card">
+		<div class="publish-date">{publishDate}</div>
+		<img
+			src={article.thumbnail}
+			alt={`${article.title}'s thumbnail`}
+			width="200"
+			height="200"
+			class="thumbnail"
+		/>
+		<div class="card-info">
+			<h2>{article.title}</h2>
+			<ul role="list" class="tags">
+				{#each tags as tag (tag)}
+					<li>
+						<TagBadge slug={tag} />
+					</li>
+				{/each}
+			</ul>
+			<p class="excerpt">{article.excerpt}</p>
+		</div>
+	</article>
 </a>
 
 <style>
 	.base {
+		text-decoration: none;
+		color: currentColor;
+	}
+	.card {
 		display: flex;
 		flex-direction: column;
 		padding: 24px;
@@ -45,8 +51,6 @@
 		border: 1px solid black;
 		align-items: center;
 		height: 100%;
-		text-decoration: none;
-		color: currentColor;
 
 		&:focus-visible {
 			.thumbnail {

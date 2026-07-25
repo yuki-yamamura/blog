@@ -11,5 +11,6 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		padding-block-start: 64px;
 	}
 </style>
