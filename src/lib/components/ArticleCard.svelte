@@ -1,24 +1,90 @@
 <script lang="ts">
-	import type { Article } from '../types/article';
+	import type { Article } from '$lib/models/article';
+	import { formatDate } from '$lib/utils/date';
+	import { tagSchema, uniqueTagsSchema, type Tag } from '../models/tag';
+	import TagBadge from './TagBadge.svelte';
 
 	const { article }: { article: Article } = $props();
+	const publishDate = $derived.by(() => formatDate(article.publishDate));
+	const tags: Tag[] = $derived.by(() => {
+		const tags = article.tags.map((tag) => tagSchema.parse(tag));
+
+		return uniqueTagsSchema.parse(tags);
+	});
 </script>
 
-<div class="base">
-	<a href={`/articles/${article.slug}`}>
-		<img src={article.thumbnail} alt={`${article.title}'s thumbnail`} width="200" height="200" />
+<a href={`/articles/${article.slug}`} class="base">
+	<div class="publish-date">{publishDate}</div>
+	<img
+		src={article.thumbnail}
+		alt={`${article.title}'s thumbnail`}
+		width="200"
+		height="200"
+		class="thumbnail"
+	/>
+	<div class="article-info">
 		<h2>{article.title}</h2>
-		<div>{article.publishDate}</div>
-	</a>
-</div>
+		<ul role="list" class="tags">
+			{#each tags as tag (tag)}
+				<li>
+					<TagBadge slug={tag} />
+				</li>
+			{/each}
+		</ul>
+		<p>{article.title}</p>
+	</div>
+</a>
 
 <style>
 	.base {
 		display: flex;
 		flex-direction: column;
-		row-gap: 0.5rem;
-		padding: 1rem;
+		padding: 24px;
+		row-gap: 8px;
 		border-radius: 1px;
 		border: 1px solid black;
+		align-items: center;
+		height: 100%;
+		text-decoration: none;
+		color: currentColor;
+
+		&:focus-visible {
+			.thumbnail {
+				opacity: 0.8;
+				transform: scale(1.02);
+			}
+		}
+
+		@media (any-hover: hover) {
+			&:hover {
+				.thumbnail {
+					opacity: 0.8;
+					transform: scale(1.02);
+				}
+			}
+		}
+	}
+
+	.publish-date {
+		font-size: 14px;
+		align-self: start;
+	}
+
+	.thumbnail {
+		object-fit: cover;
+		transition:
+			transform 0.3s ease,
+			opacity 0.3s ease;
+	}
+
+	.tags {
+		padding: 0;
+	}
+
+	.article-info {
+		display: flex;
+		flex-direction: column;
+		row-gap: 12px;
+		text-align: center;
 	}
 </style>

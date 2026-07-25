@@ -1,4 +1,5 @@
 import type { Component } from 'svelte';
+import type { Tag } from './tag';
 
 export type ArticleMetadata = {
 	title: string;
@@ -15,4 +16,5 @@ export type ArticleModule = {
 export type Article = {
 	slug: string;
 	thumbnail: string;
-} & Omit<ArticleMetadata, 'thumbnailFilename'>;
+	tags: Tag[];
+} & Omit<ArticleMetadata, 'thumbnailFilename' | 'tags'>;

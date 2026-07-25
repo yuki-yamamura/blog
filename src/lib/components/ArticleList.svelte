@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Article } from '../types/article';
+	import type { Article } from '../models/article';
 	import ArticleCard from './ArticleCard.svelte';
 
 	const { articles }: { articles: Article[] } = $props();
@@ -15,9 +15,11 @@
 
 <style>
 	.base {
-		display: flex;
-		flex-direction: column;
-		row-gap: 1rem;
-		padding: 1rem;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+		gap: 48px;
+		width: 100%;
+		padding: 0;
+		margin: 0;
 	}
 </style>
