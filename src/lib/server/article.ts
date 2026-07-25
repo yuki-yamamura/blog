@@ -3,6 +3,7 @@ import { unified } from 'unified';
 import { tagSchema, uniqueTagsSchema } from '../models/tag';
 import remarkParse from 'remark-parse';
 import { toString } from 'mdast-util-to-string';
+import { Temporal } from 'temporal-polyfill';
 
 const articleModules = import.meta.glob<ArticleModule>('/articles/*.md');
 
@@ -45,8 +46,9 @@ export async function getArticles(): Promise<Article[]> {
 			return article;
 		})
 	);
+	const sortedArticles = sortArticlesByPublishDate(articles);
 
-	return articles;
+	return sortedArticles;
 }
 
 async function getArticleContent(slug: Article['slug']): Promise<string> {
@@ -57,6 +59,15 @@ async function getArticleContent(slug: Article['slug']): Promise<string> {
 	return toString(parsedContent);
 }
 
-function extractExcerpt(content: string, maxLength: number = 200): string {
+function extractExcerpt(content: string, maxLength: number = 300): string {
 	return content.slice(0, maxLength);
+}
+
+function sortArticlesByPublishDate(articles: Article[]): Article[] {
+	return articles.sort((a, b) => {
+		const instantA = Temporal.Instant.from(a.publishDate);
+		const instantB = Temporal.Instant.from(b.publishDate);
+
+		return Temporal.Instant.compare(instantB, instantA);
+	});
 }
