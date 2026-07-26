@@ -42,6 +42,7 @@
 	.base {
 		text-decoration: none;
 		color: currentColor;
+		background-color: white;
 	}
 	.card {
 		display: flex;

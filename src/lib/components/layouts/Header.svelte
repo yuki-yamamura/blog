@@ -60,12 +60,12 @@
 		color: currentColor;
 		@media (any-hover: hover) {
 			&:hover {
-				color: #1e7bdf;
+				color: var(--accent-color);
 			}
 		}
 
 		&:focus-visible {
-			color: #1e7bdf;
+			color: var(--accent-color);
 		}
 	}
 </style>

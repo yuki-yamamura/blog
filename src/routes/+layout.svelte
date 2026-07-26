@@ -4,6 +4,7 @@
 	import WindChime from '$lib/components/layouts/WindChime.svelte';
 	import '@fontsource-variable/nunito/wght.css';
 	import '../styles/reset.css';
+	import '../styles/globals.css';
 
 	let { children } = $props();
 </script>
@@ -24,9 +25,12 @@
 	}
 
 	.base {
+		display: flex;
+		flex-direction: column;
 		margin-inline: auto;
 		max-width: 1280px;
 		padding: 4px;
+		min-height: 100dvh;
 
 		@media (768px <= width) {
 			padding: 8px;
