@@ -5,43 +5,43 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { mdsvex } from 'mdsvex';
 
 export default defineConfig({
-	plugins: [
-		sveltekit({
-			compilerOptions: {
-				runes: ({ filename }) =>
-					filename.split(/[/\\]/).includes('node_modules') ? undefined : true
-			},
-			adapter: adapter(),
-			extensions: ['.svelte', '.md'],
-			preprocess: [mdsvex({ extension: '.md' })]
-		})
-	],
-	test: {
-		expect: { requireAssertions: true },
-		projects: [
-			{
-				extends: './vite.config.ts',
-				test: {
-					name: 'client',
-					browser: {
-						enabled: true,
-						provider: playwright(),
-						instances: [{ browser: 'chromium', headless: true }]
-					},
-					include: ['src/**/*.svelte.{test,spec}.{js,ts}'],
-					exclude: ['src/lib/server/**']
-				}
-			},
+  plugins: [
+    sveltekit({
+      compilerOptions: {
+        runes: ({ filename }) =>
+          filename.split(/[/\\]/).includes('node_modules') ? undefined : true,
+      },
+      adapter: adapter(),
+      extensions: ['.svelte', '.md'],
+      preprocess: [mdsvex({ extension: '.md' })],
+    }),
+  ],
+  test: {
+    expect: { requireAssertions: true },
+    projects: [
+      {
+        extends: './vite.config.ts',
+        test: {
+          name: 'client',
+          browser: {
+            enabled: true,
+            provider: playwright(),
+            instances: [{ browser: 'chromium', headless: true }],
+          },
+          include: ['src/**/*.svelte.{test,spec}.{js,ts}'],
+          exclude: ['src/lib/server/**'],
+        },
+      },
 
-			{
-				extends: './vite.config.ts',
-				test: {
-					name: 'server',
-					environment: 'node',
-					include: ['src/**/*.{test,spec}.{js,ts}'],
-					exclude: ['src/**/*.svelte.{test,spec}.{js,ts}']
-				}
-			}
-		]
-	}
+      {
+        extends: './vite.config.ts',
+        test: {
+          name: 'server',
+          environment: 'node',
+          include: ['src/**/*.{test,spec}.{js,ts}'],
+          exclude: ['src/**/*.svelte.{test,spec}.{js,ts}'],
+        },
+      },
+    ],
+  },
 });

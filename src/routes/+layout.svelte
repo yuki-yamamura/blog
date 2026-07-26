@@ -1,39 +1,39 @@
 <script lang="ts">
-	import favicon from '$lib/assets/favicon.svg';
-	import Header from '$lib/components/layouts/Header.svelte';
-	import WindChime from '$lib/components/layouts/WindChime.svelte';
-	import '@fontsource-variable/nunito/wght.css';
-	import '../styles/reset.css';
-	import '../styles/globals.css';
+  import favicon from '$lib/assets/favicon.svg';
+  import Header from '$lib/components/layouts/Header.svelte';
+  import WindChime from '$lib/components/layouts/WindChime.svelte';
+  import '@fontsource-variable/nunito/wght.css';
+  import '../styles/reset.css';
+  import '../styles/globals.css';
 
-	let { children } = $props();
+  let { children } = $props();
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+  <link rel="icon" href={favicon} />
 </svelte:head>
 
 <div class="base">
-	<WindChime />
-	<Header />
-	{@render children()}
+  <WindChime />
+  <Header />
+  {@render children()}
 </div>
 
 <style>
-	:global(body) {
-		font-family: 'Nunito Variable', sans-serif;
-	}
+  :global(body) {
+    font-family: 'Nunito Variable', sans-serif;
+  }
 
-	.base {
-		display: flex;
-		flex-direction: column;
-		margin-inline: auto;
-		max-width: 1280px;
-		padding: 4px;
-		min-height: 100dvh;
+  .base {
+    display: flex;
+    flex-direction: column;
+    margin-inline: auto;
+    max-width: 1280px;
+    padding: 4px;
+    min-height: 100dvh;
 
-		@media (768px <= width) {
-			padding: 8px;
-		}
-	}
+    @media (768px <= width) {
+      padding: 8px;
+    }
+  }
 </style>

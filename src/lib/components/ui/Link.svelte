@@ -1,26 +1,26 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
+  import type { Snippet } from 'svelte';
 
-	const { href, children }: { href: string; children: Snippet } = $props();
+  const { children, href }: { children: Snippet; href: string } = $props();
 </script>
 
 <a {href} class="base">
-	{@render children()}
+  {@render children()}
 </a>
 
 <style>
-	.base {
-		color: var(--accent-color);
-		text-decoration: underline;
+  .base {
+    color: var(--accent-color);
+    text-decoration: underline;
 
-		@media (any-hover: hover) {
-			&:hover {
-				text-decoration: none;
-			}
-		}
+    @media (any-hover: hover) {
+      &:hover {
+        text-decoration: none;
+      }
+    }
 
-		&:focus-visible {
-			text-decoration: none;
-		}
-	}
+    &:focus-visible {
+      text-decoration: none;
+    }
+  }
 </style>
