@@ -1,97 +1,101 @@
-import {
-	filterArticleMetadataListByPage,
-	type Article,
-	type ArticleMetadata,
-	type ArticleModule
-} from '$lib/models/article';
-import { unified } from 'unified';
-import { tagSchema, uniqueTagsSchema } from '../models/tag';
-import remarkParse from 'remark-parse';
 import { toString } from 'mdast-util-to-string';
+import remarkParse from 'remark-parse';
 import { Temporal } from 'temporal-polyfill';
+import { unified } from 'unified';
+
+import { filterArticleMetadataListByPage } from '$lib/models/article';
+import { tagSchema, uniqueTagsSchema } from '$lib/models/tag';
+
+import type { Article, ArticleMetadata, ArticleModule } from '$lib/models/article';
 
 const articleModules = import.meta.glob<ArticleModule>('/articles/*.md');
 
-const rawArticleModules = import.meta.glob('/articles/*.md', { query: '?raw', import: 'default' });
+const rawArticleModules = import.meta.glob('/articles/*.md', { import: 'default', query: '?raw' });
 
 const thumbnailModules = import.meta.glob<string>('/src/lib/assets/images/*.png', {
-	query: '?url',
-	import: 'default'
+  import: 'default',
+  query: '?url',
 });
 
 export async function getArticle(slug: Article['slug']): Promise<Article> {
-	const {
-		metadata: { title, publishDate, tags: primitiveTags, thumbnailFilename }
-	} = await articleModules[`/articles/${slug}.md`]();
+  const {
+    metadata: { publishDate, tags: primitiveTags, thumbnailFilename, title },
+  } = await articleModules[`/articles/${slug}.md`]();
 
-	const thumbnail = await thumbnailModules[`/src/lib/assets/images/${thumbnailFilename}`]();
-	const tags = uniqueTagsSchema.parse(primitiveTags.map((tag) => tagSchema.parse(tag)));
-	const content = await getArticleContent(slug);
-	const excerpt = extractExcerpt(content);
+  const thumbnail = await thumbnailModules[`/src/lib/assets/images/${thumbnailFilename}`]();
+  const tags = uniqueTagsSchema.parse(primitiveTags.map((tag) => tagSchema.parse(tag)));
+  const content = await getArticleContent(slug);
+  const excerpt = extractExcerpt(content);
 
-	const article: Article = {
-		slug,
-		thumbnail,
-		title,
-		publishDate,
-		tags,
-		excerpt
-	};
+  const article: Article = {
+    excerpt,
+    publishDate,
+    slug,
+    tags,
+    thumbnail,
+    title,
+  };
 
-	return article;
+  return article;
 }
 
 export async function getArticleMetadataList(): Promise<ArticleMetadata[]> {
-	const articleMetadataList: ArticleMetadata[] = await Promise.all(
-		Object.keys(articleModules).map(async (path) => {
-			const filename = path.split('/').at(-1);
-			const slug = filename?.split('.').at(0) as string;
-			const {
-				metadata: { publishDate }
-			} = await articleModules[path]();
+  const articleMetadataList: ArticleMetadata[] = await Promise.all(
+    Object.keys(articleModules).map(async (path) => {
+      const filename = path.split('/').at(-1);
+      if (!filename) {
+        throw new Error(`Unexpected article path: ${path}`);
+      }
 
-			return {
-				slug,
-				publishDate
-			};
-		})
-	);
-	const sortedArticleMetadataList = sortArticleMetadataListByPublishDate(articleMetadataList);
+      const slug = filename.split('.', 1).at(0);
+      if (!slug) {
+        throw new Error(`Unexpected article filename: ${filename}`);
+      }
 
-	return sortedArticleMetadataList;
+      const {
+        metadata: { publishDate },
+      } = await articleModules[path]();
+
+      return {
+        publishDate,
+        slug,
+      };
+    }),
+  );
+  const sortedArticleMetadataList = sortArticleMetadataListByPublishDate(articleMetadataList);
+
+  return sortedArticleMetadataList;
 }
 
 export async function getArticlesByPage(
-	articleMetadataList: ArticleMetadata[],
-	page: number
+  articleMetadataList: ArticleMetadata[],
+  page: number,
 ): Promise<Article[]> {
-	const articleMetadataListInPage = filterArticleMetadataListByPage(articleMetadataList, page);
-	const articles = await Promise.all(
-		articleMetadataListInPage.map(async ({ slug }) => getArticle(slug))
-	);
+  const articleMetadataListInPage = filterArticleMetadataListByPage(articleMetadataList, page);
+  const articles = await Promise.all(articleMetadataListInPage.map(({ slug }) => getArticle(slug)));
 
-	return articles;
+  return articles;
 }
 
 async function getArticleContent(slug: Article['slug']): Promise<string> {
-	const rawArticle = await rawArticleModules[`/articles/${slug}.md`]();
-	const rawContent = rawArticle.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '');
-	const parsedContent = await unified().use(remarkParse).parse(rawContent);
+  const rawArticle = await rawArticleModules[`/articles/${slug}.md`]();
+  const rawContent = rawArticle.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '');
+  const parsedContent = unified().use(remarkParse).parse(rawContent);
 
-	return toString(parsedContent);
+  return toString(parsedContent);
 }
 
 function extractExcerpt(content: string, maxLength: number = 300): string {
-	return content.slice(0, maxLength);
+  return content.slice(0, maxLength);
 }
 
 function sortArticleMetadataListByPublishDate(
-	articleMetadataList: ArticleMetadata[]
+  articleMetadataList: ArticleMetadata[],
 ): ArticleMetadata[] {
-	return articleMetadataList.sort((a, b) => {
-		const instantA = Temporal.Instant.from(a.publishDate);
-		const instantB = Temporal.Instant.from(b.publishDate);
+  return articleMetadataList.toSorted((a, b) => {
+    const instantA = Temporal.Instant.from(a.publishDate);
+    const instantB = Temporal.Instant.from(b.publishDate);
 
-		return Temporal.Instant.compare(instantB, instantA);
-	});
+    return Temporal.Instant.compare(instantB, instantA);
+  });
 }

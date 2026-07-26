@@ -1,7 +1,6 @@
 import z from 'zod';
 
-export const createArticlesPageQueryParamsSchema = (totalPages: number) => {
-	return z.object({
-		page: z.coerce.number().int().min(1).max(totalPages)
-	});
-};
+export const createArticlesPageQueryParamsSchema = (totalPages: number) =>
+  z.object({
+    page: z.coerce.number().int().min(1).max(totalPages),
+  });

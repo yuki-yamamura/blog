@@ -1,5 +1,5 @@
 <script>
-	import { pathMap } from '../lib/utils/path';
+  import { pathMap } from '$lib/utils/path';
 </script>
 
 <h1>Welcome to SvelteKit</h1>
