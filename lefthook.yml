@@ -1,0 +1,21 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: format
+      glob: '*.{ts,svelte,css,json,md}'
+      run: pnpm run format
+    - name: lint-es
+      glob: '*.{ts,svelte}'
+      run: pnpm run lint:es
+    - name: lint-style
+      glob: '*.{css,svelte}'
+      run: pnpm run lint:style
+    - name: check
+      glob: '*.{ts,svelte}'
+      run: pnpm run check
+pre-push:
+  parallel: true
+  jobs:
+    - name: knip
+      glob: '*.{ts,svelte}'
+      run: pnpm run knip
