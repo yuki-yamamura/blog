@@ -12,5 +12,6 @@
 		flex-direction: column;
 		align-items: center;
 		padding-block-start: 64px;
+		padding-block-end: 128px;
 	}
 </style>

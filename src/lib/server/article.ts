@@ -1,4 +1,9 @@
-import type { Article, ArticleModule } from '$lib/models/article';
+import {
+	filterArticleMetadataListByPage,
+	type Article,
+	type ArticleMetadata,
+	type ArticleModule
+} from '$lib/models/article';
 import { unified } from 'unified';
 import { tagSchema, uniqueTagsSchema } from '../models/tag';
 import remarkParse from 'remark-parse';
@@ -36,19 +41,36 @@ export async function getArticle(slug: Article['slug']): Promise<Article> {
 	return article;
 }
 
-export async function getArticles(): Promise<Article[]> {
-	const articles: Article[] = await Promise.all(
-		Object.entries(articleModules).map(async ([path]) => {
+export async function getArticleMetadataList(): Promise<ArticleMetadata[]> {
+	const articleMetadataList: ArticleMetadata[] = await Promise.all(
+		Object.keys(articleModules).map(async (path) => {
 			const filename = path.split('/').at(-1);
 			const slug = filename?.split('.').at(0) as string;
-			const article = await getArticle(slug);
+			const {
+				metadata: { publishDate }
+			} = await articleModules[path]();
 
-			return article;
+			return {
+				slug,
+				publishDate
+			};
 		})
 	);
-	const sortedArticles = sortArticlesByPublishDate(articles);
+	const sortedArticleMetadataList = sortArticleMetadataListByPublishDate(articleMetadataList);
 
-	return sortedArticles;
+	return sortedArticleMetadataList;
+}
+
+export async function getArticlesByPage(
+	articleMetadataList: ArticleMetadata[],
+	page: number
+): Promise<Article[]> {
+	const articleMetadataListInPage = filterArticleMetadataListByPage(articleMetadataList, page);
+	const articles = await Promise.all(
+		articleMetadataListInPage.map(async ({ slug }) => getArticle(slug))
+	);
+
+	return articles;
 }
 
 async function getArticleContent(slug: Article['slug']): Promise<string> {
@@ -63,8 +85,10 @@ function extractExcerpt(content: string, maxLength: number = 300): string {
 	return content.slice(0, maxLength);
 }
 
-function sortArticlesByPublishDate(articles: Article[]): Article[] {
-	return articles.sort((a, b) => {
+function sortArticleMetadataListByPublishDate(
+	articleMetadataList: ArticleMetadata[]
+): ArticleMetadata[] {
+	return articleMetadataList.sort((a, b) => {
 		const instantA = Temporal.Instant.from(a.publishDate);
 		const instantB = Temporal.Instant.from(b.publishDate);
 
