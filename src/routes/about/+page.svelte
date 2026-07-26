@@ -1,18 +1,14 @@
 <script>
 	import PageContainer from '../../lib/components/layouts/PageContainer.svelte';
+	import Image from '../../lib/components/ui/Image.svelte';
 	import Link from '../../lib/components/ui/Link.svelte';
+	import avatar from '../../lib/assets/avatar.jpg';
 </script>
 
 <PageContainer>
 	<div class="inner">
 		<div class="profile">
-			<img
-				src="src/lib/assets/avatar.jpg"
-				alt="Yuki Yamamura's avatar"
-				class="image"
-				height={256}
-				width={256}
-			/>
+			<Image src={avatar} alt="Yuki Yamamura's avatar" class="image" height={256} width={256} />
 			<div class="name">Yuki Yamamura</div>
 			<p>A software engineer @Japan</p>
 		</div>
@@ -44,7 +40,7 @@
 		align-items: center;
 	}
 
-	.image {
+	:global(.image) {
 		align-self: center;
 		width: 256px;
 		height: 256px;

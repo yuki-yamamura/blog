@@ -4,6 +4,7 @@
 	import { tagSchema, uniqueTagsSchema, type Tag } from '../models/tag';
 	import { pathMap } from '../utils/path';
 	import TagBadge from './TagBadge.svelte';
+	import Image from './ui/Image.svelte';
 
 	const { article }: { article: Article } = $props();
 	const publishDate = $derived.by(() => formatDate(article.publishDate));
@@ -17,7 +18,7 @@
 <a href={pathMap['/articles/:slug'].get(article.slug)} class="base">
 	<article class="card">
 		<div class="publish-date">{publishDate}</div>
-		<img
+		<Image
 			src={article.thumbnail}
 			alt={`${article.title}'s thumbnail`}
 			width="200"
@@ -55,8 +56,15 @@
 		height: 100%;
 		/* border-radius: 36px; */
 
+		:global(.thumbnail) {
+			object-fit: cover;
+			transition:
+				transform 0.3s ease,
+				opacity 0.3s ease;
+		}
+
 		&:focus-visible {
-			.thumbnail {
+			:global(.thumbnail) {
 				opacity: 0.8;
 				transform: scale(1.02);
 			}
@@ -64,7 +72,7 @@
 
 		@media (any-hover: hover) {
 			&:hover {
-				.thumbnail {
+				:global(.thumbnail) {
 					opacity: 0.8;
 					transform: scale(1.02);
 				}
@@ -82,13 +90,6 @@
 		flex-direction: column;
 		row-gap: 12px;
 		text-align: center;
-	}
-
-	.thumbnail {
-		object-fit: cover;
-		transition:
-			transform 0.3s ease,
-			opacity 0.3s ease;
 	}
 
 	.tags {
