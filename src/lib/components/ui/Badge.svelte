@@ -12,7 +12,7 @@
         blue: 'blue',
         gray: 'gray',
         green: 'green',
-      } as const,
+      },
     },
   });
 
