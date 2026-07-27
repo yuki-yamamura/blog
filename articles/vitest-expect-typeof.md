@@ -13,25 +13,25 @@ I wrote [a blog post](/articles/practicing-implementing-utility-types) about imp
 import { describe, expectTypeOf, it } from 'vitest';
 
 describe('Pick2', () => {
-	it('should pick type of properties specified in second argument from type of first argument', () => {
-		// The utility type you want to practice
-		type Pick2<T, U extends keyof T> = {
-			[K in U]: T[K];
-		};
+  it('should pick type of properties specified in second argument from type of first argument', () => {
+    // The utility type you want to practice
+    type Pick2<T, U extends keyof T> = {
+      [K in U]: T[K];
+    };
 
-		// The target type
-		type Animal = {
-			name: string;
-			age: number;
-		};
+    // The target type
+    type Animal = {
+      name: string;
+      age: number;
+    };
 
-		// Execution
-		type Actual = Pick2<Animal, 'name'>;
-		type Expected = Pick<Animal, 'name'>;
+    // Execution
+    type Actual = Pick2<Animal, 'name'>;
+    type Expected = Pick<Animal, 'name'>;
 
-		// Assert the custom type utility with built-in type
-		expectTypeOf<Actual>().toEqualTypeOf<Expected>();
-	});
+    // Assert the custom type utility with built-in type
+    expectTypeOf<Actual>().toEqualTypeOf<Expected>();
+  });
 });
 ```
 

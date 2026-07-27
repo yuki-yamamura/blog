@@ -1,8 +1,8 @@
 :root {
-	--accent-color: #6699cc;
-	--background-color: #fcfbfa;
+  --accent-color: #69c;
+  --background-color: #fcfbfa;
 }
 
 body {
-	background-color: var(--background-color);
+  background-color: var(--background-color);
 }

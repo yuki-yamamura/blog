@@ -1,17 +1,16 @@
 <script lang="ts">
-	const { children } = $props();
+  const { children } = $props();
 </script>
 
 <main class="base">
-	{@render children()}
+  {@render children()}
 </main>
 
 <style>
-	.base {
-		padding-block-start: 64px;
-		padding-block-end: 128px;
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-	}
+  .base {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding-block: 64px 128px;
+  }
 </style>

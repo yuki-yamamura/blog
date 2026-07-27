@@ -1,7 +1,7 @@
 <script>
-	import { greet } from './greet';
+  import { greet } from './greet';
 
-	let { host = 'SvelteKit', guest = 'Vitest' } = $props();
+  let { guest = 'Vitest', host = 'SvelteKit' } = $props();
 </script>
 
 <h1>{greet(host)}</h1>
