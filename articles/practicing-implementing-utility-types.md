@@ -28,9 +28,9 @@ type Pick2<T, U extends keyof T> = {
 };
 
 // type Bio = Pick<Profile, "blog" | "description"> -> { blog: string; description: string; }
-type Bio = Pick2<Profile, "blog" | "description">;
+type Bio = Pick2<Profile, 'blog' | 'description'>;
 const bio: Bio = {
-  blog: "https://ymmr.dev",
-  description: "xxxx",
+  blog: 'https://ymmr.dev',
+  description: 'xxxx',
 };
 ```

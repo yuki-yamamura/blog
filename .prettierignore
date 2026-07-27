@@ -7,6 +7,3 @@ bun.lockb
 
 # Miscellaneous
 /static/
-
-# Article content is authored as-is and must not be reformatted
-/articles/
