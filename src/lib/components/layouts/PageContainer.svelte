@@ -8,9 +8,9 @@
 
 <style>
   .base {
-    padding-block: 64px 128px;
-    flex: 1;
     display: flex;
+    flex: 1;
     flex-direction: column;
+    padding-block: 64px 128px;
   }
 </style>

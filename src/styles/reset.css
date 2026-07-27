@@ -30,8 +30,7 @@ figure,
 blockquote,
 dl,
 dd {
-  margin-top: 0;
-  margin-block-end: 0;
+  margin-block: 0;
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
@@ -42,7 +41,7 @@ ol[role='list'] {
 
 /* Set core body defaults */
 body {
-  min-height: 100vh;
+  min-block-size: 100vh;
   line-height: 1.5;
 }
 
@@ -67,15 +66,15 @@ h4 {
 
 /* A elements that don't have a class get default styles */
 a:not([class]) {
-  text-decoration-skip-ink: auto;
   color: currentcolor;
+  text-decoration-skip-ink: auto;
 }
 
 /* Make images easier to work with */
 img,
 picture {
-  max-width: 100%;
   display: block;
+  max-inline-size: 100%;
 }
 
 /* Inherit fonts for inputs and buttons */
@@ -89,7 +88,7 @@ select {
 
 /* Make sure textareas without a rows attribute are not tiny */
 textarea:not([rows]) {
-  min-height: 10em;
+  min-block-size: 10em;
 }
 
 /* Anything that has been anchored to should have extra scroll margin */

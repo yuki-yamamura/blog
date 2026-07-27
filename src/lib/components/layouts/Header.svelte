@@ -16,9 +16,9 @@
   .base {
     display: flex;
     justify-content: center;
-    width: 100vw;
+    inline-size: 100vw;
+    block-size: 64px;
     margin-inline: calc(50% - 50vw);
-    height: 64px;
 
     /* the bottom border is a wavy hand-drawn line; a data URI can't reference
      CSS custom properties, so the stroke hardcodes --border-solid-color */
@@ -30,8 +30,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
-    max-width: 1280px;
+    inline-size: 100%;
+    max-inline-size: 1280px;
     margin-inline: auto;
 
     @media (768px <= width) {
@@ -40,9 +40,9 @@
   }
 
   .logo {
-    font-weight: 200;
-    font-style: italic;
     font-size: 1.5rem;
+    font-style: italic;
+    font-weight: 200;
   }
 
   .navigation {
@@ -51,13 +51,13 @@
   }
 
   .navigation-item {
-    font-weight: 200;
     font-size: 1.25rem;
+    font-weight: 200;
   }
 
   .link {
-    text-decoration: none;
     color: currentcolor;
+    text-decoration: none;
 
     @media (any-hover: hover) {
       &:hover {

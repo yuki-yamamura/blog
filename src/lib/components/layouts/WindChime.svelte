@@ -44,28 +44,28 @@
   }
 
   .chime {
-    width: 76px;
-    height: auto;
+    inline-size: 76px;
+    block-size: auto;
     stroke: #000000a8;
+    stroke-width: 1.8;
     stroke-linecap: round;
     stroke-linejoin: round;
-    stroke-width: 1.8;
   }
 
   /* at rest only the paper catches the breeze; the bowl stays still */
   .tanzaku {
-    transform-box: fill-box;
     transform-origin: 50% 0;
+    transform-box: fill-box;
     animation: tanzaku-breeze 5.5s ease-in-out infinite;
   }
 
   .tanzaku-swing {
-    transform-box: fill-box;
     transform-origin: 50% 0;
-  }
+    transform-box: fill-box;
 
-  .base[data-swinging='true'] .tanzaku-swing {
-    animation: tanzaku-flutter 5.2s ease-in-out;
+    .base[data-swinging='true'] & {
+      animation: tanzaku-flutter 5.2s ease-in-out;
+    }
   }
 
   /* a damped pendulum: constant period, decaying amplitude */

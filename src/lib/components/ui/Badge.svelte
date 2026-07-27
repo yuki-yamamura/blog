@@ -25,9 +25,9 @@
   .base {
     display: inline-block;
     padding: 2px 10px;
-    border-radius: 100vmax;
-    background-color: #eee;
     font-size: 14px;
+    background-color: #eee;
+    border-radius: 100vmax;
   }
 
   .gray {

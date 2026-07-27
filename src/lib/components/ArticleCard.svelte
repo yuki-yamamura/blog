@@ -44,20 +44,20 @@
 
 <style>
   .base {
-    text-decoration: none;
     color: currentcolor;
+    text-decoration: none;
     background-color: white;
   }
 
   .card {
     display: flex;
     flex-direction: column;
-    padding: 24px;
     row-gap: 8px;
-    border-radius: 1px;
-    border: 1px solid black;
     align-items: center;
-    height: 100%;
+    block-size: 100%;
+    padding: 24px;
+    border: 1px solid black;
+    border-radius: 1px;
 
     /* border-radius: 36px; */
 
@@ -86,8 +86,8 @@
   }
 
   .publish-date {
-    font-size: 14px;
     align-self: start;
+    font-size: 14px;
   }
 
   .card-info {
@@ -102,11 +102,11 @@
   }
 
   .excerpt {
-    text-align: start;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    line-clamp: 3;
     overflow: hidden;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    text-align: start;
+    -webkit-box-orient: vertical;
   }
 </style>

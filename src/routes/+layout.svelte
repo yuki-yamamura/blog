@@ -27,10 +27,10 @@
   .base {
     display: flex;
     flex-direction: column;
-    margin-inline: auto;
-    max-width: 1280px;
+    max-inline-size: 1280px;
+    min-block-size: 100dvh;
     padding: 4px;
-    min-height: 100dvh;
+    margin-inline: auto;
 
     @media (768px <= width) {
       padding: 8px;

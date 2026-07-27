@@ -29,8 +29,8 @@
 
 <style>
   .inner {
-    margin-inline: auto;
     margin-block: auto;
+    margin-inline: auto;
   }
 
   .profile {
@@ -42,8 +42,8 @@
 
   :global(.image) {
     align-self: center;
-    width: 256px;
-    height: 256px;
+    inline-size: 256px;
+    block-size: 256px;
     border-radius: 100vmax;
   }
 
@@ -53,10 +53,10 @@
   }
 
   .line {
-    width: 75%;
-    height: 1px;
+    inline-size: 75%;
+    block-size: 1px;
     margin-block: 12px;
-    border-top: 1px solid;
+    border-block-start: 1px solid;
   }
 
   .sns {

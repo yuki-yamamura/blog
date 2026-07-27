@@ -32,27 +32,27 @@
 
   .items {
     display: flex;
-    justify-content: center;
     column-gap: 12px;
-    list-style: none;
-    width: 100%;
+    justify-content: center;
+    inline-size: 100%;
     padding: 0;
+    list-style: none;
   }
 
   .item {
-    padding: 4px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     aspect-ratio: 1;
-    border-radius: 50%;
+    padding: 4px;
     border: 1px solid;
+    border-radius: 50%;
 
     &[aria-current='page'] {
-      border-color: #000;
+      pointer-events: none;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' seed='4' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='1.2'/%3E%3C/filter%3E%3Cline x1='-2' y1='8' x2='8' y2='-2' stroke='%23000000' stroke-width='1' stroke-linecap='round' opacity='0.4' filter='url(%23w)'/%3E%3C/svg%3E");
       background-size: 6px 6px;
-      pointer-events: none;
+      border-color: #000;
     }
 
     @media (any-hover: hover) {
