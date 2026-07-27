@@ -7,7 +7,7 @@ import { Temporal } from 'temporal-polyfill';
  */
 export function formatDate(isoDate: string) {
   const date = Temporal.Instant.from(isoDate).toZonedDateTimeISO('Asia/Tokyo').toPlainDate();
-  const formattedDate = `${String(date.year)}/${String(date.month)}/${String(date.day)}`;
+  const formattedDate = `${date.year}/${date.month}/${date.day}`;
 
   return formattedDate;
 }

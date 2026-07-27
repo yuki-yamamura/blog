@@ -5,19 +5,19 @@ import type { HTMLImgAttributes } from 'svelte/elements';
 import { PRODUCTION_HOSTNAME } from '$app/env/public';
 
 export function transformImageUrl({
-	fit = 'cover',
-	height,
-	hostname,
-	src,
-	width
+  fit = 'cover',
+  height,
+  hostname,
+  src,
+  width,
 }: AllNonNullable<Pick<HTMLImgAttributes, 'height' | 'src' | 'width'>> &
-	Pick<BasicImageTransformations, 'fit'> & {
-		hostname: string;
-	}): string {
-	const isProduction = hostname === PRODUCTION_HOSTNAME;
-	if (!isProduction) {
-		return src;
-	}
+  Pick<BasicImageTransformations, 'fit'> & {
+    hostname: string;
+  }): string {
+  const isProduction = hostname === PRODUCTION_HOSTNAME;
+  if (!isProduction) {
+    return src;
+  }
 
-	return `/cdn-cgi/image/height=${height},width=${width},fit=${fit},format=auto${src}`;
+  return `/cdn-cgi/image/height=${height},width=${width},fit=${fit},format=auto${src}`;
 }

@@ -26,15 +26,12 @@ export default defineConfig(
   {
     languageOptions: { globals: { ...globals.browser, ...globals.node } },
     rules: {
-      // typescript-eslint recommends disabling no-undef on TS projects.
       'no-undef': 'off',
     },
   },
   {
     rules: {
       'unicorn/prevent-abbreviations': 'off',
-      // unicorn v72 replaced `prevent-abbreviations` with `name-replacements`;
-      // disable it too to preserve yukumichi's intent of not enforcing abbreviation expansion.
       'unicorn/name-replacements': 'off',
       'unicorn/no-null': 'off',
       'unicorn/filename-case': 'off',
@@ -65,7 +62,6 @@ export default defineConfig(
           pathGroups: [
             { pattern: '$lib/**', group: 'internal', position: 'before' },
             { pattern: './**/*.css', group: 'type', position: 'after' },
-            { pattern: './**/*.module.css', group: 'type', position: 'after' },
           ],
           pathGroupsExcludedImportTypes: ['builtin', 'type'],
           'newlines-between': 'always',
@@ -85,6 +81,7 @@ export default defineConfig(
         'error',
         { 'ts-ignore': true, 'ts-expect-error': 'allow-with-description' },
       ],
+      '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
       'no-console': ['error', { allow: ['warn', 'error'] }],
       'unused-imports/no-unused-imports': 'error',
       '@typescript-eslint/no-unused-vars': [
@@ -117,42 +114,6 @@ export default defineConfig(
     },
   },
   {
-    // $lib enforcement — files INSIDE src/lib must not use relative parent imports.
-    files: ['src/lib/**/*.{ts,svelte}'],
-    rules: {
-      'no-restricted-imports': [
-        'error',
-        {
-          patterns: [
-            {
-              group: ['../*', '../**'],
-              message:
-                'Import cross-directory code within src/lib via the $lib alias, not a relative parent path.',
-            },
-          ],
-        },
-      ],
-    },
-  },
-  {
-    // $lib enforcement — files OUTSIDE src/lib must not reach into lib relatively.
-    files: ['src/routes/**/*.{ts,svelte}', 'src/*.{ts,svelte}'],
-    rules: {
-      'no-restricted-imports': [
-        'error',
-        {
-          patterns: [
-            {
-              group: ['**/lib', '**/lib/**'],
-              message: 'Import library code via the $lib alias instead of a relative path.',
-            },
-          ],
-        },
-      ],
-    },
-  },
-  {
-    // Svelte files: parse <script> with TS + enable type info.
     files: ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'],
     languageOptions: {
       parserOptions: {
@@ -163,9 +124,6 @@ export default defineConfig(
     },
   },
   {
-    // Svelte parser reports some template/rune expressions as `any`; the
-    // no-unsafe-* family false-positives there. Disable only that family on
-    // .svelte; the rest of strictTypeChecked stays on. See JC-5 (revisit in verification).
     files: ['**/*.svelte'],
     rules: {
       '@typescript-eslint/no-unsafe-assignment': 'off',

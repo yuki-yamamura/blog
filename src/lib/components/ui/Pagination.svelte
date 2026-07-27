@@ -15,7 +15,7 @@
     <ul role="list" class="items">
       {#each pagination.displayPages as page (page)}
         <li class="item" aria-current={page === pagination.currentPage ? 'page' : undefined}>
-          <a href={`${pathMap['/articles'].get()}?page=${String(page)}`} class="link">
+          <a href={`${pathMap['/articles'].get()}?page=${page}`} class="link">
             {page}
           </a>
         </li>
