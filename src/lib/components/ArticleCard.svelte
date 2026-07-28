@@ -98,6 +98,10 @@
   }
 
   .tags {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 8px;
+    justify-content: center;
     padding: 0;
   }
 
