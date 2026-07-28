@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const tagSchema = z.enum(['diary', 'typescript', 'vitest']);
+export const tagSchema = z.enum(['cloudflare', 'diary', 'html', 'typescript', 'vitest']);
 
 export type Tag = z.infer<typeof tagSchema>;
 

@@ -6,9 +6,17 @@
   const { slug }: { slug: Tag } = $props();
 
   const tagMap = {
+    cloudflare: {
+      color: 'orange',
+      label: 'Cloudflare',
+    },
     diary: {
       color: 'gray',
       label: 'Diary',
+    },
+    html: {
+      color: 'sky',
+      label: 'HTML',
     },
     typescript: {
       color: 'blue',

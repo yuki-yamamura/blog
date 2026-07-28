@@ -12,6 +12,8 @@
         blue: 'blue',
         gray: 'gray',
         green: 'green',
+        orange: 'orange',
+        sky: 'sky',
       },
     },
   });
@@ -22,23 +24,32 @@
 <span class={badge({ color })}>{label}</span>
 
 <style>
+  /* Chromatic colors share oklch(90% 0.06 <hue>) so that only the hue varies. */
   .base {
     display: inline-block;
     padding: 2px 10px;
     font-size: 14px;
-    background-color: #eee;
+    background-color: oklch(95% 0 0deg);
     border-radius: 100vmax;
   }
 
   .gray {
-    background-color: #f0f0f0;
+    background-color: oklch(95.5% 0 0deg);
   }
 
   .blue {
-    background-color: #bcdcff;
+    background-color: oklch(90% 0.06 251deg);
   }
 
   .green {
-    background-color: #c3ecd7;
+    background-color: oklch(90% 0.06 163deg);
+  }
+
+  .orange {
+    background-color: oklch(90% 0.06 54deg);
+  }
+
+  .sky {
+    background-color: oklch(90% 0.06 215deg);
   }
 </style>
