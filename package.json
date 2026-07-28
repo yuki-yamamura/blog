@@ -14,8 +14,11 @@
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "lint": "pnpm run lint:es && pnpm run lint:style",
+    "lint:fix": "pnpm run lint:es:fix && pnpm run lint:style:fix",
     "lint:es": "eslint .",
+    "lint:es:fix": "eslint --fix .",
     "lint:style": "stylelint \"src/**/*.{css,svelte}\"",
+    "lint:style:fix": "stylelint --fix \"src/**/*.{css,svelte}\"",
     "knip": "knip",
     "test:unit": "vitest",
     "test": "npm run test:unit -- --run"
