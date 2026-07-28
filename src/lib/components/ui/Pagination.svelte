@@ -14,11 +14,15 @@
   <nav class="base">
     <ul role="list" class="items">
       {#each pagination.displayPages as page (page)}
-        <li class="item" aria-current={page === pagination.currentPage ? 'page' : undefined}>
-          <a href={`${pathMap['/articles'].get()}?page=${page}`} class="link">
+        <a
+          href={`${pathMap['/articles'].get()}?page=${page}`}
+          aria-current={page === pagination.currentPage ? 'page' : undefined}
+          class="link"
+        >
+          <li>
             {page}
-          </a>
-        </li>
+          </li>
+        </a>
       {/each}
     </ul>
   </nav>
@@ -39,12 +43,14 @@
     list-style: none;
   }
 
-  .item {
+  .link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     aspect-ratio: 1;
     padding: 4px;
+    color: currentcolor;
+    text-decoration: none;
     border: 1px solid;
     border-radius: 50%;
 
@@ -64,10 +70,5 @@
     &:focus-visible {
       color: #1e7bdf;
     }
-  }
-
-  .link {
-    color: currentcolor;
-    text-decoration: none;
   }
 </style>
