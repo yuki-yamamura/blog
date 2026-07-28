@@ -4,7 +4,7 @@ import { Temporal } from 'temporal-polyfill';
 import { unified } from 'unified';
 
 import { filterArticleMetadataListByPage } from '$lib/models/article';
-import { tagSchema, uniqueTagsSchema } from '$lib/models/tag';
+import { createSortedTags } from '$lib/models/tag';
 
 import type { Article, ArticleMetadata, ArticleModule } from '$lib/models/article';
 
@@ -19,11 +19,11 @@ const thumbnailModules = import.meta.glob<string>('/src/lib/assets/images/*.png'
 
 export async function getArticle(slug: Article['slug']): Promise<Article> {
   const {
-    metadata: { publishDate, tags: primitiveTags, thumbnailFilename, title },
+    metadata: { publishDate, tags, thumbnailFilename, title },
   } = await articleModules[`/articles/${slug}.md`]();
 
   const thumbnail = await thumbnailModules[`/src/lib/assets/images/${thumbnailFilename}`]();
-  const tags = uniqueTagsSchema.parse(primitiveTags.map((tag) => tagSchema.parse(tag)));
+  const sortedTags = createSortedTags(tags);
   const content = await getArticleContent(slug);
   const excerpt = extractExcerpt(content);
 
@@ -31,7 +31,7 @@ export async function getArticle(slug: Article['slug']): Promise<Article> {
     excerpt,
     publishDate,
     slug,
-    tags,
+    tags: sortedTags,
     thumbnail,
     title,
   };

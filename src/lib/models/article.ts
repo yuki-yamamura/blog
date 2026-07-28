@@ -1,4 +1,4 @@
-import type { Tag } from './tag';
+import type { SortedTags } from '$lib/models/tag';
 import type { Component } from 'svelte';
 
 type ArticleMetadataInFrontMatter = {
@@ -16,7 +16,7 @@ export type ArticleModule = {
 export type Article = {
   excerpt: string;
   slug: string;
-  tags: Tag[];
+  tags: SortedTags;
   thumbnail: string;
 } & Omit<ArticleMetadataInFrontMatter, 'tags' | 'thumbnailFilename'>;
 

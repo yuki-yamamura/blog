@@ -36,6 +36,7 @@ export default defineConfig(
       'unicorn/no-null': 'off',
       'unicorn/filename-case': 'off',
       'unicorn/no-object-as-default-parameter': 'off',
+      '@typescript-eslint/no-unnecessary-type-parameters': 'off',
       'unicorn/no-useless-undefined': ['error', { checkArguments: false }],
     },
   },

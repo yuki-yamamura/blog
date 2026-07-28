@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { tagSchema, uniqueTagsSchema } from '$lib/models/tag';
   import { formatDate } from '$lib/utils/date';
   import { pathMap } from '$lib/utils/path';
 
@@ -7,15 +6,11 @@
   import Image from './ui/Image.svelte';
 
   import type { Article } from '$lib/models/article';
-  import type { Tag } from '$lib/models/tag';
+  import type { SortedTags } from '$lib/models/tag';
 
   const { article }: { article: Article } = $props();
   const publishDate = $derived.by(() => formatDate(article.publishDate));
-  const tags: Tag[] = $derived.by(() => {
-    const tags = article.tags.map((tag) => tagSchema.parse(tag));
-
-    return uniqueTagsSchema.parse(tags);
-  });
+  const tags: SortedTags = $derived(article.tags);
 </script>
 
 <a href={pathMap['/articles/:slug'].get(article.slug)} class="base">
