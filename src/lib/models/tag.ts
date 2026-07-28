@@ -16,8 +16,11 @@ declare const _sortedTagsSymbol: unique symbol;
 
 export type SortedTags = Brand<typeof _sortedTagsSymbol> & Tag[];
 
+/**
+ * Creates a sorted list of tags in ascending order.
+ */
 export function createSortedTags(tags: string[]): SortedTags {
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- We allow to use type assertion inside a constructor function.
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- We allow to use type assertion inside a constructor function when using a branded type.
   return uniqueTagsSchema
     .parse(tags.map((tag) => tagSchema.parse(tag)))
     .toSorted((a, b) => a.localeCompare(b)) as SortedTags;

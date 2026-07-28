@@ -5,8 +5,11 @@ import { unified } from 'unified';
 
 import { filterArticleMetadataListByPage } from '$lib/models/article';
 import { createSortedTags } from '$lib/models/tag';
+import { err, ok } from '$lib/utils/result';
 
 import type { Article, ArticleMetadata, ArticleModule } from '$lib/models/article';
+import type { Err, Ok, Result } from '$lib/utils/result';
+import type { Brand } from '../types/brand';
 
 const articleModules = import.meta.glob<ArticleModule>('/articles/*.md');
 
@@ -39,36 +42,47 @@ export async function getArticle(slug: Article['slug']): Promise<Article> {
   return article;
 }
 
-export async function getArticleMetadataList(): Promise<ArticleMetadata[]> {
-  const articleMetadataList: ArticleMetadata[] = await Promise.all(
+export async function getArticleMetadataList(): Promise<Result<ArticleMetadata[], Error>> {
+  const articleMetadataResults: (Err<Error> | Ok<ArticleMetadata>)[] = await Promise.all(
     Object.keys(articleModules).map(async (path) => {
       const filename = path.split('/').at(-1);
       if (!filename) {
-        throw new Error(`Unexpected article path: ${path}`);
+        return err(new Error(`Unexpected article path: ${path}`));
       }
-
       const slug = filename.split('.', 1).at(0);
       if (!slug) {
-        throw new Error(`Unexpected article filename: ${filename}`);
+        return err(new Error(`Unexpected article filename: ${filename}`));
       }
 
       const {
         metadata: { publishDate },
       } = await articleModules[path]();
 
-      return {
+      return ok({
         publishDate,
         slug,
-      };
+      });
     }),
   );
-  const sortedArticleMetadataList = sortArticleMetadataListByPublishDate(articleMetadataList);
 
-  return sortedArticleMetadataList;
+  if (articleMetadataResults.some((result) => result.isErr)) {
+    const errorMessages = articleMetadataResults
+      .filter((result): result is Err<Error> => result.isErr)
+      .map((result) => result.error.message)
+      .join(', ');
+
+    return err(new Error(`Failed to get article metadata list: ${errorMessages}`));
+  }
+
+  return ok(
+    articleMetadataResults
+      .filter((result): result is Ok<ArticleMetadata> => result.isOk)
+      .map((result) => result.value),
+  );
 }
 
 export async function getArticlesByPage(
-  articleMetadataList: ArticleMetadata[],
+  articleMetadataList: SortedArticleMetadataList,
   page: number,
 ): Promise<Article[]> {
   const articleMetadataListInPage = filterArticleMetadataListByPage(articleMetadataList, page);
@@ -89,13 +103,21 @@ function extractExcerpt(content: string, maxLength: number = 300): string {
   return content.slice(0, maxLength);
 }
 
-function sortArticleMetadataListByPublishDate(
+declare const _sortedArticleMetadataListSymbol: unique symbol;
+
+type SortedArticleMetadataList = Brand<typeof _sortedArticleMetadataListSymbol> & ArticleMetadata[];
+
+/**
+ * Creates a sorted list of article metadata, sorted by publish date in descending order.
+ */
+export function createSortedMetadataList(
   articleMetadataList: ArticleMetadata[],
-): ArticleMetadata[] {
+): SortedArticleMetadataList {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- We allow to use type assertion inside a constructor function when using a branded type.
   return articleMetadataList.toSorted((a, b) => {
     const instantA = Temporal.Instant.from(a.publishDate);
     const instantB = Temporal.Instant.from(b.publishDate);
 
     return Temporal.Instant.compare(instantB, instantA);
-  });
+  }) as SortedArticleMetadataList;
 }

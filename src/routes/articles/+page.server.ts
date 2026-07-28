@@ -2,7 +2,11 @@ import { error, redirect } from '@sveltejs/kit';
 
 import { getTotalPages } from '$lib/models/article';
 import { createArticlesPageQueryParamsSchema } from '$lib/schemas/articles-page-query-param';
-import { getArticleMetadataList, getArticlesByPage } from '$lib/server/article';
+import {
+  createSortedMetadataList,
+  getArticleMetadataList,
+  getArticlesByPage,
+} from '$lib/server/article';
 import { pathMap } from '$lib/utils/path';
 
 import type { Article } from '$lib/models/article';
@@ -13,8 +17,12 @@ export async function load({ url }: PageServerLoadEvent): Promise<{
   currentPage: number;
   totalArticles: number;
 }> {
-  const articleMetadataList = await getArticleMetadataList();
-  const totalArticles = articleMetadataList.length;
+  const articleMetadataListResult = await getArticleMetadataList();
+  if (articleMetadataListResult.isErr) {
+    throw articleMetadataListResult.error;
+  }
+
+  const totalArticles = articleMetadataListResult.value.length;
   const totalPages = getTotalPages(totalArticles);
 
   const pageParam = url.searchParams.get('page');
@@ -38,7 +46,8 @@ export async function load({ url }: PageServerLoadEvent): Promise<{
 
     page = queryParamsResult.data.page;
   }
-  const articles = await getArticlesByPage(articleMetadataList, page);
+  const sortedArticleMetadataList = createSortedMetadataList(articleMetadataListResult.value);
+  const articles = await getArticlesByPage(sortedArticleMetadataList, page);
 
   return {
     articles,
