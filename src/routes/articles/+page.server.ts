@@ -47,10 +47,14 @@ export async function load({ url }: PageServerLoadEvent): Promise<{
     page = queryParamsResult.data.page;
   }
   const sortedArticleMetadataList = createSortedMetadataList(articleMetadataListResult.value);
-  const articles = await getArticlesByPage(sortedArticleMetadataList, page);
+  const articlesResult = await getArticlesByPage(sortedArticleMetadataList, page);
+
+  if (articlesResult.isErr) {
+    throw articlesResult.error;
+  }
 
   return {
-    articles,
+    articles: articlesResult.value,
     currentPage: page,
     totalArticles,
   };

@@ -20,13 +20,17 @@ const thumbnailModules = import.meta.glob<string>('/src/lib/assets/images/*.png'
   query: '?url',
 });
 
-export async function getArticle(slug: Article['slug']): Promise<Article> {
+export async function getArticle(slug: Article['slug']): Promise<Result<Article, Error>> {
   const {
     metadata: { publishDate, tags, thumbnailFilename, title },
   } = await articleModules[`/articles/${slug}.md`]();
 
+  const sortedTagsResult = createSortedTags(tags);
+  if (sortedTagsResult.isErr) {
+    return sortedTagsResult;
+  }
+
   const thumbnail = await thumbnailModules[`/src/lib/assets/images/${thumbnailFilename}`]();
-  const sortedTags = createSortedTags(tags);
   const content = await getArticleContent(slug);
   const excerpt = extractExcerpt(content);
 
@@ -34,12 +38,12 @@ export async function getArticle(slug: Article['slug']): Promise<Article> {
     excerpt,
     publishDate,
     slug,
-    tags: sortedTags,
+    tags: sortedTagsResult.value,
     thumbnail,
     title,
   };
 
-  return article;
+  return ok(article);
 }
 
 export async function getArticleMetadataList(): Promise<Result<ArticleMetadata[], Error>> {
@@ -84,11 +88,26 @@ export async function getArticleMetadataList(): Promise<Result<ArticleMetadata[]
 export async function getArticlesByPage(
   articleMetadataList: SortedArticleMetadataList,
   page: number,
-): Promise<Article[]> {
+): Promise<Result<Article[], Error>> {
   const articleMetadataListInPage = filterArticleMetadataListByPage(articleMetadataList, page);
-  const articles = await Promise.all(articleMetadataListInPage.map(({ slug }) => getArticle(slug)));
+  const articleResultList = await Promise.all(
+    articleMetadataListInPage.map(({ slug }) => getArticle(slug)),
+  );
 
-  return articles;
+  if (articleResultList.some((result) => result.isErr)) {
+    const errorMessages = articleResultList
+      .filter((result): result is Err<Error> => result.isErr)
+      .map((result) => result.error.message)
+      .join(', ');
+
+    return err(new Error(`Failed to get articles by page: ${errorMessages}`));
+  }
+
+  return ok(
+    articleResultList
+      .filter((result): result is Ok<Article> => result.isOk)
+      .map((result) => result.value),
+  );
 }
 
 async function getArticleContent(slug: Article['slug']): Promise<string> {

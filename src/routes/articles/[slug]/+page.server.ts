@@ -5,9 +5,13 @@ import type { PageServerLoadEvent } from './$types';
 
 export async function load({ params }: PageServerLoadEvent): Promise<{ article: Article }> {
   const { slug } = params;
-  const article = await getArticle(slug);
+  const articleResult = await getArticle(slug);
+
+  if (articleResult.isErr) {
+    throw articleResult.error;
+  }
 
   return {
-    article,
+    article: articleResult.value,
   };
 }
