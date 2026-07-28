@@ -1,21 +1,17 @@
 <script lang="ts">
-  import { formatDate } from '$lib/utils/date';
   import { pathMap } from '$lib/utils/path';
 
   import TagBadge from './TagBadge.svelte';
   import Image from './ui/Image.svelte';
 
   import type { Article } from '$lib/models/article';
-  import type { SortedTags } from '$lib/models/tag';
 
   const { article }: { article: Article } = $props();
-  const publishDate = $derived.by(() => formatDate(article.publishDate));
-  const tags: SortedTags = $derived(article.tags);
 </script>
 
 <a href={pathMap['/articles/:slug'].get(article.slug)} class="base">
   <article class="card">
-    <div class="publish-date">{publishDate}</div>
+    <div class="publish-date">{article.publishDate}</div>
     <Image
       src={article.thumbnail}
       alt={`${article.title}'s thumbnail`}
@@ -26,7 +22,7 @@
     <div class="card-info">
       <h2>{article.title}</h2>
       <ul role="list" class="tags">
-        {#each tags as tag (tag)}
+        {#each article.tags as tag (tag)}
           <li>
             <TagBadge slug={tag} />
           </li>

@@ -3,8 +3,11 @@ import remarkParse from 'remark-parse';
 import { Temporal } from 'temporal-polyfill';
 import { unified } from 'unified';
 
-import { filterArticleMetadataListByPage } from '$lib/models/article';
-import { createSortedTags } from '$lib/models/tag';
+import {
+  createArticle,
+  filterArticleMetadataListByPage,
+  MAX_EXCERPT_LENGTH,
+} from '$lib/models/article';
 import { err, ok } from '$lib/utils/result';
 
 import type { Article, ArticleMetadata, ArticleModule } from '$lib/models/article';
@@ -21,29 +24,26 @@ const thumbnailModules = import.meta.glob<string>('/src/lib/assets/images/*.png'
 });
 
 export async function getArticle(slug: Article['slug']): Promise<Result<Article, Error>> {
-  const {
-    metadata: { publishDate, tags, thumbnailFilename, title },
-  } = await articleModules[`/articles/${slug}.md`]();
+  const { metadata } = await articleModules[`/articles/${slug}.md`]();
 
-  const sortedTagsResult = createSortedTags(tags);
-  if (sortedTagsResult.isErr) {
-    return sortedTagsResult;
-  }
-
-  const thumbnail = await thumbnailModules[`/src/lib/assets/images/${thumbnailFilename}`]();
+  const thumbnail =
+    await thumbnailModules[`/src/lib/assets/images/${metadata.thumbnailFilename}`]();
   const content = await getArticleContent(slug);
   const excerpt = extractExcerpt(content);
-
-  const article: Article = {
+  const articleResult = createArticle({
     excerpt,
-    publishDate,
+    publishDate: metadata.publishDate,
     slug,
-    tags: sortedTagsResult.value,
+    tags: metadata.tags,
     thumbnail,
-    title,
-  };
+    title: metadata.title,
+  });
 
-  return ok(article);
+  if (!articleResult.isOk) {
+    return err(new Error(`Failed to create article: ${articleResult.error.message}`));
+  }
+
+  return ok(articleResult.value);
 }
 
 export async function getArticleMetadataList(): Promise<Result<ArticleMetadata[], Error>> {
@@ -118,8 +118,8 @@ async function getArticleContent(slug: Article['slug']): Promise<string> {
   return toString(parsedContent);
 }
 
-function extractExcerpt(content: string, maxLength: number = 300): string {
-  return content.slice(0, maxLength);
+function extractExcerpt(content: string): string {
+  return content.slice(0, MAX_EXCERPT_LENGTH);
 }
 
 declare const _sortedArticleMetadataListSymbol: unique symbol;

@@ -1,5 +1,20 @@
-import type { SortedTags } from '$lib/models/tag';
+import z from 'zod';
+
+import { createSortedTags, tagSchema } from '$lib/models/tag';
+
+import { formatDate } from '../utils/date';
+import { err, ok } from '../utils/result';
+
+import type { Brand } from '../types/brand';
+import type { Result } from '../utils/result';
 import type { Component } from 'svelte';
+
+export const MAX_EXCERPT_LENGTH = 300;
+
+const MAX_DISPLAY_PAGES = 5;
+const ARTICLES_PER_PAGE = 12;
+
+const THUMBNAIL_DIRECTORY = '/src/lib/assets/images/';
 
 type ArticleMetadataInFrontMatter = {
   publishDate: string;
@@ -13,17 +28,50 @@ export type ArticleModule = {
   metadata: ArticleMetadataInFrontMatter;
 };
 
-export type Article = {
+const articleSchema = z.object({
+  excerpt: z.string().max(MAX_EXCERPT_LENGTH),
+  publishDate: z.iso.datetime(),
+  slug: z.string().min(1),
+  tags: z.array(tagSchema).min(1),
+  thumbnail: z.string().startsWith(THUMBNAIL_DIRECTORY),
+  title: z.string().min(1),
+});
+
+declare const _articleSymbol: unique symbol;
+export type Article = Brand<typeof _articleSymbol> & z.infer<typeof articleSchema>;
+
+/**
+ * A constructor function to create an article.
+ */
+export function createArticle(params: {
   excerpt: string;
+  publishDate: string;
   slug: string;
-  tags: SortedTags;
+  tags: string[];
   thumbnail: string;
-} & Omit<ArticleMetadataInFrontMatter, 'tags' | 'thumbnailFilename'>;
+  title: string;
+}): Result<Article, Error> {
+  const articleResult = articleSchema.safeParse(params);
+  if (!articleResult.success) {
+    return err(new Error(`Invalid article: ${articleResult.error.message}`));
+  }
+
+  const publishDate = formatDate(articleResult.data.publishDate);
+
+  const sortedTagsResult = createSortedTags(articleResult.data.tags);
+  if (sortedTagsResult.isErr) {
+    return sortedTagsResult;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- We allow to use type assertion inside a constructor function when using a branded type.
+  return ok({
+    ...articleResult.data,
+    publishDate,
+    tags: sortedTagsResult.value,
+  } as unknown as Article);
+}
 
 export type ArticleMetadata = Pick<Article, 'publishDate' | 'slug'>;
-
-const MAX_DISPLAY_PAGES = 5;
-const ARTICLES_PER_PAGE = 12;
 
 function shouldShowPagination(totalArticles: number): boolean {
   return totalArticles > ARTICLES_PER_PAGE;

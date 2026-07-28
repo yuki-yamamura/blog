@@ -9,7 +9,7 @@ export const tagSchema = z.enum(['cloudflare', 'diary', 'html', 'typescript', 'v
 
 export type Tag = z.infer<typeof tagSchema>;
 
-export const TagsSchema = z
+const TagsSchema = z
   .array(tagSchema)
   .min(1, { message: 'At least one tag is required' })
   .refine((tags) => new Set(tags).size === tags.length, {
@@ -17,13 +17,12 @@ export const TagsSchema = z
   });
 
 declare const _sortedTagsSymbol: unique symbol;
-
 export type SortedTags = Brand<typeof _sortedTagsSymbol> & Tag[];
 
 /**
  * A constructor function to create a sorted list of tags in ascending order.
  */
-export function createSortedTags(tags: string[]): Result<SortedTags, Error> {
+export function createSortedTags(tags: Tag[]): Result<SortedTags, Error> {
   const tagsResult = TagsSchema.safeParse(tags);
   if (!tagsResult.success) {
     return err(new Error(`Invalid tags: ${tagsResult.error.message}`));
