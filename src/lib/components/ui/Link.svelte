@@ -2,9 +2,11 @@
   import type { Snippet } from 'svelte';
 
   const { children, href }: { children: Snippet; href: string } = $props();
+
+  const isExternalLink = $derived(href.startsWith('http://') || href.startsWith('https://'));
 </script>
 
-<a {href} class="base">
+<a {href} target={isExternalLink ? '_blank' : undefined} class="base">
   {@render children()}
 </a>
 

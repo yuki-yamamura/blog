@@ -15,13 +15,13 @@
     <hr class="line" aria-hidden={true} />
     <ul class="sns">
       <li>
-        <Link href="https://github.com/example">https://github.com/example</Link>
+        <Link href="https://github.com/yuki-yamamura">https://github.com/yuki-yamamura</Link>
       </li>
       <li>
-        <Link href="https://x.com/example">https://x.com/example</Link>
+        <Link href="https://x.com/yuki_yamamura">https://x.com/yuki_yamamura</Link>
       </li>
       <li>
-        <Link href="mailto:example@exmaple.com">example@example.com</Link>
+        <Link href="mailto:laundry_sneaker.6m@icloud.com">laundry_sneaker.6m@icloud.com</Link>
       </li>
     </ul>
   </div>
