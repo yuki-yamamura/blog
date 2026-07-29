@@ -79,6 +79,7 @@
   .publish-date {
     align-self: start;
     font-size: 14px;
+    letter-spacing: 1px;
   }
 
   .card-info {
