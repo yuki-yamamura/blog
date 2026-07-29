@@ -1,7 +1,26 @@
-<div aria-hidden="true" class="base">
-  <div class="swing">
+<script lang="ts">
+  let isSwinging = $state(false);
+
+  const startSwing = () => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
+    isSwinging = true;
+  };
+
+  const settle = (event: AnimationEvent) => {
+    if (event.target === event.currentTarget) {
+      isSwinging = false;
+    }
+  };
+</script>
+
+<svelte:window onscroll={startSwing} />
+
+<div aria-hidden="true" class="base" data-swinging={isSwinging ? 'true' : undefined}>
+  <div class="swing" onanimationend={settle}>
     <svg class="chime" viewBox="0 0 96 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- hanging string — long enough that the bowl hangs well below the header -->
       <path d="M48 0C46 32 49.5 85 48.2 128" />
       <!-- glass bowl -->
       <path d="M31.5 160.1C27.6 143.6 31.8 129.2 48 128C64.4 129 68.6 143.8 64.7 160.4" />
@@ -14,7 +33,7 @@
       <circle cx="48" cy="167.5" r="2.6" />
       <g class="tanzaku">
         <g class="tanzaku-swing">
-          <!-- tanzaku (paper strip) -->
+          <!-- tanzaku -->
           <path d="M40.8 183.4L55.4 184L54.6 249.2L40 248.4L40.8 183.4Z" />
         </g>
       </g>
@@ -37,10 +56,10 @@
 
   .swing {
     transform-origin: 50% 0;
-  }
 
-  .base[data-swinging='true'].swing {
-    animation: swing 5.2s ease-in-out;
+    .base[data-swinging='true'] & {
+      animation: swing 5.2s ease-in-out;
+    }
   }
 
   .chime {

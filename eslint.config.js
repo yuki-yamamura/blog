@@ -127,6 +127,7 @@ export default defineConfig(
   {
     files: ['**/*.svelte'],
     rules: {
+      'unicorn/no-top-level-assignment-in-function': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unsafe-call': 'off',
