@@ -12,7 +12,7 @@
       <div class="name">Yuki Yamamura</div>
       <p>A software engineer @Japan</p>
     </div>
-    <div class="line" aria-hidden={true}></div>
+    <hr class="line" aria-hidden={true} />
     <ul class="sns">
       <li>
         <Link href="https://github.com/example">https://github.com/example</Link>
@@ -54,12 +54,11 @@
 
   .line {
     inline-size: 75%;
-    block-size: 1px;
-    margin-block: 12px;
-    border-block-start: 1px solid;
+    margin-inline: 0;
   }
 
   .sns {
     padding-inline-start: 0;
+    list-style-position: inside;
   }
 </style>
