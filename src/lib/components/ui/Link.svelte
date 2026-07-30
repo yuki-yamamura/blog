@@ -12,7 +12,7 @@
 
 <style>
   .base {
-    color: var(--accent-color);
+    color: var(--color-accent);
     text-decoration: underline;
 
     @media (any-hover: hover) {

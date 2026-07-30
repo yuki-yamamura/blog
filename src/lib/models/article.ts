@@ -9,17 +9,12 @@ import type { Brand } from '../types/brand';
 import type { Result } from '../utils/result';
 import type { Component } from 'svelte';
 
-export const MAX_EXCERPT_LENGTH = 300;
-
 const MAX_DISPLAY_PAGES = 5;
 const ARTICLES_PER_PAGE = 12;
-
-const THUMBNAIL_DIRECTORY = '/src/lib/assets/images/';
 
 type ArticleMetadataInFrontMatter = {
   publishDate: string;
   tags: string[];
-  thumbnailFilename: string;
   title: string;
 };
 
@@ -29,11 +24,11 @@ export type ArticleModule = {
 };
 
 const articleSchema = z.object({
-  excerpt: z.string().max(MAX_EXCERPT_LENGTH),
+  content: z.string().min(1),
   publishDate: z.iso.datetime(),
   slug: z.string().min(1),
   tags: z.array(tagSchema).min(1),
-  thumbnail: z.string().startsWith(THUMBNAIL_DIRECTORY),
+  thumbnail: z.string().min(1),
   title: z.string().min(1),
 });
 
@@ -44,7 +39,7 @@ export type Article = Brand<typeof _articleSymbol> & z.infer<typeof articleSchem
  * A constructor function to create an article.
  */
 export function createArticle(params: {
-  excerpt: string;
+  content: string;
   publishDate: string;
   slug: string;
   tags: string[];

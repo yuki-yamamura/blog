@@ -1,27 +1,25 @@
-import { toString } from 'mdast-util-to-string';
-import remarkParse from 'remark-parse';
 import { Temporal } from 'temporal-polyfill';
-import { unified } from 'unified';
 
-import {
-  createArticle,
-  filterArticleMetadataListByPage,
-  MAX_EXCERPT_LENGTH,
-} from '$lib/models/article';
+import { createArticle, filterArticleMetadataListByPage } from '$lib/models/article';
 import { err, ok } from '$lib/utils/result';
 
 import type { Article, ArticleMetadata, ArticleModule } from '$lib/models/article';
 import type { Err, Ok, Result } from '$lib/utils/result';
 import type { Brand } from '../types/brand';
 
-const articleModules = import.meta.glob<ArticleModule>('/articles/*.md');
+const articleModules = import.meta.glob<ArticleModule>('/articles/*/index.md');
 
-const rawArticleModules = import.meta.glob('/articles/*.md', { import: 'default', query: '?raw' });
+const rawArticleModules = import.meta.glob('/articles/*/index.md', {
+  import: 'default',
+  query: '?raw',
+});
 
-const thumbnailModules = import.meta.glob<string>('/src/lib/assets/images/*.png', {
+const thumbnailModules = import.meta.glob<string>('/articles/*/thumbnail.{png,jpg,webp}', {
   import: 'default',
   query: '?url',
 });
+
+const THUMBNAIL_EXTENSIONS = ['png', 'jpg', 'webp'] as const;
 
 export class ArticleNotFoundError extends Error {
   constructor(slug: Article['slug']) {
@@ -33,25 +31,21 @@ export class ArticleNotFoundError extends Error {
 export async function getArticle(
   slug: Article['slug'],
 ): Promise<Result<Article, ArticleNotFoundError | Error>> {
-  const articleModule = await articleModules[`/articles/${slug}.md`]?.();
+  const articleModule = await articleModules[`/articles/${slug}/index.md`]?.();
   if (!articleModule) {
     return err(new ArticleNotFoundError(slug));
   }
   const { metadata } = articleModule;
 
-  const thumbnail =
-    await thumbnailModules[`/src/lib/assets/images/${metadata.thumbnailFilename}`]?.();
-  if (!thumbnail) {
-    return err(new Error(`Thumbnail not found: ${metadata.thumbnailFilename}`));
+  const thumbnailLoader = findThumbnailLoader(slug);
+  if (!thumbnailLoader) {
+    return err(new Error(`Thumbnail not found for article: ${slug}`));
   }
+  const thumbnail = await thumbnailLoader();
 
-  const contentResult = await getArticleContent(slug);
-  if (contentResult.isErr) {
-    return err(contentResult.error);
-  }
-  const excerpt = extractExcerpt(contentResult.value);
+  const content = await getArticleContent(slug);
   const articleResult = createArticle({
-    excerpt,
+    content,
     publishDate: metadata.publishDate,
     slug,
     tags: metadata.tags,
@@ -69,13 +63,9 @@ export async function getArticle(
 export async function getArticleMetadataList(): Promise<Result<ArticleMetadata[], Error>> {
   const articleMetadataResults: (Err<Error> | Ok<ArticleMetadata>)[] = await Promise.all(
     Object.keys(articleModules).map(async (path) => {
-      const filename = path.split('/').at(-1);
-      if (!filename) {
-        return err(new Error(`Unexpected article path: ${path}`));
-      }
-      const slug = filename.split('.', 1).at(0);
+      const slug = extractSlug(path);
       if (!slug) {
-        return err(new Error(`Unexpected article filename: ${filename}`));
+        return err(new Error(`Unexpected article path: ${path}`));
       }
 
       const articleModule = await articleModules[path]?.();
@@ -131,22 +121,27 @@ export async function getArticlesByPage(
   );
 }
 
-async function getArticleContent(
-  slug: Article['slug'],
-): Promise<Result<string, ArticleNotFoundError>> {
-  const rawArticle = await rawArticleModules[`/articles/${slug}.md`]?.();
-  if (!rawArticle) {
-    return err(new ArticleNotFoundError(slug));
-  }
+function extractSlug(path: string): string | undefined {
+  const match = /^\/articles\/([^/]+)\/index\.md$/.exec(path);
 
-  const rawContent = rawArticle.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '');
-  const parsedContent = unified().use(remarkParse).parse(rawContent);
-
-  return ok(toString(parsedContent));
+  return match?.[1];
 }
 
-function extractExcerpt(content: string): string {
-  return content.slice(0, MAX_EXCERPT_LENGTH);
+function findThumbnailLoader(slug: string): (() => Promise<string>) | undefined {
+  for (const extension of THUMBNAIL_EXTENSIONS) {
+    const loader = thumbnailModules[`/articles/${slug}/thumbnail.${extension}`];
+    if (loader) {
+      return loader;
+    }
+  }
+
+  return undefined;
+}
+
+async function getArticleContent(slug: Article['slug']): Promise<string> {
+  const rawArticle = await rawArticleModules[`/articles/${slug}/index.md`]?.();
+
+  return rawArticle?.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '') ?? '';
 }
 
 declare const _sortedArticleMetadataListSymbol: unique symbol;

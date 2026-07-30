@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { extractExcerpt } from '$lib/utils/excerpt';
   import { pathMap } from '$lib/utils/path';
 
   import TagBadge from './TagBadge.svelte';
@@ -7,6 +8,8 @@
   import type { Article } from '$lib/models/article';
 
   const { article }: { article: Article } = $props();
+
+  const excerpt = $derived(extractExcerpt(article.content));
 </script>
 
 <a href={pathMap['/articles/:slug'].get(article.slug)} class="base">
@@ -18,6 +21,7 @@
       width="200"
       height="200"
       class="thumbnail"
+      zoomable={false}
     />
     <div class="card-info">
       <h2>{article.title}</h2>
@@ -28,7 +32,7 @@
           </li>
         {/each}
       </ul>
-      <p class="excerpt">{article.excerpt}</p>
+      <p class="excerpt">{excerpt}</p>
     </div>
   </article>
 </a>
@@ -104,5 +108,6 @@
     line-clamp: 3;
     text-align: start;
     -webkit-box-orient: vertical;
+    overflow-wrap: anywhere;
   }
 </style>

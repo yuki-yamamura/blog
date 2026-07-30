@@ -7,7 +7,7 @@
   import type { PageProps } from './$types';
 
   const props: PageProps = $props();
-  const { article } = $derived(props.data);
+  const { article, Component } = $derived(props.data);
 </script>
 
 <PageContainer>
@@ -19,6 +19,7 @@
       width="200"
       height="200"
       class="thumbnail"
+      zoomable={false}
     />
     <h1>{props.data.article.title}</h1>
     <ul role="list" class="tags">
@@ -31,142 +32,7 @@
   </div>
 
   <div class="content">
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
-    <div>
-      foo
-      <br />
-    </div>
+    <Component />
   </div>
 </PageContainer>
 
@@ -177,6 +43,10 @@
     row-gap: 8px;
     align-items: center;
     padding-block-end: 24px;
+  }
+
+  h1 {
+    text-align: center;
   }
 
   .publish-date {
@@ -194,7 +64,7 @@
   }
 
   .content {
-    block-size: 100%;
+    flex-grow: 1;
     padding: 24px;
     background-color: white;
     border-radius: 16px;

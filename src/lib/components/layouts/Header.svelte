@@ -61,12 +61,12 @@
 
     @media (any-hover: hover) {
       &:hover {
-        color: var(--accent-color);
+        color: var(--color-accent);
       }
     }
 
     &:focus-visible {
-      color: var(--accent-color);
+      color: var(--color-accent);
     }
   }
 </style>

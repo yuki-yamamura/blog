@@ -12,7 +12,6 @@
 <div class="base">
   {@render children()}
 </div>
->
 
 <style>
   .base {
