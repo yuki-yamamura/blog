@@ -136,7 +136,7 @@ export default defineConfig(
     },
   },
   {
-    files: ['**/layout.ts'],
+    files: ['**/+layout.ts'],
     rules: {
       'unicorn/consistent-boolean-name': [
         'error',
