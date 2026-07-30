@@ -135,5 +135,16 @@ export default defineConfig(
       '@typescript-eslint/no-unsafe-return': 'off',
     },
   },
+  {
+    files: ['**/layout.ts'],
+    rules: {
+      'unicorn/consistent-boolean-name': [
+        'error',
+        {
+          ignore: ['value', 'prerender'],
+        },
+      ],
+    },
+  },
   { ignores: ['**/*.config.{js,mjs,ts,mts,cts}'] },
 );
