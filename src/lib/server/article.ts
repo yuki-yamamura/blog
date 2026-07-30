@@ -23,13 +23,33 @@ const thumbnailModules = import.meta.glob<string>('/src/lib/assets/images/*.png'
   query: '?url',
 });
 
-export async function getArticle(slug: Article['slug']): Promise<Result<Article, Error>> {
-  const { metadata } = await articleModules[`/articles/${slug}.md`]();
+export class ArticleNotFoundError extends Error {
+  constructor(slug: Article['slug']) {
+    super(`Article not found: ${slug}`);
+    this.name = 'ArticleNotFoundError';
+  }
+}
+
+export async function getArticle(
+  slug: Article['slug'],
+): Promise<Result<Article, ArticleNotFoundError | Error>> {
+  const articleModule = await articleModules[`/articles/${slug}.md`]?.();
+  if (!articleModule) {
+    return err(new ArticleNotFoundError(slug));
+  }
+  const { metadata } = articleModule;
 
   const thumbnail =
-    await thumbnailModules[`/src/lib/assets/images/${metadata.thumbnailFilename}`]();
-  const content = await getArticleContent(slug);
-  const excerpt = extractExcerpt(content);
+    await thumbnailModules[`/src/lib/assets/images/${metadata.thumbnailFilename}`]?.();
+  if (!thumbnail) {
+    return err(new Error(`Thumbnail not found: ${metadata.thumbnailFilename}`));
+  }
+
+  const contentResult = await getArticleContent(slug);
+  if (contentResult.isErr) {
+    return err(contentResult.error);
+  }
+  const excerpt = extractExcerpt(contentResult.value);
   const articleResult = createArticle({
     excerpt,
     publishDate: metadata.publishDate,
@@ -58,12 +78,13 @@ export async function getArticleMetadataList(): Promise<Result<ArticleMetadata[]
         return err(new Error(`Unexpected article filename: ${filename}`));
       }
 
-      const {
-        metadata: { publishDate },
-      } = await articleModules[path]();
+      const articleModule = await articleModules[path]?.();
+      if (!articleModule) {
+        return err(new Error(`Article module not found: ${path}`));
+      }
 
       return ok({
-        publishDate,
+        publishDate: articleModule.metadata.publishDate,
         slug,
       });
     }),
@@ -110,12 +131,18 @@ export async function getArticlesByPage(
   );
 }
 
-async function getArticleContent(slug: Article['slug']): Promise<string> {
-  const rawArticle = await rawArticleModules[`/articles/${slug}.md`]();
+async function getArticleContent(
+  slug: Article['slug'],
+): Promise<Result<string, ArticleNotFoundError>> {
+  const rawArticle = await rawArticleModules[`/articles/${slug}.md`]?.();
+  if (!rawArticle) {
+    return err(new ArticleNotFoundError(slug));
+  }
+
   const rawContent = rawArticle.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '');
   const parsedContent = unified().use(remarkParse).parse(rawContent);
 
-  return toString(parsedContent);
+  return ok(toString(parsedContent));
 }
 
 function extractExcerpt(content: string): string {
