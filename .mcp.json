@@ -3,6 +3,17 @@
     "svelte": {
       "type": "http",
       "url": "https://mcp.svelte.dev/mcp"
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "--autoConnect", "chrome-devtools-mcp@latest"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest", "--extension"],
+      "env": {
+        "PLAYWRIGHT_MCP_EXTENSION_TOKEN": "DHuCmthyqIkvcdOq1Z7wFgD5DpGJsxawAIex3MbXfvg"
+      }
     }
   }
 }
