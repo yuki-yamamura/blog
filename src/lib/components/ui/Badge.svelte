@@ -24,32 +24,30 @@
 <span class={badge({ color })}>{label}</span>
 
 <style>
-  /* Chromatic colors share oklch(90% 0.06 <hue>) so that only the hue varies. */
   .base {
     display: inline-block;
     padding: 2px 10px;
-    font-size: 14px;
-    background-color: oklch(95% 0 0deg);
+    font-size: var(--font-size-sm);
     border-radius: 100vmax;
   }
 
   .gray {
-    background-color: oklch(95.5% 0 0deg);
+    background-color: var(--color-badge-gray);
   }
 
   .blue {
-    background-color: oklch(90% 0.06 251deg);
+    background-color: var(--color-badge-blue);
   }
 
   .green {
-    background-color: oklch(90% 0.06 163deg);
+    background-color: var(--color-badge-green);
   }
 
   .orange {
-    background-color: oklch(90% 0.06 54deg);
+    background-color: var(--color-badge-orange);
   }
 
   .sky {
-    background-color: oklch(90% 0.06 215deg);
+    background-color: var(--color-badge-sky);
   }
 </style>

@@ -36,7 +36,7 @@
 
   .items {
     display: flex;
-    column-gap: 12px;
+    column-gap: var(--space-3);
     justify-content: center;
     inline-size: 100%;
     padding: 0;
@@ -48,7 +48,7 @@
     align-items: center;
     justify-content: center;
     aspect-ratio: 1;
-    padding: 4px;
+    padding: var(--space-1);
     color: currentcolor;
     text-decoration: none;
     border: 1px solid;
@@ -63,12 +63,12 @@
 
     @media (any-hover: hover) {
       &:hover {
-        color: #1e7bdf;
+        color: var(--color-accent);
       }
     }
 
     &:focus-visible {
-      color: #1e7bdf;
+      color: var(--color-accent);
     }
   }
 </style>

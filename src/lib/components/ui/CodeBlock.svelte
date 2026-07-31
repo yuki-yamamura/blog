@@ -33,9 +33,9 @@
   }
 
   pre {
-    padding: 16px;
+    padding: var(--space-4);
     overflow-x: auto;
-    line-height: 1;
+    line-height: var(--leading-none);
     white-space: pre;
     counter-reset: line;
 
@@ -60,8 +60,8 @@
     inset-block-start: 24px;
     inset-inline-end: 8px;
     min-inline-size: 56px;
-    padding: 2px 8px;
-    font-size: 11px;
+    padding: 2px var(--space-2);
+    font-size: var(--font-size-2xs);
     color: rgb(0 0 0 / 30%);
     text-align: center;
     cursor: pointer;
@@ -69,9 +69,9 @@
     border: 1px solid rgb(0 0 0 / 30%);
     border-radius: 4px;
     transition:
-      color 0.2s,
-      background-color 0.2s,
-      border-color 0.2s;
+      color var(--duration-fast),
+      background-color var(--duration-fast),
+      border-color var(--duration-fast);
 
     &:hover,
     &:focus-visible {

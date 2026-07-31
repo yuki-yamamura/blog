@@ -36,7 +36,7 @@
   .profile {
     display: flex;
     flex-direction: column;
-    row-gap: 12px;
+    row-gap: var(--space-3);
     align-items: center;
   }
 
@@ -49,7 +49,7 @@
 
   .name {
     align-self: center;
-    font-size: 1.5rem;
+    font-size: var(--font-size-2xl);
   }
 
   .line {

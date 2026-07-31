@@ -37,19 +37,19 @@
     display: flex;
     min-block-size: 126px;
     overflow: hidden;
-    background-color: var(--color-background);
+    background-color: var(--color-bg);
     border: 1px solid black;
     border-radius: 1px;
-    transition: background-color 0.3s ease;
+    transition: background-color var(--duration-base) var(--ease-out);
 
     &:focus-visible,
     :global(a:focus-visible) & {
-      background-color: rgb(from var(--color-background) r g b / 80%);
+      background-color: rgb(from var(--color-bg) r g b / 80%);
     }
 
     @media (any-hover: hover) {
       &:hover {
-        background-color: rgb(from var(--color-background) r g b / 80%);
+        background-color: rgb(from var(--color-bg) r g b / 80%);
       }
     }
   }
@@ -65,7 +65,7 @@
     inline-size: 100%;
     block-size: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform var(--duration-base) var(--ease-out);
 
     .card:hover &,
     .card:focus-visible & {
@@ -76,8 +76,8 @@
   .placeholder {
     inline-size: 100%;
     block-size: 100%;
-    background-image: linear-gradient(135deg, var(--color-accent), var(--color-background));
-    transition: transform 0.3s ease;
+    background-image: linear-gradient(135deg, var(--color-accent), var(--color-bg));
+    transition: transform var(--duration-base) var(--ease-out);
 
     .card:hover &,
     .card:focus-visible & {
@@ -88,16 +88,16 @@
   .info {
     display: flex;
     flex-direction: column;
-    row-gap: 4px;
+    row-gap: var(--space-1);
     justify-content: center;
     min-inline-size: 0;
-    padding: 12px 16px;
+    padding: var(--space-3) var(--space-4);
   }
 
   .title {
     overflow: hidden;
     text-overflow: ellipsis;
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     white-space: nowrap;
   }
 
@@ -106,12 +106,12 @@
     overflow: hidden;
     -webkit-line-clamp: 2;
     line-clamp: 2;
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     -webkit-box-orient: vertical;
   }
 
   .hostname {
-    font-size: 12px;
+    font-size: var(--font-size-xs);
     color: var(--color-accent);
   }
 </style>

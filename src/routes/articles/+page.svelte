@@ -23,6 +23,6 @@
   .inner {
     display: flex;
     flex-direction: column;
-    row-gap: 80px;
+    row-gap: var(--space-20);
   }
 </style>

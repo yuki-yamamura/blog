@@ -23,17 +23,17 @@
 
     :global(h2) {
       margin-block-start: 40px;
-      font-size: 1.5rem;
+      font-size: var(--font-size-2xl);
     }
 
     :global(h3) {
       margin-block-start: 32px;
-      font-size: 1.25rem;
+      font-size: var(--font-size-xl);
     }
 
     :global(h4) {
       margin-block-start: 24px;
-      font-size: 1.125rem;
+      font-size: var(--font-size-lg);
     }
 
     :global(code) {
@@ -74,7 +74,7 @@
 
     :global(th),
     :global(td) {
-      padding: 8px 12px;
+      padding: var(--space-2) var(--space-3);
       border: 1px solid black;
     }
   }

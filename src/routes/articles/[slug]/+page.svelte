@@ -1,8 +1,7 @@
 <script lang="ts">
+  import PageContainer from '$lib/components/layouts/PageContainer.svelte';
+  import TagBadge from '$lib/components/TagBadge.svelte';
   import Image from '$lib/components/ui/Image.svelte';
-
-  import PageContainer from '../../../lib/components/layouts/PageContainer.svelte';
-  import TagBadge from '../../../lib/components/TagBadge.svelte';
 
   import type { PageProps } from './$types';
 
@@ -25,7 +24,7 @@
     <ul role="list" class="tags">
       {#each article.tags as tag (tag)}
         <li>
-          <TagBadge slug={tag} />
+          <TagBadge {tag} />
         </li>
       {/each}
     </ul>
@@ -40,32 +39,33 @@
   .meta {
     display: flex;
     flex-direction: column;
-    row-gap: 8px;
+    row-gap: var(--space-2);
     align-items: center;
     padding-block-end: 24px;
   }
 
   h1 {
+    font-size: var(--font-size-3xl);
     text-align: center;
   }
 
   .publish-date {
     align-self: start;
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     letter-spacing: 1px;
   }
 
   .tags {
     display: flex;
     flex-wrap: wrap;
-    column-gap: 8px;
+    column-gap: var(--space-2);
     justify-content: center;
     padding: 0;
   }
 
   .content {
     flex-grow: 1;
-    padding: 24px;
+    padding: var(--space-6);
     background-color: white;
     border-radius: 16px;
   }

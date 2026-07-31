@@ -1,0 +1,60 @@
+:root {
+  /* Color pallette */
+  --color-neutral-50: oklch(98% 0.003 80deg);
+  --color-neutral-300: oklch(84% 0 0deg);
+  --color-neutral-900: oklch(20% 0 0deg);
+  --color-blue: oklch(65% 0.12 250deg);
+  --color-badge-gray: oklch(90% 0 0deg);
+  --color-badge-blue: oklch(90% 0.04 250deg);
+  --color-badge-green: oklch(90% 0.04 163deg);
+  --color-badge-orange: oklch(90% 0.04 54deg);
+  --color-badge-sky: oklch(90% 0.04 215deg);
+
+  /* Semantic colors */
+  --color-bg: var(--color-neutral-50);
+  --color-fg: var(--color-neutral-900);
+  --color-muted: var(--color-neutral-300);
+  --color-accent: var(--color-blue);
+  --color-border: var(--color-neutral-900);
+
+  /* Typography */
+  --font-sans: 'Nunito Variable', sans-serif;
+  --font-mono: ui-monospace, sfmono-regular, menlo, consolas, monospace;
+  --font-size-2xs: 0.6875rem;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2rem;
+  --font-weight-light: 200;
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
+  --leading-none: 1;
+  --leading-tight: 1.1;
+  --leading-normal: 1.5;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-20: 5rem;
+
+  /* Layout */
+  --width-layout: 1024px;
+  --width-article: 768px;
+
+  /* Interactions */
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --focus-ring: 2px solid var(--color-accent);
+  --focus-ring-offset: 2px;
+}

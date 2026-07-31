@@ -68,7 +68,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding: var(--space-6);
     background-color: rgb(0 0 0 / 70%);
   }
 
@@ -76,7 +76,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    row-gap: 16px;
+    row-gap: var(--space-4);
     align-items: center;
     max-inline-size: 90vw;
     max-block-size: 90vh;
@@ -91,7 +91,7 @@
     justify-content: center;
     inline-size: 32px;
     block-size: 32px;
-    font-size: 20px;
+    font-size: var(--font-size-xl);
     color: black;
     cursor: pointer;
     background-color: white;
@@ -114,7 +114,7 @@
 
   .zoom-controls {
     display: flex;
-    column-gap: 12px;
+    column-gap: var(--space-3);
   }
 
   .zoom-button {
@@ -122,7 +122,7 @@
     align-items: center;
     justify-content: center;
     aspect-ratio: 1;
-    padding: 4px 12px;
+    padding: var(--space-1) var(--space-3);
     color: white;
     cursor: pointer;
     background-color: transparent;

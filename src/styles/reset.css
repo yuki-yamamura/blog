@@ -1,6 +1,6 @@
 /*
-  A (more) Modern CSS Reset
-  see: https://piccalil.li/blog/a-more-modern-css-reset/
+ * A (more) Modern CSS Reset
+ * see: https://piccalil.li/blog/a-more-modern-css-reset/
 */
 
 /* Box sizing rules */
@@ -42,7 +42,7 @@ ol[role='list'] {
 /* Set core body defaults */
 body {
   min-block-size: 100vh;
-  line-height: 1.5;
+  line-height: var(--leading-normal);
 }
 
 /* Set shorter line heights on headings and interactive elements */
@@ -53,7 +53,7 @@ h4,
 button,
 input,
 label {
-  line-height: 1.1;
+  line-height: var(--leading-tight);
 }
 
 /* Balance text wrapping on headings */

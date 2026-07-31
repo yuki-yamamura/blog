@@ -1,9 +1,10 @@
 <script lang="ts">
-  import Badge from './ui/Badge.svelte';
+  import Badge from '$lib/components/ui/Badge.svelte';
 
   import type { Tag } from '$lib/models/tag';
+  import type { ComponentProps } from 'svelte';
 
-  const { slug }: { slug: Tag } = $props();
+  const { tag }: { tag: Tag } = $props();
 
   const tagMap = {
     cloudflare: {
@@ -26,8 +27,8 @@
       color: 'green',
       label: 'Vitest',
     },
-  } as const satisfies Record<Tag, { color: string; label: string }>;
-  const tag = $derived(tagMap[slug]);
+  } as const satisfies Record<Tag, { color: ComponentProps<typeof Badge>['color']; label: string }>;
+  const { color, label } = $derived(tagMap[tag]);
 </script>
 
-<Badge label={tag.label} color={tag.color} />
+<Badge {label} {color} />

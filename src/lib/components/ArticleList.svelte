@@ -18,7 +18,7 @@
   .base {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 48px;
+    gap: var(--space-12);
     inline-size: 100%;
     padding: 0;
     margin: 0;

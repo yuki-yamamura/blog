@@ -47,11 +47,20 @@
     top: 0;
 
     /* centered in the free margin to the right of the 1280 content column */
-    right: calc((100vw - 1280px) / 4);
+    right: calc((100vw - var(--width-layout)) / 4);
     z-index: 1;
-    display: block;
+    display: none;
     pointer-events: none;
     transform: translateX(50%);
+
+    @media (1280px <= width) {
+      display: block;
+      animation: fade-in 0.8s ease-out both;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
   }
 
   .swing {
@@ -88,6 +97,18 @@
   }
 
   /* a damped pendulum: constant period, decaying amplitude */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateX(50%) translateY(-8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(50%) translateY(0);
+    }
+  }
+
   @keyframes swing {
     0% {
       transform: rotate(0deg);

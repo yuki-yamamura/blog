@@ -16,7 +16,7 @@
 <style>
   .base {
     inline-size: 100%;
-    max-inline-size: 768px;
+    max-inline-size: var(--width-article);
     margin-inline: auto;
   }
 </style>

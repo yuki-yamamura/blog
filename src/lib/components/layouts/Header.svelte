@@ -31,7 +31,7 @@
     align-items: center;
     justify-content: space-between;
     inline-size: 100%;
-    max-inline-size: 1280px;
+    max-inline-size: var(--width-layout);
     margin-inline: auto;
 
     @media (768px <= width) {
@@ -40,19 +40,19 @@
   }
 
   .logo {
-    font-size: 1.5rem;
+    font-size: var(--font-size-2xl);
     font-style: italic;
-    font-weight: 200;
+    font-weight: var(--font-weight-light);
   }
 
   .navigation {
     display: flex;
-    column-gap: 24px;
+    column-gap: var(--space-6);
   }
 
   .navigation-item {
-    font-size: 1.25rem;
-    font-weight: 200;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-light);
   }
 
   .link {

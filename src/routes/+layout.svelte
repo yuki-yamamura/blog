@@ -2,6 +2,7 @@
   import favicon from '$lib/assets/favicon.svg';
   import Header from '$lib/components/layouts/Header.svelte';
   import WindChime from '$lib/components/layouts/WindChime.svelte';
+
   import '@fontsource-variable/nunito/wght.css';
   import '../styles/reset.css';
   import '../styles/globals.css';
@@ -20,20 +21,16 @@
 </div>
 
 <style>
-  :global(body) {
-    font-family: 'Nunito Variable', sans-serif;
-  }
-
   .base {
     display: flex;
     flex-direction: column;
-    max-inline-size: 1280px;
+    max-inline-size: var(--width-layout);
     min-block-size: 100dvh;
-    padding: 4px;
+    padding: var(--space-1);
     margin-inline: auto;
 
     @media (768px <= width) {
-      padding: 8px;
+      padding: var(--space-2);
     }
   }
 </style>

@@ -28,7 +28,7 @@
       <ul role="list" class="tags">
         {#each article.tags as tag (tag)}
           <li>
-            <TagBadge slug={tag} />
+            <TagBadge {tag} />
           </li>
         {/each}
       </ul>
@@ -47,20 +47,18 @@
   .card {
     display: flex;
     flex-direction: column;
-    row-gap: 8px;
+    row-gap: var(--space-2);
     align-items: center;
     block-size: 100%;
-    padding: 24px;
+    padding: var(--space-6);
     border: 1px solid black;
     border-radius: 1px;
-
-    /* border-radius: 36px; */
 
     :global(.thumbnail) {
       object-fit: cover;
       transition:
-        transform 0.3s ease,
-        opacity 0.3s ease;
+        transform var(--duration-base) var(--ease-out),
+        opacity var(--duration-base) var(--ease-out);
     }
 
     &:focus-visible {
@@ -82,21 +80,21 @@
 
   .publish-date {
     align-self: start;
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     letter-spacing: 1px;
   }
 
   .card-info {
     display: flex;
     flex-direction: column;
-    row-gap: 12px;
+    row-gap: var(--space-3);
     text-align: center;
   }
 
   .tags {
     display: flex;
     flex-wrap: wrap;
-    column-gap: 8px;
+    column-gap: var(--space-2);
     justify-content: center;
     padding: 0;
   }

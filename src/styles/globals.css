@@ -1,9 +1,7 @@
-:root {
-  --color-accent: #69c;
-  --color-background: #fcfbfa;
-  --color-muted: #d0d0d0;
-}
+@import url('./tokens.css');
 
 body {
-  background-color: var(--color-background);
+  font-family: var(--font-sans);
+  color: var(--color-fg);
+  background-color: var(--color-bg);
 }
