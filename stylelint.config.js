@@ -13,8 +13,7 @@ export default {
     },
   ],
   rules: {
-    // Svelte uses the `:global(...)` / `:global { }` selector, which is not a
-    // standard CSS pseudo-class.
+    // Svelte uses the `:global(...)` / `:global { }` selector, which is not a standard CSS pseudo-class.
     'selector-pseudo-class-no-unknown': [true, { ignorePseudoClasses: ['global'] }],
     'plugin/declaration-block-no-ignored-properties': true,
     'csstools/use-logical': ['always', { except: ['top', 'right', 'bottom', 'left'] }],
