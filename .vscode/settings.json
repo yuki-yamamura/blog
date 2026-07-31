@@ -2,5 +2,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.stylelint": "explicit"
   },
+  "css.validate": false,
   "stylelint.validate": ["css", "postcss", "svelte"]
 }
