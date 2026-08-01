@@ -1,6 +1,6 @@
 import { visit } from 'unist-util-visit';
 
-import type { Element, Root, Text } from 'hast';
+import type { Root } from 'hast';
 
 function escapeSvelteUnsafeCharacters(value: string): string {
   return value
@@ -15,9 +15,9 @@ function preserveWhitespace(value: string): string {
 }
 
 export function rehypeEscapeCodeBlocks() {
-  return function transformer(tree: Root) {
+  return function (tree: Root) {
     visit(tree, (node, index, parent) => {
-      if (typeof index !== 'number' || !parent || node.type !== 'root') {
+      if (index === undefined || !parent || node.type !== 'root') {
         return;
       }
 
@@ -26,12 +26,12 @@ export function rehypeEscapeCodeBlocks() {
       return index;
     });
 
-    visit(tree, 'element', (node: Element) => {
+    visit(tree, 'element', (node) => {
       if (node.tagName !== 'pre') {
         return;
       }
 
-      visit(node, 'text', (textNode: Text) => {
+      visit(node, 'text', (textNode) => {
         textNode.value = preserveWhitespace(escapeSvelteUnsafeCharacters(textNode.value));
       });
     });

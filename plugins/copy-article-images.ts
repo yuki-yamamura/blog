@@ -3,42 +3,47 @@ import path from 'node:path';
 
 import type { Plugin } from 'vite';
 
-const CONTENT_IMAGE_EXTENSIONS = new Set(['png', 'jpg', 'jpeg', 'webp', 'gif', 'svg']);
+const ARTICLES_DIRECTORY_NAME = 'articles';
 
-function isContentImage(filename: string): boolean {
-  const extension = path.extname(filename).slice(1).toLowerCase();
+function copyArticleContentImages(articleDirectory: string, slug: string): void {
+  const contentImages = readdirSync(articleDirectory).filter((filename) => {
+    const extension = path.extname(filename).slice(1).toLocaleLowerCase();
+    const imageExtensions = ['png', 'jpg', 'jpeg', 'svg'];
 
-  return CONTENT_IMAGE_EXTENSIONS.has(extension) && !filename.startsWith('thumbnail.');
-}
-
-function copyArticleContentImages(articleDir: string, slug: string): void {
-  const contentImages = readdirSync(articleDir).filter((filename) => isContentImage(filename));
+    return imageExtensions.includes(extension) && filename !== 'thumbnail.svg';
+  });
   if (contentImages.length === 0) {
     return;
   }
 
-  const destDir = path.resolve('static', 'articles', slug);
-  mkdirSync(destDir, { recursive: true });
-  for (const filename of contentImages) {
-    copyFileSync(path.join(articleDir, filename), path.join(destDir, filename));
+  const destinationDirectory = path.resolve('static', 'articles', slug);
+  mkdirSync(destinationDirectory, { recursive: true });
+
+  for (const imageFilename of contentImages) {
+    copyFileSync(
+      path.join(articleDirectory, imageFilename),
+      path.join(destinationDirectory, imageFilename),
+    );
   }
 }
 
-export function copyArticleImages(): Plugin {
+export function articleImages(): Plugin {
   return {
     buildStart() {
-      const articlesDir = path.resolve('articles');
-      if (!existsSync(articlesDir)) {
+      const articlesDirectory = path.resolve(ARTICLES_DIRECTORY_NAME);
+      if (!existsSync(articlesDirectory)) {
         return;
       }
 
-      for (const slug of readdirSync(articlesDir)) {
-        const articleDir = path.join(articlesDir, slug);
-        if (statSync(articleDir).isDirectory()) {
-          copyArticleContentImages(articleDir, slug);
+      for (const slug of readdirSync(articlesDirectory)) {
+        const articleDirectory = path.join(articlesDirectory, slug);
+        if (!statSync(articleDirectory).isDirectory()) {
+          continue;
         }
+
+        copyArticleContentImages(articleDirectory, slug);
       }
     },
-    name: 'copy-article-images',
+    name: 'article-images',
   };
 }

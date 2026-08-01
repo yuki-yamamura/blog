@@ -1,26 +1,31 @@
 <script lang="ts">
-  const props: {
+  const {
+    description,
+    href,
+    image,
+    title,
+  }: {
     description: string;
     href: string;
-    image: string;
     title: string;
+    image?: string;
   } = $props();
 
-  const hostname = $derived(new URL(props.href).hostname);
+  const hostname = $derived(new URL(href).hostname);
 </script>
 
-<a href={props.href} target="_blank" rel="noopener noreferrer" class="base">
+<a {href} target="_blank" class="base">
   <div class="card">
     <div class="image-wrapper">
-      {#if props.image}
-        <img src={props.image} alt="" class="image" />
+      {#if image}
+        <img src={image} alt="" class="image" />
       {:else}
         <div class="placeholder"></div>
       {/if}
     </div>
     <div class="info">
-      <p class="title">{props.title}</p>
-      <p class="description">{props.description}</p>
+      <p class="title">{title}</p>
+      <p class="description">{description}</p>
       <p class="hostname">{hostname}</p>
     </div>
   </div>
@@ -35,23 +40,12 @@
 
   .card {
     display: flex;
-    min-block-size: 126px;
+    min-block-size: 128px;
     overflow: hidden;
     background-color: var(--color-bg);
-    border: 1px solid black;
+    border: 1px solid var(--color-border);
     border-radius: 1px;
     transition: background-color var(--duration-base) var(--ease-out);
-
-    &:focus-visible,
-    :global(a:focus-visible) & {
-      background-color: rgb(from var(--color-bg) r g b / 80%);
-    }
-
-    @media (any-hover: hover) {
-      &:hover {
-        background-color: rgb(from var(--color-bg) r g b / 80%);
-      }
-    }
   }
 
   .image-wrapper {
@@ -81,7 +75,7 @@
 
     .card:hover &,
     .card:focus-visible & {
-      transform: scale(1.05);
+      transform: scale(1.02);
     }
   }
 

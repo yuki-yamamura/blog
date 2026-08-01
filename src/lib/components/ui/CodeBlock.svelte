@@ -1,32 +1,36 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
 
-  const COPIED_RESET_DELAY_MS = 1500;
+  const props: { children: Snippet; class: string; style: string } = $props();
 
-  const props: { children: Snippet; class?: string; style?: string } = $props();
-
-  let codeEl: HTMLPreElement | undefined = $state();
+  let codeBlock: HTMLPreElement | undefined = $state();
   let isCopied = $state(false);
 
   async function copy() {
-    if (!codeEl) {
+    if (!codeBlock) {
       return;
     }
-    await navigator.clipboard.writeText(codeEl.textContent.replaceAll(' ', ' '));
+
+    await navigator.clipboard.writeText(codeBlock.textContent.replaceAll(' ', ' '));
     isCopied = true;
-    setTimeout(() => (isCopied = false), COPIED_RESET_DELAY_MS);
+    setTimeout(() => {
+      isCopied = false;
+    }, 1500);
   }
 </script>
 
-<div class="code-block-wrapper">
+<div class="base">
   <button type="button" class="copy-button" onclick={copy} aria-label="Copy code">
     {isCopied ? 'Copied' : 'Copy'}
   </button>
-  <pre bind:this={codeEl} class={props.class} style={props.style}>{@render props.children()}</pre>
+  <pre
+    bind:this={codeBlock}
+    class={props.class}
+    style={props.style}>{@render props.children()}</pre>
 </div>
 
 <style>
-  .code-block-wrapper {
+  .base {
     position: relative;
     overflow: hidden;
     border-radius: 8px;
@@ -48,7 +52,7 @@
       display: inline-block;
       inline-size: 2em;
       padding-inline-end: 1em;
-      color: rgb(0 0 0 / 30%);
+      color: var(--color-neutral-300);
       text-align: end;
       user-select: none;
       content: counter(line);
@@ -73,7 +77,14 @@
       background-color var(--duration-fast),
       border-color var(--duration-fast);
 
-    &:hover,
+    @media (any-hover: hover) {
+      &:hover {
+        color: rgb(0 0 0 / 90%);
+        background-color: rgb(255 255 255 / 90%);
+        border-color: rgb(0 0 0 / 90%);
+      }
+    }
+
     &:focus-visible {
       color: rgb(0 0 0 / 90%);
       background-color: rgb(255 255 255 / 90%);

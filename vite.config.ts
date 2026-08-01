@@ -15,15 +15,16 @@ import { mdsvex } from 'mdsvex';
 import remarkGfm from 'remark-gfm';
 import { createHighlighterCoreSync, createOnigurumaEngine } from 'shiki';
 
-import { copyArticleImages } from './plugins/copy-article-images';
+import { articleImages } from './plugins/copy-article-images';
 import { remarkLinkCard } from './plugins/remark-link-card';
 import { rehypeEscapeCodeBlocks } from './plugins/rehype-escape-code-blocks';
 import { rehypeImageDimensions } from './plugins/rehype-image-dimensions';
 
 import type { MdsvexOptions } from 'mdsvex';
+import type { RehypeShikiCoreOptions } from '@shikijs/rehype/core';
 
 const SHIKI_THEME = 'one-light';
-const SHIKI_LANGS = [
+const SHIKI_LANGUAGES = [
   'html',
   'css',
   'javascript',
@@ -45,8 +46,8 @@ const SHIKI_LANGS = [
 
 const shikiEngine = await createOnigurumaEngine(import('shiki/wasm'));
 const shikiLangs = await Promise.all(
-  SHIKI_LANGS.filter((lang) => lang !== 'text').map(
-    async (lang) => (await import(`shiki/langs/${lang}.mjs`)).default,
+  SHIKI_LANGUAGES.filter((language) => language !== 'text').map(
+    async (language) => (await import(`shiki/langs/${language}.mjs`)).default,
   ),
 );
 const shikiTheme = (await import(`shiki/themes/${SHIKI_THEME}.mjs`)).default;
@@ -57,7 +58,7 @@ const highlighter = createHighlighterCoreSync({
   themes: [shikiTheme],
 });
 
-function rehypeShiki(options: Parameters<typeof rehypeShikiFromHighlighter>[1]) {
+function rehypeShiki(options: RehypeShikiCoreOptions) {
   return rehypeShikiFromHighlighter(highlighter, options);
 }
 
@@ -99,7 +100,7 @@ export default defineConfig({
         } as unknown as MdsvexOptions),
       ],
     }),
-    copyArticleImages(),
+    articleImages(),
   ],
   server: {
     fs: {

@@ -75,7 +75,7 @@
     :global(th),
     :global(td) {
       padding: var(--space-2) var(--space-3);
-      border: 1px solid black;
+      border: 1px solid var(--color-border);
     }
   }
 

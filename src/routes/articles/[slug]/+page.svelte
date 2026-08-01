@@ -18,7 +18,6 @@
       width="200"
       height="200"
       class="thumbnail"
-      zoomable={false}
     />
     <h1>{props.data.article.title}</h1>
     <ul role="list" class="tags">

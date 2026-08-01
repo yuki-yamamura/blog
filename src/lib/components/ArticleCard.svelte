@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { extractExcerpt } from '$lib/utils/excerpt';
   import { pathMap } from '$lib/utils/path';
 
   import TagBadge from './TagBadge.svelte';
@@ -9,7 +8,7 @@
 
   const { article }: { article: Article } = $props();
 
-  const excerpt = $derived(extractExcerpt(article.content));
+  const excerpt = $derived(article.content.slice(0, 300));
 </script>
 
 <a href={pathMap['/articles/:slug'].get(article.slug)} class="base">
@@ -21,7 +20,6 @@
       width="200"
       height="200"
       class="thumbnail"
-      zoomable={false}
     />
     <div class="card-info">
       <h2>{article.title}</h2>
@@ -51,7 +49,7 @@
     align-items: center;
     block-size: 100%;
     padding: var(--space-6);
-    border: 1px solid black;
+    border: 1px solid var(--color-border);
     border-radius: 1px;
 
     :global(.thumbnail) {

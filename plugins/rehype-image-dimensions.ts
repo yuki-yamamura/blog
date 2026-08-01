@@ -17,33 +17,27 @@ function isRelativeSrc(src: string): boolean {
   return src.startsWith('./') || src.startsWith('../');
 }
 
-function getSourceFilename(file: VFile): string | undefined {
-  if (typeof file.path === 'string') {
-    return file.path;
-  }
-
-  return typeof file.filename === 'string' ? file.filename : undefined;
-}
-
 export function rehypeImageDimensions() {
-  return function transformer(tree: Root, file: VFile) {
-    const sourceFilename = getSourceFilename(file);
-    const sourceDir = sourceFilename ? path.dirname(sourceFilename) : undefined;
+  return function (tree: Root, file: VFile) {
+    if (typeof file.filename !== 'string') {
+      return;
+    }
+    const srcDirectory = path.dirname(file.filename);
 
     visit(tree, 'element', (node: Element) => {
       if (node.tagName !== 'img') {
         return;
       }
-      const src = node.properties.src;
-      if (typeof src !== 'string' || !isRelativeSrc(src)) {
+      const { src } = node.properties;
+      if (!src || !isRelativeSrc(src)) {
         return;
       }
 
-      const absolutePath = path.resolve(sourceDir ?? '', src);
+      const absolutePath = path.resolve(srcDirectory, src);
       const buffer = readFileSync(absolutePath);
       const { height, width } = imageSize(new Uint8Array(buffer));
 
-      const slug = path.basename(sourceDir ?? '');
+      const slug = path.basename(srcDirectory);
       const filename = path.basename(src);
 
       node.properties.src = `/articles/${slug}/${filename}`;
