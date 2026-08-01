@@ -9,10 +9,12 @@
     },
     variants: {
       color: {
+        azure: 'azure',
         blue: 'blue',
         gray: 'gray',
         green: 'green',
         orange: 'orange',
+        pink: 'pink',
         sky: 'sky',
       },
     },
@@ -31,12 +33,16 @@
     border-radius: 100vmax;
   }
 
-  .gray {
-    background-color: var(--color-badge-gray);
+  .azure {
+    background-color: var(--color-badge-azure);
   }
 
   .blue {
     background-color: var(--color-badge-blue);
+  }
+
+  .gray {
+    background-color: var(--color-badge-gray);
   }
 
   .green {
@@ -45,6 +51,10 @@
 
   .orange {
     background-color: var(--color-badge-orange);
+  }
+
+  .pink {
+    background-color: var(--color-badge-pink);
   }
 
   .sky {

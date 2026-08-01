@@ -15,6 +15,14 @@
       color: 'gray',
       label: 'Diary',
     },
+    go: {
+      color: 'azure',
+      label: 'Go',
+    },
+    graphql: {
+      color: 'pink',
+      label: 'GraphQL',
+    },
     html: {
       color: 'sky',
       label: 'HTML',

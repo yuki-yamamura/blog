@@ -42,6 +42,7 @@ const SHIKI_LANGUAGES = [
   'markdown',
   'sql',
   'text',
+  'graphql',
 ] as const;
 
 const shikiEngine = await createOnigurumaEngine(import('shiki/wasm'));

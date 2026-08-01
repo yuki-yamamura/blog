@@ -5,7 +5,15 @@ import { err, ok } from '../utils/result';
 import type { Brand } from '../types/brand';
 import type { Result } from '../utils/result';
 
-export const tagSchema = z.enum(['cloudflare', 'diary', 'html', 'typescript', 'vitest']);
+export const tagSchema = z.enum([
+  'cloudflare',
+  'diary',
+  'go',
+  'graphql',
+  'html',
+  'typescript',
+  'vitest',
+]);
 
 export type Tag = z.infer<typeof tagSchema>;
 
