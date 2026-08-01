@@ -14,12 +14,12 @@ const rawArticleModules = import.meta.glob('/articles/*/index.md', {
   query: '?raw',
 });
 
-const thumbnailModules = import.meta.glob<string>('/articles/*/thumbnail.{png,jpg,webp}', {
+const thumbnailModules = import.meta.glob<string>('/articles/*/thumbnail.{png,jpg,webp,svg}', {
   import: 'default',
   query: '?url',
 });
 
-const THUMBNAIL_EXTENSIONS = ['png', 'jpg', 'webp'] as const;
+const THUMBNAIL_EXTENSIONS = ['png', 'jpg', 'webp', 'svg'] as const;
 
 export class ArticleNotFoundError extends Error {
   constructor(slug: Article['slug']) {
