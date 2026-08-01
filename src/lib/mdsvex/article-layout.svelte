@@ -83,6 +83,7 @@
     display: block;
     max-inline-size: 100%;
     block-size: auto;
+    padding-block-end: 16px;
     margin-inline: auto;
   }
 </style>
