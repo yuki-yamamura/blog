@@ -5,4 +5,4 @@ tags:
   - diary
 ---
 
-At 4 AM, there is a quiet around the park near my apartment, and no one begins his/her activation without newspaper drivers or a bus drivers. I get feeling close to them. It's the favorite time in a day.
+At 4 AM, it's quiet around the park near my apartment, and no one has started their day except for newspaper deliverers and bus drivers. I feel close to them. It's my favorite time of day.
