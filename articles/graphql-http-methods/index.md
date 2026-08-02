@@ -1,18 +1,19 @@
 ---
 publishDate: 2026-08-01
-title: GraphQL handles a HTTP POST method
+title: GraphQL handles an HTTP POST request
 tags:
   - go
   - graphql
 ---
 
-Today, I've been doing the [gqlgen tutorial](https://gqlgen.com/getting-started/). During the tutorial, I found that a GraphQL server receives a HTTP POST request even for a query operation.
+Today, I've been doing the [gqlgen tutorial](https://gqlgen.com/getting-started/). During the tutorial, I found that a GraphQL server receives an HTTP POST request, even for queries.
 
 ![](./graphql-query-request-headers.png)
 
-After a minute, I understood it's natural because a GraphQL request may include request body like [variables](https://graphql.org/learn/queries/#variables). As the following result of the [hurl](https://hurl.dev/) command, we can query data using a HTTP POST request from GraphQL API.
+After a minute, I understood that it makes sense because a GraphQL request may include a request body like [variables](https://graphql.org/learn/queries/#variables). As shown in the [hurl](https://hurl.dev/) output below, we can query data from a GraphQL API via an HTTP POST request.
 
-```graphql
+```text
+# in find_todos.hurl
 query GetTodos($ids: [ID!]!) {
   todos(ids: $ids) {
     id
