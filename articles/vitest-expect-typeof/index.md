@@ -1,6 +1,6 @@
 ---
 publishDate: 2026-07-24
-title: How to verify that two types are equal in Vitest
+title: How to verify two types are equal in Vitest
 tags:
   - vitest
 ---
