@@ -1,6 +1,6 @@
 ---
 publishDate: 2026-08-01
-title: GraphQL handles HTTP POST method
+title: GraphQL handles a HTTP POST method
 tags:
   - go
   - graphql
@@ -10,7 +10,7 @@ Today, I've been doing the [gqlgen tutorial](https://gqlgen.com/getting-started/
 
 ![](./graphql-query-request-headers.png)
 
-After a minute, I understood it's natural because a GraphQL request may include request body like [variables](https://graphql.org/learn/queries/#variables). As the following result of the [hurl](https://hurl.dev/) command, we can query date using HTTP POST method from GraphQL API.
+After a minute, I understood it's natural because a GraphQL request may include request body like [variables](https://graphql.org/learn/queries/#variables). As the following result of the [hurl](https://hurl.dev/) command, we can query data using a HTTP POST request from GraphQL API.
 
 ```graphql
 query GetTodos($ids: [ID!]!) {

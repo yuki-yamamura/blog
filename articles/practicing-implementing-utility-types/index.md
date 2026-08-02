@@ -5,7 +5,7 @@ tags:
   - typescript
 ---
 
-TypeScript provides a lot of utility types. These are not only convenient but also teach us TypeScript syntax. For example, `Pick` is used to create a type that selects specific properties from an object. We can learn four important syntax features from this:
+TypeScript provides a lot of utility types. These are not only convenient but also teach us TypeScript syntax. For example, `Pick` is used to create a type that selects specific properties from a type of an object. We can learn four important syntax features from this:
 
 - [generic parameter and extends keyword](https://www.typescriptlang.org/docs/handbook/2/generics.html)
 - [keyof type operator](https://www.typescriptlang.org/docs/handbook/2/keyof-types.html)

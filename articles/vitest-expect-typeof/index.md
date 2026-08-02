@@ -36,7 +36,7 @@ describe('Pick2', () => {
 
 It will fail if you make a mistake, but pass if your implementation is correct.
 
-```
+```text
 $ npx vitest --typecheck
 
 FAIL   server  src/utility-type.test-d.ts > Pick2 > should pick type of properties specified in second argument from type of first argument
