@@ -104,10 +104,12 @@ export async function getArticleDetail(
     );
   }
 
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- attach related articles to the branded Article; the brand is a phantom type-only marker.
-  const detail = Object.assign(articleResult.value, {
+  /* eslint-disable @typescript-eslint/no-misused-spread, @typescript-eslint/consistent-type-assertions -- brand is a phantom type-only marker; Article is a plain object from zod, safe to spread. */
+  const detail = {
+    ...articleResult.value,
     relatedArticles,
-  }) as unknown as ArticleDetail;
+  } as unknown as ArticleDetail;
+  /* eslint-enable @typescript-eslint/no-misused-spread, @typescript-eslint/consistent-type-assertions -- restore rules after safe spread. */
 
   return ok(detail);
 }
