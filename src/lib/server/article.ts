@@ -1,9 +1,14 @@
 import { Temporal } from 'temporal-polyfill';
 
-import { createArticle, filterArticleMetadataListByPage } from '$lib/models/article';
+import {
+  createArticle,
+  filterArticleMetadataListByPage,
+  isRelatedArticlesTuple,
+  selectRelatedArticleSlugs,
+} from '$lib/models/article';
 import { err, ok } from '$lib/utils/result';
 
-import type { Article, ArticleMetadata, ArticleModule } from '$lib/models/article';
+import type { Article, ArticleDetail, ArticleMetadata, ArticleModule } from '$lib/models/article';
 import type { Err, Ok, Result } from '$lib/utils/result';
 import type { Brand } from '../types/brand';
 
@@ -58,6 +63,53 @@ export async function getArticle(
   }
 
   return ok(articleResult.value);
+}
+
+export async function getArticleDetail(
+  slug: Article['slug'],
+): Promise<Result<ArticleDetail, ArticleNotFoundError | Error>> {
+  const [articleResult, metadataListResult] = await Promise.all([
+    getArticle(slug),
+    getArticleMetadataList(),
+  ]);
+
+  if (articleResult.isErr) {
+    return articleResult;
+  }
+  if (metadataListResult.isErr) {
+    return metadataListResult;
+  }
+
+  const sortedMetadataList = createSortedMetadataList(metadataListResult.value);
+  const slugsResult = selectRelatedArticleSlugs(sortedMetadataList, slug);
+  if (slugsResult.isErr) {
+    return slugsResult;
+  }
+
+  const relatedArticleResults = await Promise.all(
+    slugsResult.value.map((relatedSlug) => getArticle(relatedSlug)),
+  );
+
+  const relatedArticles: Article[] = [];
+  for (const result of relatedArticleResults) {
+    if (result.isErr) {
+      return result;
+    }
+    relatedArticles.push(result.value);
+  }
+
+  if (!isRelatedArticlesTuple(relatedArticles)) {
+    return err(
+      new Error(`Related articles length mismatch: got ${relatedArticles.length}, want 5`),
+    );
+  }
+
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- attach related articles to the branded Article; the brand is a phantom type-only marker.
+  const detail = Object.assign(articleResult.value, {
+    relatedArticles,
+  }) as unknown as ArticleDetail;
+
+  return ok(detail);
 }
 
 export async function getArticleMetadataList(): Promise<Result<ArticleMetadata[], Error>> {

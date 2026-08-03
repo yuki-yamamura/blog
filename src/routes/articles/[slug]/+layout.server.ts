@@ -1,13 +1,13 @@
 import { error } from '@sveltejs/kit';
 
-import { ArticleNotFoundError, getArticle } from '$lib/server/article';
+import { ArticleNotFoundError, getArticleDetail } from '$lib/server/article';
 
-import type { Article } from '$lib/models/article';
+import type { ArticleDetail } from '$lib/models/article';
 import type { LayoutServerLoadEvent } from './$types';
 
-export async function load({ params }: LayoutServerLoadEvent): Promise<{ article: Article }> {
+export async function load({ params }: LayoutServerLoadEvent): Promise<{ article: ArticleDetail }> {
   const { slug } = params;
-  const articleResult = await getArticle(slug);
+  const articleResult = await getArticleDetail(slug);
 
   if (articleResult.isErr) {
     if (articleResult.error instanceof ArticleNotFoundError) {

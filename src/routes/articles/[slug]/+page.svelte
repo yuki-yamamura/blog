@@ -1,5 +1,6 @@
 <script lang="ts">
   import PageContainer from '$lib/components/layouts/PageContainer.svelte';
+  import RelatedArticles from '$lib/components/RelatedArticles.svelte';
   import TagBadge from '$lib/components/TagBadge.svelte';
   import Image from '$lib/components/ui/Image.svelte';
 
@@ -32,6 +33,8 @@
   <div class="content">
     <Component />
   </div>
+
+  <RelatedArticles articles={article.relatedArticles} />
 </PageContainer>
 
 <style>
