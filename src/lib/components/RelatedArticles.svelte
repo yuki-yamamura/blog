@@ -112,18 +112,17 @@
     display: flex;
     flex-direction: column;
     row-gap: var(--space-4);
-    margin-block-start: var(--space-12);
+    margin-block-start: 256px;
   }
 
   h2 {
     margin-block-end: var(--space-2);
     font-size: var(--font-size-2xl);
-    text-align: center;
+    text-align: start;
   }
 
   .viewport {
     position: relative;
-    padding-inline: calc((100% - var(--slide-basis)) / 2);
     overflow: hidden;
 
     --slide-basis: 78%;
@@ -137,7 +136,10 @@
     margin: 0;
     list-style: none;
     transform: translateX(
-      calc(-1 * var(--current-index) * (var(--slide-basis) + var(--slide-gap)))
+      calc(
+        (100% - var(--slide-basis)) / 2 - var(--current-index) *
+          (var(--slide-basis) + var(--slide-gap))
+      )
     );
     transition: transform var(--duration-base) var(--ease-out);
   }
@@ -166,6 +168,7 @@
     background-color: var(--color-bg);
     border: 1px solid var(--color-border);
     border-radius: 50%;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 12%);
 
     &:disabled {
       cursor: not-allowed;

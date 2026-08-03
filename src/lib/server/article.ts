@@ -33,7 +33,7 @@ export class ArticleNotFoundError extends Error {
   }
 }
 
-export async function getArticle(
+async function getArticle(
   slug: Article['slug'],
 ): Promise<Result<Article, ArticleNotFoundError | Error>> {
   const articleModule = await articleModules[`/articles/${slug}/index.md`]?.();
