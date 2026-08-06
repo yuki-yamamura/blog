@@ -11,6 +11,7 @@
   --color-badge-azure: oklch(90% 0.04 200deg);
   --color-badge-orange: oklch(90% 0.04 54deg);
   --color-badge-sky: oklch(90% 0.04 215deg);
+  --color-badge-yellow: oklch(90% 0.04 90deg);
 
   /* Semantic colors */
   --color-bg: var(--color-neutral-50);

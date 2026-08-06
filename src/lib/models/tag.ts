@@ -7,6 +7,7 @@ import type { Result } from '../utils/result';
 
 export const tagSchema = z.enum([
   'cloudflare',
+  'cooking',
   'diary',
   'go',
   'graphql',
