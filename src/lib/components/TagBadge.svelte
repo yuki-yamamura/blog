@@ -11,6 +11,10 @@
       color: 'orange',
       label: 'Cloudflare',
     },
+    cooking: {
+      color: 'yellow',
+      label: 'Cooking',
+    },
     diary: {
       color: 'gray',
       label: 'Diary',

@@ -16,6 +16,7 @@
         orange: 'orange',
         pink: 'pink',
         sky: 'sky',
+        yellow: 'yellow',
       },
     },
   });
@@ -59,5 +60,9 @@
 
   .sky {
     background-color: var(--color-badge-sky);
+  }
+
+  .yellow {
+    background-color: var(--color-badge-yellow);
   }
 </style>
