@@ -13,18 +13,12 @@ declare module 'vfile' {
   }
 }
 
-/** Matches `--width-article`, the widest an image can be laid out in an article. */
 const MAX_DISPLAY_WIDTH = 768;
 
 function isRelativeSrc(src: string): boolean {
   return src.startsWith('./') || src.startsWith('../');
 }
 
-/**
- * Scales the intrinsic size down to the size the image is laid out at.
- * The attributes drive the image transformation, so the intrinsic size of a photo would make us
- * ask the CDN for an image far larger than any display needs. Images are never scaled up.
- */
 function scaleToDisplaySize(width: number, height: number): { height: number; width: number } {
   if (width <= MAX_DISPLAY_WIDTH) {
     return { height, width };
