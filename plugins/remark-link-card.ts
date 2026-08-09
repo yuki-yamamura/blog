@@ -46,6 +46,17 @@ function extractOgData(html: string, url: string): OgData {
   };
 }
 
+/**
+ * Falls back to a card that shows the bare URL.
+ * The reason is logged because this runs at build time, where a silent failure would only show up
+ * as a link card without a title on the deployed site.
+ */
+function createFallbackOgData(url: string, reason: string): OgData {
+  console.warn(`[remark-link-card] Could not read Open Graph data of ${url}: ${reason}`);
+
+  return { description: '', image: '', title: url };
+}
+
 async function fetchOgData(url: string): Promise<OgData> {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => {
@@ -58,13 +69,16 @@ async function fetchOgData(url: string): Promise<OgData> {
       signal: controller.signal,
     });
     if (!response.ok) {
-      return { description: '', image: '', title: url };
+      return createFallbackOgData(url, `responded with ${response.status} ${response.statusText}`);
     }
     const html = await response.text();
 
     return extractOgData(html, url);
-  } catch {
-    return { description: '', image: '', title: url };
+  } catch (error) {
+    return createFallbackOgData(
+      url,
+      error instanceof Error ? `${error.name}: ${error.message}` : String(error),
+    );
   } finally {
     clearTimeout(timeoutId);
   }
