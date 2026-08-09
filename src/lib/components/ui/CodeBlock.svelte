@@ -66,6 +66,7 @@
     position: absolute;
     inset-block-start: 24px;
     inset-inline-end: 8px;
+    z-index: 1;
     min-inline-size: 56px;
     padding: 2px var(--space-2);
     font-size: var(--font-size-2xs);
