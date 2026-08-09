@@ -2,7 +2,8 @@ import { visit } from 'unist-util-visit';
 
 import type { Html, Paragraph, Parent, Root } from 'mdast';
 
-const FETCH_TIMEOUT_MS = 5000;
+// Generous, because the network of a build environment can be far slower than a local one.
+const FETCH_TIMEOUT_MS = 15_000;
 const USER_AGENT = 'blog3-link-card-bot/1.0';
 
 type OgData = {
