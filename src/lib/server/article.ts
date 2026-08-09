@@ -205,7 +205,7 @@ async function getArticleContent(slug: Article['slug']): Promise<string> {
 /**
  * Extracts a plain text excerpt from markdown content.
  */
-export function getExcerpt(content: string): string {
+function getExcerpt(content: string): string {
   const paragraphs = unified()
     .use(remarkParse)
     .use(remarkGfm)
