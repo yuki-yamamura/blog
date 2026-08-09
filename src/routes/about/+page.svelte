@@ -1,4 +1,6 @@
 <script>
+  import { EnvelopeSimpleIcon, GithubLogoIcon, XLogoIcon } from 'phosphor-svelte';
+
   import avatar from '$lib/assets/avatar.jpg';
   import PageContainer from '$lib/components/layouts/PageContainer.svelte';
   import Image from '$lib/components/ui/Image.svelte';
@@ -13,17 +15,20 @@
       <p>A software engineer @Japan</p>
     </div>
     <hr class="line" aria-hidden={true} />
-    <ul class="sns">
-      <li>
+    <div class="sns">
+      <div class="sns-item">
+        <GithubLogoIcon size={20} aria-hidden="true" />
         <Link href="https://github.com/yuki-yamamura">https://github.com/yuki-yamamura</Link>
-      </li>
-      <li>
+      </div>
+      <div class="sns-item">
+        <XLogoIcon size={20} aria-hidden="true" />
         <Link href="https://x.com/yuki_yamamura">https://x.com/yuki_yamamura</Link>
-      </li>
-      <li>
+      </div>
+      <div class="sns-item">
+        <EnvelopeSimpleIcon size={20} aria-hidden="true" />
         <Link href="mailto:laundry_sneaker.6m@icloud.com">laundry_sneaker.6m@icloud.com</Link>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </PageContainer>
 
@@ -58,7 +63,14 @@
   }
 
   .sns {
-    padding-inline-start: 0;
-    list-style-position: inside;
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--space-2);
+  }
+
+  .sns-item {
+    display: flex;
+    column-gap: var(--space-2);
+    align-items: center;
   }
 </style>
