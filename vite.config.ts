@@ -73,6 +73,8 @@ export default defineConfig({
             : true,
       },
       adapter: adapter(),
+      dynamicCompileOptions: ({ filename }) =>
+        filename.endsWith('.md') ? { preserveWhitespace: true } : undefined,
       extensions: ['.svelte', '.md'],
       preprocess: [
         mdsvex({

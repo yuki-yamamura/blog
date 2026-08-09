@@ -10,10 +10,6 @@ function escapeSvelteUnsafeCharacters(value: string): string {
     .replaceAll('}', '&#125;');
 }
 
-function preserveWhitespace(value: string): string {
-  return value.replaceAll(' ', ' ');
-}
-
 export function rehypeEscapeCodeBlocks() {
   return function (tree: Root) {
     visit(tree, (node, index, parent) => {
@@ -31,8 +27,18 @@ export function rehypeEscapeCodeBlocks() {
         return;
       }
 
+      visit(node, 'element', (codeNode) => {
+        if (codeNode.tagName !== 'code') {
+          return;
+        }
+
+        codeNode.children = codeNode.children.filter(
+          (child) => child.type !== 'text' || child.value.trim() !== '',
+        );
+      });
+
       visit(node, 'text', (textNode) => {
-        textNode.value = preserveWhitespace(escapeSvelteUnsafeCharacters(textNode.value));
+        textNode.value = escapeSvelteUnsafeCharacters(textNode.value);
       });
     });
   };

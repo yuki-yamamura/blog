@@ -11,7 +11,7 @@
       return;
     }
 
-    await navigator.clipboard.writeText(codeBlock.textContent.replaceAll(' ', ' '));
+    await navigator.clipboard.writeText(codeBlock.textContent);
     isCopied = true;
     setTimeout(() => {
       isCopied = false;
@@ -37,21 +37,24 @@
   }
 
   pre {
-    padding: var(--space-4);
+    padding: var(--space-4) var(--space-4) var(--space-4) calc(var(--space-4) + 3em);
     overflow-x: auto;
-    line-height: var(--leading-none);
+    line-height: var(--leading-normal);
+    tab-size: 4;
     white-space: pre;
     counter-reset: line;
 
     :global(code .line) {
+      position: relative;
       display: block;
+      min-block-size: 1lh;
       counter-increment: line;
     }
 
     :global(code .line)::before {
-      display: inline-block;
+      position: absolute;
+      inset-inline-start: -3em;
       inline-size: 2em;
-      padding-inline-end: 1em;
       color: var(--color-neutral-300);
       text-align: end;
       user-select: none;
