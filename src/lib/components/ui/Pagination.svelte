@@ -45,10 +45,11 @@
 
   .link {
     display: inline-flex;
+    flex: none;
     align-items: center;
     justify-content: center;
-    aspect-ratio: 1;
-    padding: var(--space-1);
+    inline-size: var(--space-8);
+    block-size: var(--space-8);
     color: currentcolor;
     text-decoration: none;
     border: 1px solid;
