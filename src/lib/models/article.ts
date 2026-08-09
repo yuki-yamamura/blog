@@ -9,7 +9,7 @@ import type { Brand } from '../types/brand';
 import type { Result } from '../utils/result';
 
 const MAX_DISPLAY_PAGES = 5;
-const ARTICLES_PER_PAGE = 12;
+const ARTICLES_PER_PAGE = 9;
 
 export type ArticleMetadataInFrontMatter = {
   publishDate: string;

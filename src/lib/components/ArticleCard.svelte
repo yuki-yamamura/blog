@@ -20,7 +20,7 @@
       class="thumbnail"
     />
     <div class="card-info">
-      <h2>{article.title}</h2>
+      <div class="title">{article.title}</div>
       <ul role="list" class="tags">
         {#each article.tags as tag (tag)}
           <li>
@@ -85,6 +85,10 @@
     flex-direction: column;
     row-gap: var(--space-3);
     text-align: center;
+  }
+
+  .title {
+    font-size: var(--font-size-xl);
   }
 
   .tags {
