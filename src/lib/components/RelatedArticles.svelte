@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { ArrowLeftIcon, ArrowRightIcon } from 'phosphor-svelte';
+
   import ArticleCard from './ArticleCard.svelte';
 
   import type { ArticleDetail } from '$lib/models/article';
@@ -66,7 +68,7 @@
       disabled={!pagination.hasPrevious}
       aria-label="Go to previous article"
     >
-      <span aria-hidden="true">&#x2190;</span>
+      <span class="nav-icon"><ArrowLeftIcon size={20} aria-hidden="true" /></span>
     </button>
     <button
       type="button"
@@ -75,7 +77,7 @@
       disabled={!pagination.hasNext}
       aria-label="Go to next article"
     >
-      <span aria-hidden="true">&#x2192;</span>
+      <span class="nav-icon"><ArrowRightIcon size={20} aria-hidden="true" /></span>
     </button>
   </div>
 
@@ -87,7 +89,7 @@
       disabled={!pagination.hasPrevious}
       aria-label="Go to previous article"
     >
-      <span aria-hidden="true">&#x2190;</span>
+      <span class="nav-icon"><ArrowLeftIcon size={20} aria-hidden="true" /></span>
     </button>
     <button
       type="button"
@@ -96,7 +98,7 @@
       disabled={!pagination.hasNext}
       aria-label="Go to next article"
     >
-      <span aria-hidden="true">&#x2192;</span>
+      <span class="nav-icon"><ArrowRightIcon size={20} aria-hidden="true" /></span>
     </button>
   </div>
 
@@ -164,6 +166,10 @@
     }
   }
 
+  .nav-icon {
+    display: inline-flex;
+  }
+
   .nav {
     display: inline-flex;
     align-items: center;
@@ -171,9 +177,7 @@
     inline-size: 44px;
     block-size: 44px;
     padding: 0;
-    font-size: var(--font-size-2xl);
-    line-height: 1;
-    color: var(--color-fg);
+    overflow: hidden;
     cursor: pointer;
     background-color: var(--color-bg);
     border: 1px solid var(--color-border);
@@ -188,6 +192,42 @@
     &:focus-visible {
       outline: var(--focus-ring);
       outline-offset: var(--focus-ring-offset);
+    }
+
+    &.nav-prev {
+      --nav-direction: -1;
+    }
+
+    &.nav-next {
+      --nav-direction: 1;
+    }
+
+    &:hover:not(:disabled) .nav-icon,
+    &:focus-visible:not(:disabled) .nav-icon {
+      animation: nav-icon-loop var(--duration-slow) var(--linear-ease-out);
+    }
+  }
+
+  /* Slides the icon out toward the travel direction, then back in from the opposite edge. */
+  @keyframes nav-icon-loop {
+    0% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    45% {
+      opacity: 0;
+      transform: translateX(calc(var(--nav-direction) * 160%));
+    }
+
+    55% {
+      opacity: 0;
+      transform: translateX(calc(var(--nav-direction) * -160%));
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateX(0);
     }
   }
 
@@ -260,6 +300,11 @@
     .track,
     .slide {
       transition: none;
+    }
+
+    .nav:hover:not(:disabled) .nav-icon,
+    .nav:focus-visible:not(:disabled) .nav-icon {
+      animation: none;
     }
   }
 </style>
