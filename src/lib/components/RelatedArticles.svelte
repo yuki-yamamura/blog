@@ -1,5 +1,6 @@
 <script lang="ts">
   import { ArrowLeftIcon, ArrowRightIcon } from 'phosphor-svelte';
+  import { onMount } from 'svelte';
 
   import ArticleCard from './ArticleCard.svelte';
 
@@ -7,65 +8,104 @@
 
   const { articles }: { articles: ArticleDetail['relatedArticles'] } = $props();
 
-  const TOTAL = 5;
   const INITIAL_INDEX = 2;
+  let currentIndex = $state(INITIAL_INDEX);
+  let scroller = $state<HTMLElement>();
+  let slides = $state<HTMLLIElement[]>([]);
 
-  class Pagination {
-    currentIndex = $state(INITIAL_INDEX);
-    hasPrevious = $derived(this.currentIndex > 0);
-    hasNext = $derived(this.currentIndex < TOTAL - 1);
+  const hasPrevious = $derived(currentIndex > 0);
+  const hasNext = $derived(currentIndex < articles.length - 1);
 
-    goPrevious = () => {
-      if (this.hasPrevious) {
-        this.currentIndex -= 1;
-      }
+  const scrollToIndex = (index: number, behavior: ScrollBehavior = 'auto') => {
+    const slide = slides[index];
+    if (!scroller || !slide) {
+      return;
+    }
+
+    scroller.scrollTo({
+      behavior,
+      left: slide.offsetLeft - (scroller.clientWidth - slide.offsetWidth) / 2,
+    });
+  };
+
+  const goPrevious = () => {
+    scrollToIndex(currentIndex - 1);
+  };
+
+  const goNext = () => {
+    scrollToIndex(currentIndex + 1);
+  };
+
+  onMount(() => {
+    scrollToIndex(INITIAL_INDEX, 'instant');
+
+    const ratios: number[] = articles.map(() => 0);
+    const observedSlides: Element[] = slides;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          ratios[observedSlides.indexOf(entry.target)] = entry.intersectionRatio;
+        }
+
+        let mostVisibleIndex = currentIndex;
+        let mostVisibleRatio = -1;
+        for (const [index, ratio] of ratios.entries()) {
+          if (ratio <= mostVisibleRatio) {
+            continue;
+          }
+
+          mostVisibleIndex = index;
+          mostVisibleRatio = ratio;
+        }
+        currentIndex = mostVisibleIndex;
+      },
+      {
+        root: scroller,
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+      },
+    );
+    for (const slide of slides) {
+      observer.observe(slide);
+    }
+
+    return () => {
+      observer.disconnect();
     };
-
-    goNext = () => {
-      if (this.hasNext) {
-        this.currentIndex += 1;
-      }
-    };
-
-    goTo = (index: number) => {
-      if (0 <= index && index < TOTAL) {
-        this.currentIndex = index;
-      }
-    };
-  }
-
-  const pagination = new Pagination();
+  });
 </script>
 
 <section class="base" aria-labelledby="related-articles-heading">
   <h2 id="related-articles-heading">Read Next</h2>
 
   <div class="viewport">
-    <ul
-      class="track"
+    <div
+      class="scroller"
+      bind:this={scroller}
       role="region"
       aria-roledescription="carousel"
       aria-label="Related articles carousel"
-      style:--current-index={pagination.currentIndex}
     >
-      {#each articles as article, index (article.slug)}
-        <li
-          class="slide"
-          class:is-current={index === pagination.currentIndex}
-          role="group"
-          aria-roledescription="slide"
-          aria-label={`${index + 1} / ${TOTAL}`}
-        >
-          <ArticleCard {article} />
-        </li>
-      {/each}
-    </ul>
+      <ul class="track">
+        {#each articles as article, index (article.slug)}
+          <li
+            class="slide"
+            class:is-current={index === currentIndex}
+            bind:this={slides[index]}
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${index + 1} / ${articles.length}`}
+          >
+            <ArticleCard {article} />
+          </li>
+        {/each}
+      </ul>
+    </div>
 
     <button
       type="button"
       class="nav nav-prev nav-overlay"
-      onclick={pagination.goPrevious}
-      disabled={!pagination.hasPrevious}
+      onclick={goPrevious}
+      disabled={!hasPrevious}
       aria-label="Go to previous article"
     >
       <span class="nav-icon"><ArrowLeftIcon size={20} aria-hidden="true" /></span>
@@ -73,29 +113,8 @@
     <button
       type="button"
       class="nav nav-next nav-overlay"
-      onclick={pagination.goNext}
-      disabled={!pagination.hasNext}
-      aria-label="Go to next article"
-    >
-      <span class="nav-icon"><ArrowRightIcon size={20} aria-hidden="true" /></span>
-    </button>
-  </div>
-
-  <div class="nav-row">
-    <button
-      type="button"
-      class="nav nav-prev nav-row-button"
-      onclick={pagination.goPrevious}
-      disabled={!pagination.hasPrevious}
-      aria-label="Go to previous article"
-    >
-      <span class="nav-icon"><ArrowLeftIcon size={20} aria-hidden="true" /></span>
-    </button>
-    <button
-      type="button"
-      class="nav nav-next nav-row-button"
-      onclick={pagination.goNext}
-      disabled={!pagination.hasNext}
+      onclick={goNext}
+      disabled={!hasNext}
       aria-label="Go to next article"
     >
       <span class="nav-icon"><ArrowRightIcon size={20} aria-hidden="true" /></span>
@@ -108,12 +127,12 @@
         <button
           type="button"
           class="dot"
-          class:is-current={index === pagination.currentIndex}
+          class:is-current={index === currentIndex}
           onclick={() => {
-            pagination.goTo(index);
+            scrollToIndex(index);
           }}
-          aria-label={`${index + 1} / ${TOTAL}`}
-          aria-current={index === pagination.currentIndex ? 'true' : undefined}
+          aria-label={`${index + 1} / ${articles.length}`}
+          aria-current={index === currentIndex ? 'true' : undefined}
         ></button>
       </li>
     {/each}
@@ -135,10 +154,23 @@
 
   .viewport {
     position: relative;
-    overflow: hidden;
 
     --slide-basis: 78%;
     --slide-gap: var(--space-4);
+  }
+
+  .scroller {
+    /* Horizontal padding is added by the .track spacers so the edge slides can centre. */
+    padding-block: var(--space-1);
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .track {
@@ -147,17 +179,18 @@
     padding: 0;
     margin: 0;
     list-style: none;
-    transform: translateX(
-      calc(
-        (100% - var(--slide-basis)) / 2 - var(--current-index) *
-          (var(--slide-basis) + var(--slide-gap))
-      )
-    );
-    transition: transform var(--duration-base) var(--ease-out);
+
+    /* Spacers that let the first and last slide reach the centre of the scroller. */
+    &::before,
+    &::after {
+      flex: 0 0 max(0px, (100% - var(--slide-basis)) / 2 - var(--slide-gap));
+      content: '';
+    }
   }
 
   .slide {
     flex: 0 0 var(--slide-basis);
+    scroll-snap-align: center;
     opacity: 0.5;
     transition: opacity var(--duration-base) var(--ease-out);
 
@@ -246,12 +279,6 @@
     }
   }
 
-  .nav-row {
-    display: flex;
-    column-gap: var(--space-4);
-    justify-content: center;
-  }
-
   .dots {
     display: flex;
     column-gap: var(--space-2);
@@ -284,10 +311,6 @@
     .viewport {
       --slide-basis: 60%;
     }
-
-    .nav-row {
-      display: none;
-    }
   }
 
   @media (width < 768px) {
@@ -297,7 +320,10 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .track,
+    .scroller {
+      scroll-behavior: auto;
+    }
+
     .slide {
       transition: none;
     }
