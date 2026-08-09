@@ -72,9 +72,13 @@
 
   .content {
     flex-grow: 1;
-    padding: var(--space-6);
+    padding: var(--space-4);
     background-color: white;
     border-radius: 16px;
+
+    @media (768px <= width) {
+      padding: var(--space-6);
+    }
   }
 
   .inner {

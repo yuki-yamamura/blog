@@ -18,6 +18,7 @@
     justify-content: center;
     inline-size: 100vw;
     block-size: 64px;
+    padding-inline: var(--space-4);
     margin-inline: calc(50% - 50vw);
 
     /* the bottom border is a wavy hand-drawn line; a data URI can't reference
