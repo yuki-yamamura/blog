@@ -19,5 +19,7 @@ export function transformImageUrl({
     return src;
   }
 
-  return `/cdn-cgi/image/height=${height},width=${width},fit=${fit},format=auto${src}`;
+  const { pathname } = new URL(src, `https://${hostname}`);
+
+  return `/cdn-cgi/image/height=${height},width=${width},fit=${fit},format=auto${pathname}`;
 }
