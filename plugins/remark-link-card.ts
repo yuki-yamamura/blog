@@ -19,35 +19,30 @@ function escapeAttribute(value: string): string {
     .replaceAll('>', '&gt;');
 }
 
-function extractMetaContent(html: string, pattern: RegExp): string | undefined {
-  const match = pattern.exec(html);
+function extractMetaContents(html: string): Map<string, string> {
+  const metaContents = new Map<string, string>();
 
-  return match?.[1];
+  for (const [tag] of html.matchAll(/<meta\s[^>]*>/gi)) {
+    const key = /(?:property|name)=["']([^"']+)["']/i.exec(tag)?.[1];
+    const content = /content=["']([^"']*)["']/i.exec(tag)?.[1];
+    if (key === undefined || content === undefined || metaContents.has(key)) {
+      continue;
+    }
+
+    metaContents.set(key, content);
+  }
+
+  return metaContents;
 }
 
 function extractOgData(html: string, url: string): OgData {
-  const titleFromTag = extractMetaContent(html, /<title>([^<]*)<\/title>/i);
-  const ogTitle = extractMetaContent(
-    html,
-    /<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']*)["']/i,
-  );
-  const ogDescription = extractMetaContent(
-    html,
-    /<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']*)["']/i,
-  );
-  const description = extractMetaContent(
-    html,
-    /<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i,
-  );
-  const ogImage = extractMetaContent(
-    html,
-    /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']*)["']/i,
-  );
+  const metaContents = extractMetaContents(html);
+  const titleFromTag = /<title>([^<]*)<\/title>/i.exec(html)?.[1];
 
   return {
-    description: ogDescription ?? description ?? '',
-    image: ogImage ?? '',
-    title: ogTitle ?? titleFromTag ?? url,
+    description: metaContents.get('og:description') ?? metaContents.get('description') ?? '',
+    image: metaContents.get('og:image') ?? '',
+    title: metaContents.get('og:title') ?? titleFromTag ?? url,
   };
 }
 

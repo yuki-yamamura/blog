@@ -49,6 +49,7 @@
   }
 
   .image-wrapper {
+    position: relative;
     flex-shrink: 0;
     align-self: stretch;
     inline-size: 30%;
@@ -56,6 +57,8 @@
   }
 
   .image {
+    position: absolute;
+    inset: 0;
     inline-size: 100%;
     block-size: 100%;
     object-fit: cover;
@@ -68,6 +71,8 @@
   }
 
   .placeholder {
+    position: absolute;
+    inset: 0;
     inline-size: 100%;
     block-size: 100%;
     background-image: linear-gradient(135deg, var(--color-accent), var(--color-bg));
