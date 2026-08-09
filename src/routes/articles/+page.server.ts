@@ -1,4 +1,4 @@
-import { error, redirect } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 
 import { getTotalPages } from '$lib/models/article';
 import { createArticlesPageQueryParamsSchema } from '$lib/schemas/articles-page-query-param';
@@ -7,7 +7,6 @@ import {
   getArticleMetadataList,
   getArticlesByPage,
 } from '$lib/server/article';
-import { pathMap } from '$lib/utils/path';
 
 import type { Article } from '$lib/models/article';
 import type { PageServerLoadEvent } from './$types';
@@ -27,9 +26,6 @@ export async function load({ url }: PageServerLoadEvent): Promise<{
 
   const pageParam = url.searchParams.get('page');
   const firstPage = 1;
-  if (pageParam === firstPage.toString()) {
-    redirect(301, pathMap['/articles'].get());
-  }
 
   let page: number;
   if (pageParam === null) {

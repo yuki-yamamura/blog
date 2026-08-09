@@ -8,6 +8,13 @@
   };
 
   const { pagination }: { pagination: Pagination } = $props();
+
+  function getPageHref(page: number): string {
+    const firstPage = 1;
+    const path = pathMap['/articles'].get();
+
+    return page === firstPage ? path : `${path}?page=${page}`;
+  }
 </script>
 
 {#if pagination.shouldShowPagination}
@@ -15,7 +22,7 @@
     <ul role="list" class="items">
       {#each pagination.displayPages as page (page)}
         <a
-          href={`${pathMap['/articles'].get()}?page=${page}`}
+          href={getPageHref(page)}
           aria-current={page === pagination.currentPage ? 'page' : undefined}
           class="link"
         >
