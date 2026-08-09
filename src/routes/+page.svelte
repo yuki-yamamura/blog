@@ -2,6 +2,7 @@
   import { ArrowRightIcon } from 'phosphor-svelte';
   import { onMount } from 'svelte';
 
+  import Seo from '$lib/components/Seo.svelte';
   import { pathMap } from '$lib/utils/path';
   import { wind } from '$lib/utils/wind.svelte';
 
@@ -27,10 +28,7 @@
   });
 </script>
 
-<svelte:head>
-  <title>ymmr.dev</title>
-  <meta name="description" content="Notes about programming and things on my mind." />
-</svelte:head>
+<Seo title="ymmr.dev" description="Notes about programming and things on my mind." />
 
 <main class="base">
   <div class="hero">

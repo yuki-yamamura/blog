@@ -1,6 +1,7 @@
 <script lang="ts">
   import ArticleCardList from '$lib/components/ArticleList.svelte';
   import PageContainer from '$lib/components/layouts/PageContainer.svelte';
+  import Seo from '$lib/components/Seo.svelte';
   import ArticlePagination from '$lib/components/ui/Pagination.svelte';
   import { createArticlePagination } from '$lib/models/article';
   import { pathMap } from '$lib/utils/path';
@@ -22,6 +23,8 @@
     return new URL(`${path}${search}`, page.url.origin).href;
   });
 </script>
+
+<Seo title="Articles | ymmr.dev" description="All articles on ymmr.dev." />
 
 <svelte:head>
   <link rel="canonical" href={canonicalUrl} />

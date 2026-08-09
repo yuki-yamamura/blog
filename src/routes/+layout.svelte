@@ -12,6 +12,7 @@
 
 <svelte:head>
   <link rel="icon" href={favicon} />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 </svelte:head>
 
 <div class="base">

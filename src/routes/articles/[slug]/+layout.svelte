@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Seo from '$lib/components/Seo.svelte';
+
   import type { LayoutProps } from './$types';
 
   const { children, data }: LayoutProps = $props();
@@ -7,9 +9,7 @@
   } = $derived(data);
 </script>
 
-<svelte:head>
-  <title>{article.title}</title>
-</svelte:head>
+<Seo title={article.title} description={article.excerpt} ogType="article" />
 
 <div class="base">
   {@render children()}

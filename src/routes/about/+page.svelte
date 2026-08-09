@@ -3,9 +3,12 @@
 
   import avatar from '$lib/assets/avatar.jpg';
   import PageContainer from '$lib/components/layouts/PageContainer.svelte';
+  import Seo from '$lib/components/Seo.svelte';
   import Image from '$lib/components/ui/Image.svelte';
   import Link from '$lib/components/ui/Link.svelte';
 </script>
+
+<Seo title="About | ymmr.dev" description="About Yuki Yamamura, a software engineer in Japan." />
 
 <PageContainer>
   <div class="inner">
