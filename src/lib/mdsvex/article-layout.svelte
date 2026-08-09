@@ -79,7 +79,7 @@
     }
   }
 
-  :global(.article-content :where(img)) {
+  :global(.article-content :where(img):not(a img)) {
     display: block;
     max-inline-size: 100%;
     block-size: auto;
