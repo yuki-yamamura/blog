@@ -7,8 +7,6 @@
   import type { Article } from '$lib/models/article';
 
   const { article }: { article: Article } = $props();
-
-  const excerpt = $derived(article.content.slice(0, 300));
 </script>
 
 <a href={pathMap['/articles/:slug'].get(article.slug)} class="base">
@@ -30,7 +28,7 @@
           </li>
         {/each}
       </ul>
-      <p class="excerpt">{excerpt}</p>
+      <p class="excerpt">{article.excerpt}</p>
     </div>
   </article>
 </a>

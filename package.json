@@ -74,8 +74,11 @@
     "@shikijs/transformers": "^4.3.1",
     "class-variance-authority": "^0.7.1",
     "image-size": "^2.0.2",
+    "mdast-util-to-string": "^4.0.0",
     "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
     "shiki": "^4.3.1",
+    "unified": "^11.0.5",
     "unist-util-visit": "^5.1.0",
     "zod": "^4.4.3"
   }

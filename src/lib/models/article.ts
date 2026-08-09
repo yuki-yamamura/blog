@@ -18,7 +18,7 @@ export type ArticleMetadataInFrontMatter = {
 };
 
 const articleSchema = z.object({
-  content: z.string().min(1),
+  excerpt: z.string().min(1),
   publishDate: z.iso.datetime(),
   slug: z.string().min(1),
   tags: z.array(tagSchema).min(1),
@@ -33,7 +33,7 @@ export type Article = Brand<typeof _articleSymbol> & z.infer<typeof articleSchem
  * A constructor function to create an article.
  */
 export function createArticle(params: {
-  content: string;
+  excerpt: string;
   publishDate: string;
   slug: string;
   tags: string[];

@@ -1,4 +1,8 @@
+import { toString } from 'mdast-util-to-string';
+import remarkGfm from 'remark-gfm';
+import remarkParse from 'remark-parse';
 import { Temporal } from 'temporal-polyfill';
+import { unified } from 'unified';
 
 import { createArticle, filterArticleMetadataListByPage } from '$lib/models/article';
 import { err, ok } from '$lib/utils/result';
@@ -58,7 +62,7 @@ async function getArticle(
 
   const content = await getArticleContent(slug);
   const articleResult = createArticle({
-    content,
+    excerpt: getExcerpt(content),
     publishDate: metadata.publishDate,
     slug,
     tags: metadata.tags,
@@ -196,6 +200,20 @@ async function getArticleContent(slug: Article['slug']): Promise<string> {
   const rawArticle = await rawArticleModules[`/articles/${slug}/index.md`]?.();
 
   return rawArticle?.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '') ?? '';
+}
+
+/**
+ * Extracts a plain text excerpt from markdown content.
+ */
+export function getExcerpt(content: string): string {
+  const paragraphs = unified()
+    .use(remarkParse)
+    .use(remarkGfm)
+    .parse(content)
+    .children.map((paragraph) => toString(paragraph))
+    .filter((text) => text !== '');
+
+  return paragraphs.join('\n').slice(0, 200);
 }
 
 declare const _sortedArticleMetadataListSymbol: unique symbol;
