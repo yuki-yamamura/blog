@@ -1,47 +1,58 @@
 <script lang="ts">
   import ArticleCard from './ArticleCard.svelte';
 
-  import type { RelatedArticles } from '$lib/models/article';
+  import type { ArticleDetail } from '$lib/models/article';
 
-  const { articles }: { articles: RelatedArticles } = $props();
+  const { articles }: { articles: ArticleDetail['relatedArticles'] } = $props();
 
   const TOTAL = 5;
   const INITIAL_INDEX = 2;
 
-  let currentIndex = $state(INITIAL_INDEX);
+  class Pagination {
+    currentIndex = $state(INITIAL_INDEX);
+    hasPrevious = $derived(this.currentIndex > 0);
+    hasNext = $derived(this.currentIndex < TOTAL - 1);
 
-  const canGoPrev = $derived(currentIndex > 0);
-  const canGoNext = $derived(currentIndex < TOTAL - 1);
+    goPrevious = () => {
+      if (this.hasPrevious) {
+        this.currentIndex -= 1;
+      }
+    };
 
-  function goPrev() {
-    if (canGoPrev) currentIndex -= 1;
+    goNext = () => {
+      if (this.hasNext) {
+        this.currentIndex += 1;
+      }
+    };
+
+    goTo = (index: number) => {
+      if (0 <= index && index < TOTAL) {
+        this.currentIndex = index;
+      }
+    };
   }
-  function goNext() {
-    if (canGoNext) currentIndex += 1;
-  }
-  function goTo(index: number) {
-    currentIndex = index;
-  }
+
+  const pagination = new Pagination();
 </script>
 
-<section class="related" aria-labelledby="related-articles-heading">
-  <h2 id="related-articles-heading">関連記事</h2>
+<section class="base" aria-labelledby="related-articles-heading">
+  <h2 id="related-articles-heading">Read Next</h2>
 
   <div class="viewport">
     <ul
       class="track"
       role="region"
       aria-roledescription="carousel"
-      aria-label="関連記事カルーセル"
-      style:--current-index={currentIndex}
+      aria-label="Related articles carousel"
+      style:--current-index={pagination.currentIndex}
     >
-      {#each articles as article, i (article.slug)}
+      {#each articles as article, index (article.slug)}
         <li
           class="slide"
-          class:is-current={i === currentIndex}
+          class:is-current={index === pagination.currentIndex}
           role="group"
           aria-roledescription="slide"
-          aria-label={`${i + 1} / ${TOTAL}`}
+          aria-label={`${index + 1} / ${TOTAL}`}
         >
           <ArticleCard {article} />
         </li>
@@ -51,20 +62,20 @@
     <button
       type="button"
       class="nav nav-prev nav-overlay"
-      onclick={goPrev}
-      disabled={!canGoPrev}
-      aria-label="前の記事へ"
+      onclick={pagination.goPrevious}
+      disabled={!pagination.hasPrevious}
+      aria-label="Go to previous article"
     >
-      <span aria-hidden="true">‹</span>
+      <span aria-hidden="true">&#x2190;</span>
     </button>
     <button
       type="button"
       class="nav nav-next nav-overlay"
-      onclick={goNext}
-      disabled={!canGoNext}
-      aria-label="次の記事へ"
+      onclick={pagination.goNext}
+      disabled={!pagination.hasNext}
+      aria-label="Go to next article"
     >
-      <span aria-hidden="true">›</span>
+      <span aria-hidden="true">&#x2192;</span>
     </button>
   </div>
 
@@ -72,35 +83,35 @@
     <button
       type="button"
       class="nav nav-prev nav-row-button"
-      onclick={goPrev}
-      disabled={!canGoPrev}
-      aria-label="前の記事へ"
+      onclick={pagination.goPrevious}
+      disabled={!pagination.hasPrevious}
+      aria-label="Go to previous article"
     >
-      <span aria-hidden="true">‹</span>
+      <span aria-hidden="true">&#x2190;</span>
     </button>
     <button
       type="button"
       class="nav nav-next nav-row-button"
-      onclick={goNext}
-      disabled={!canGoNext}
-      aria-label="次の記事へ"
+      onclick={pagination.goNext}
+      disabled={!pagination.hasNext}
+      aria-label="Go to next article"
     >
-      <span aria-hidden="true">›</span>
+      <span aria-hidden="true">&#x2192;</span>
     </button>
   </div>
 
   <ul class="dots" role="list">
-    {#each articles as article, i (article.slug)}
+    {#each articles as article, index (article.slug)}
       <li>
         <button
           type="button"
           class="dot"
-          class:is-current={i === currentIndex}
+          class:is-current={index === pagination.currentIndex}
           onclick={() => {
-            goTo(i);
+            pagination.goTo(index);
           }}
-          aria-label={`スライド ${i + 1} / ${TOTAL}`}
-          aria-current={i === currentIndex ? 'true' : undefined}
+          aria-label={`${index + 1} / ${TOTAL}`}
+          aria-current={index === pagination.currentIndex ? 'true' : undefined}
         ></button>
       </li>
     {/each}
@@ -108,11 +119,10 @@
 </section>
 
 <style>
-  .related {
+  .base {
     display: flex;
     flex-direction: column;
     row-gap: var(--space-4);
-    margin-block-start: 256px;
   }
 
   h2 {
@@ -167,12 +177,12 @@
     cursor: pointer;
     background-color: var(--color-bg);
     border: 1px solid var(--color-border);
-    border-radius: 50%;
-    box-shadow: 0 2px 6px rgb(0 0 0 / 12%);
+    border-radius: 100vmax;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
 
     &:disabled {
       cursor: not-allowed;
-      opacity: 0.4;
+      opacity: 0.3;
     }
 
     &:focus-visible {
@@ -230,7 +240,6 @@
     }
   }
 
-  /* Desktop: overlay nav, hide row */
   @media (768px <= width) {
     .viewport {
       --slide-basis: 60%;
@@ -241,7 +250,6 @@
     }
   }
 
-  /* Mobile: hide overlay nav, show row */
   @media (width < 768px) {
     .nav-overlay {
       display: none;

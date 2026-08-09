@@ -7,20 +7,14 @@ import { err, ok } from '../utils/result';
 
 import type { Brand } from '../types/brand';
 import type { Result } from '../utils/result';
-import type { Component } from 'svelte';
 
 const MAX_DISPLAY_PAGES = 5;
 const ARTICLES_PER_PAGE = 12;
 
-type ArticleMetadataInFrontMatter = {
+export type ArticleMetadataInFrontMatter = {
   publishDate: string;
   tags: string[];
   title: string;
-};
-
-export type ArticleModule = {
-  default: Component;
-  metadata: ArticleMetadataInFrontMatter;
 };
 
 const articleSchema = z.object({
@@ -68,46 +62,10 @@ export function createArticle(params: {
 
 export type ArticleMetadata = Pick<Article, 'publishDate' | 'slug'>;
 
-const RELATED_ARTICLE_COUNT = 5;
-
-export type RelatedArticles = readonly [Article, Article, Article, Article, Article];
-
-export type RelatedArticleSlugs = readonly [string, string, string, string, string];
-
-export type ArticleDetail = Article & {
-  readonly relatedArticles: RelatedArticles;
+export type ArticleDetail = {
+  article: Article;
+  relatedArticles: readonly Article[];
 };
-
-export function isRelatedArticlesTuple(articles: readonly Article[]): articles is RelatedArticles {
-  return articles.length === RELATED_ARTICLE_COUNT;
-}
-
-export function selectRelatedArticleSlugs(
-  sortedMetadataList: readonly ArticleMetadata[],
-  currentSlug: string,
-): Result<RelatedArticleSlugs, Error> {
-  const currentIndex = sortedMetadataList.findIndex((m) => m.slug === currentSlug);
-  if (currentIndex === -1) {
-    return err(new Error(`Article not found in sorted list: ${currentSlug}`));
-  }
-
-  const newer = sortedMetadataList.slice(0, currentIndex);
-  const older = sortedMetadataList.slice(currentIndex + 1);
-  const combined = [...newer, ...older].slice(0, RELATED_ARTICLE_COUNT);
-
-  if (combined.length < RELATED_ARTICLE_COUNT) {
-    return err(
-      new Error(
-        `Not enough articles for related section: got ${combined.length}, want ${RELATED_ARTICLE_COUNT}`,
-      ),
-    );
-  }
-
-  const slugs = combined.map((m) => m.slug);
-
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- narrowing to fixed-length tuple after length check
-  return ok(slugs as unknown as RelatedArticleSlugs);
-}
 
 function shouldShowPagination(totalArticles: number): boolean {
   return totalArticles > ARTICLES_PER_PAGE;

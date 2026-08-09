@@ -5,7 +5,9 @@ import { ArticleNotFoundError, getArticleDetail } from '$lib/server/article';
 import type { ArticleDetail } from '$lib/models/article';
 import type { LayoutServerLoadEvent } from './$types';
 
-export async function load({ params }: LayoutServerLoadEvent): Promise<{ article: ArticleDetail }> {
+export async function load({
+  params,
+}: LayoutServerLoadEvent): Promise<{ articleDetail: ArticleDetail }> {
   const { slug } = params;
   const articleResult = await getArticleDetail(slug);
 
@@ -18,6 +20,6 @@ export async function load({ params }: LayoutServerLoadEvent): Promise<{ article
   }
 
   return {
-    article: articleResult.value,
+    articleDetail: articleResult.value,
   };
 }

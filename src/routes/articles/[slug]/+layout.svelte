@@ -2,7 +2,9 @@
   import type { LayoutProps } from './$types';
 
   const { children, data }: LayoutProps = $props();
-  const { article } = $derived(data);
+  const {
+    articleDetail: { article },
+  } = $derived(data);
 </script>
 
 <svelte:head>

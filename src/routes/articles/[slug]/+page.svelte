@@ -7,7 +7,10 @@
   import type { PageProps } from './$types';
 
   const props: PageProps = $props();
-  const { article, Component } = $derived(props.data);
+  const {
+    articleDetail: { article, relatedArticles },
+    Component,
+  } = $derived(props.data);
 </script>
 
 <PageContainer>
@@ -20,7 +23,7 @@
       height="200"
       class="thumbnail"
     />
-    <h1>{props.data.article.title}</h1>
+    <h1>{article.title}</h1>
     <ul role="list" class="tags">
       {#each article.tags as tag (tag)}
         <li>
@@ -30,11 +33,13 @@
     </ul>
   </div>
 
-  <div class="content">
-    <Component />
-  </div>
+  <div class="inner">
+    <div class="content">
+      <Component />
+    </div>
 
-  <RelatedArticles articles={article.relatedArticles} />
+    <RelatedArticles articles={relatedArticles} />
+  </div>
 </PageContainer>
 
 <style>
@@ -70,5 +75,11 @@
     padding: var(--space-6);
     background-color: white;
     border-radius: 16px;
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    row-gap: 128px;
   }
 </style>
