@@ -4,7 +4,14 @@
     "src/routes/**/+*.{ts,js,svelte}",
     "src/env.ts",
     "src/**/*.{test,spec}.{ts,js}",
-    "src/**/*.svelte.{test,spec}.{ts,js}"
+    "src/**/*.svelte.{test,spec}.{ts,js}",
+    "plugins/**/*.{ts,js}"
   ],
-  "project": ["src/**/*.{ts,js,svelte}"]
+  "project": ["src/**/*.{ts,js,svelte}", "plugins/**/*.{ts,js}"],
+  "ignoreDependencies": ["@types/unist"],
+  "ignore": [
+    "src/lib/components/ui/CodeBlock.svelte",
+    "src/lib/components/ui/LinkCard.svelte",
+    "src/lib/mdsvex/article-layout.svelte"
+  ]
 }

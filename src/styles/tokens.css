@@ -57,7 +57,10 @@
   /* Interactions */
   --duration-fast: 150ms;
   --duration-base: 300ms;
+  --duration-delayed: 450ms;
+  --duration-slow: 600ms;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --linear-ease-out: cubic-bezier(0, 0, 0.2, 1);
   --focus-ring: 2px solid var(--color-accent);
   --focus-ring-offset: 2px;
 }

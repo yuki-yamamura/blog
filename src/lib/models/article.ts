@@ -7,20 +7,14 @@ import { err, ok } from '../utils/result';
 
 import type { Brand } from '../types/brand';
 import type { Result } from '../utils/result';
-import type { Component } from 'svelte';
 
 const MAX_DISPLAY_PAGES = 5;
 const ARTICLES_PER_PAGE = 12;
 
-type ArticleMetadataInFrontMatter = {
+export type ArticleMetadataInFrontMatter = {
   publishDate: string;
   tags: string[];
   title: string;
-};
-
-export type ArticleModule = {
-  default: Component;
-  metadata: ArticleMetadataInFrontMatter;
 };
 
 const articleSchema = z.object({
@@ -67,6 +61,11 @@ export function createArticle(params: {
 }
 
 export type ArticleMetadata = Pick<Article, 'publishDate' | 'slug'>;
+
+export type ArticleDetail = {
+  article: Article;
+  relatedArticles: readonly Article[];
+};
 
 function shouldShowPagination(totalArticles: number): boolean {
   return totalArticles > ARTICLES_PER_PAGE;

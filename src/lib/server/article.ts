@@ -3,9 +3,22 @@ import { Temporal } from 'temporal-polyfill';
 import { createArticle, filterArticleMetadataListByPage } from '$lib/models/article';
 import { err, ok } from '$lib/utils/result';
 
-import type { Article, ArticleMetadata, ArticleModule } from '$lib/models/article';
+import { mustFindIndex } from '../utils/array';
+
+import type {
+  Article,
+  ArticleDetail,
+  ArticleMetadata,
+  ArticleMetadataInFrontMatter,
+} from '$lib/models/article';
 import type { Err, Ok, Result } from '$lib/utils/result';
 import type { Brand } from '../types/brand';
+import type { Component } from 'svelte';
+
+export type ArticleModule = {
+  default: Component;
+  metadata: ArticleMetadataInFrontMatter;
+};
 
 const articleModules = import.meta.glob<ArticleModule>('/articles/*/index.md');
 
@@ -28,7 +41,7 @@ export class ArticleNotFoundError extends Error {
   }
 }
 
-export async function getArticle(
+async function getArticle(
   slug: Article['slug'],
 ): Promise<Result<Article, ArticleNotFoundError | Error>> {
   const articleModule = await articleModules[`/articles/${slug}/index.md`]?.();
@@ -58,6 +71,47 @@ export async function getArticle(
   }
 
   return ok(articleResult.value);
+}
+
+export async function getArticleDetail(
+  slug: Article['slug'],
+): Promise<Result<ArticleDetail, ArticleNotFoundError | Error>> {
+  const [articleResult, metadataListResult] = await Promise.all([
+    getArticle(slug),
+    getArticleMetadataList(),
+  ]);
+
+  if (articleResult.isErr) {
+    return articleResult;
+  }
+  if (metadataListResult.isErr) {
+    return metadataListResult;
+  }
+
+  const sortedMetadataList = createSortedArticleMetadataList(metadataListResult.value);
+  const currentArticleIndex = mustFindIndex(
+    sortedMetadataList,
+    (metadata) => metadata.slug === slug,
+  );
+  const newerArticles = sortedMetadataList.slice(0, currentArticleIndex);
+  const olderArticles = sortedMetadataList.slice(currentArticleIndex + 1);
+  const relatedArticleMetadataList = [...newerArticles, ...olderArticles].slice(0, 5);
+
+  const relatedArticleResults = await Promise.all(
+    relatedArticleMetadataList.map((metadata) => getArticle(metadata.slug)),
+  );
+  const relatedArticles: Article[] = [];
+  for (const result of relatedArticleResults) {
+    if (result.isErr) {
+      return result;
+    }
+    relatedArticles.push(result.value);
+  }
+
+  return ok({
+    article: articleResult.value,
+    relatedArticles,
+  });
 }
 
 export async function getArticleMetadataList(): Promise<Result<ArticleMetadata[], Error>> {
@@ -151,7 +205,7 @@ type SortedArticleMetadataList = Brand<typeof _sortedArticleMetadataListSymbol> 
 /**
  * Creates a sorted list of article metadata, sorted by publish date in descending order.
  */
-export function createSortedMetadataList(
+export function createSortedArticleMetadataList(
   articleMetadataList: ArticleMetadata[],
 ): SortedArticleMetadataList {
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- We allow to use type assertion inside a constructor function when using a branded type.

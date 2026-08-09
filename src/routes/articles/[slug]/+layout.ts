@@ -1,6 +1,7 @@
 import { error } from '@sveltejs/kit';
 
-import type { Article, ArticleModule } from '$lib/models/article';
+import type { ArticleDetail } from '$lib/models/article';
+import type { ArticleModule } from '$lib/server/article';
 import type { LayoutLoadEvent } from './$types';
 import type { Component } from 'svelte';
 
@@ -9,8 +10,8 @@ const articleModules = import.meta.glob<ArticleModule>('/articles/*/index.md');
 export async function load({
   data,
   params,
-}: LayoutLoadEvent): Promise<{ article: Article; Component: Component }> {
-  const { article } = data;
+}: LayoutLoadEvent): Promise<{ articleDetail: ArticleDetail; Component: Component }> {
+  const { articleDetail } = data;
   const { slug } = params;
 
   const articleModule = await articleModules[`/articles/${slug}/index.md`]?.();
@@ -19,7 +20,7 @@ export async function load({
   }
 
   return {
-    article,
+    articleDetail,
     Component: articleModule.default,
   };
 }
