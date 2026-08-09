@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { wind } from '$lib/utils/wind.svelte';
+
   let isSwinging = $state(false);
 
   const startSwing = () => {
@@ -8,6 +10,12 @@
 
     isSwinging = true;
   };
+
+  $effect(() => {
+    if (wind.gust > 0) {
+      startSwing();
+    }
+  });
 
   const settle = (event: AnimationEvent) => {
     if (event.target === event.currentTarget) {
