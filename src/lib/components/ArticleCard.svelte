@@ -1,8 +1,7 @@
 <script lang="ts">
+  import TagBadge from '$lib/components/TagBadge.svelte';
+  import Image from '$lib/components/ui/Image.svelte';
   import { pathMap } from '$lib/utils/path';
-
-  import TagBadge from './TagBadge.svelte';
-  import Image from './ui/Image.svelte';
 
   import type { Article } from '$lib/models/article';
 

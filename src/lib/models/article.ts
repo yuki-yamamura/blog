@@ -1,12 +1,11 @@
 import z from 'zod';
 
 import { createSortedTags, tagSchema } from '$lib/models/tag';
+import { formatDate } from '$lib/utils/date';
+import { err, ok } from '$lib/utils/result';
 
-import { formatDate } from '../utils/date';
-import { err, ok } from '../utils/result';
-
-import type { Brand } from '../types/brand';
-import type { Result } from '../utils/result';
+import type { Brand } from '$lib/types/brand';
+import type { Result } from '$lib/utils/result';
 
 const MAX_DISPLAY_PAGES = 5;
 const ARTICLES_PER_PAGE = 9;
@@ -67,8 +66,8 @@ export type ArticleDetail = {
   relatedArticles: readonly Article[];
 };
 
-function shouldShowPagination(totalArticles: number): boolean {
-  return totalArticles > ARTICLES_PER_PAGE;
+export function getTotalPages(totalArticles: number): number {
+  return Math.ceil(totalArticles / ARTICLES_PER_PAGE);
 }
 
 function getDisplayPages(currentPage: number, totalPages: number): number[] {
@@ -80,10 +79,6 @@ function getDisplayPages(currentPage: number, totalPages: number): number[] {
   const displayPageCount = Math.min(MAX_DISPLAY_PAGES, totalPages);
 
   return Array.from({ length: displayPageCount }, (_, index) => index + startPage);
-}
-
-export function getTotalPages(totalArticles: number): number {
-  return Math.ceil(totalArticles / ARTICLES_PER_PAGE);
 }
 
 export type ArticlePagination = {
@@ -98,11 +93,12 @@ export function createArticlePagination(
   totalArticles: number,
 ): ArticlePagination {
   const totalPages = getTotalPages(totalArticles);
+  const shouldShowPagination = totalArticles > ARTICLES_PER_PAGE;
 
   return {
     currentPage,
     displayPages: getDisplayPages(currentPage, totalPages),
-    shouldShowPagination: shouldShowPagination(totalArticles),
+    shouldShowPagination,
     totalPages,
   };
 }

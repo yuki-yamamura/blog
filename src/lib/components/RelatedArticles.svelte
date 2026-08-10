@@ -2,7 +2,7 @@
   import { ArrowLeftIcon, ArrowRightIcon } from 'phosphor-svelte';
   import { onMount } from 'svelte';
 
-  import ArticleCard from './ArticleCard.svelte';
+  import ArticleCard from '$lib/components/ArticleCard.svelte';
 
   import type { ArticleDetail } from '$lib/models/article';
 

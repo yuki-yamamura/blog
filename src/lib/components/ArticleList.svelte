@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ArticleCard from './ArticleCard.svelte';
+  import ArticleCard from '$lib/components/ArticleCard.svelte';
 
   import type { Article } from '$lib/models/article';
 

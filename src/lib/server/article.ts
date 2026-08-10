@@ -31,12 +31,10 @@ const rawArticleModules = import.meta.glob('/articles/*/index.md', {
   query: '?raw',
 });
 
-const thumbnailModules = import.meta.glob<string>('/articles/*/thumbnail.{png,jpg,webp,svg}', {
+const thumbnailModules = import.meta.glob<string>('/articles/*/thumbnail.svg', {
   import: 'default',
   query: '?url',
 });
-
-const THUMBNAIL_EXTENSIONS = ['png', 'jpg', 'webp', 'svg'] as const;
 
 export class ArticleNotFoundError extends Error {
   constructor(slug: Article['slug']) {
@@ -54,7 +52,7 @@ async function getArticle(
   }
   const { metadata } = articleModule;
 
-  const thumbnailLoader = findThumbnailLoader(slug);
+  const thumbnailLoader = thumbnailModules[`/articles/${slug}/thumbnail.svg`];
   if (!thumbnailLoader) {
     return err(new Error(`Thumbnail not found for article: ${slug}`));
   }
@@ -183,17 +181,6 @@ function extractSlug(path: string): string | undefined {
   const match = /^\/articles\/([^/]+)\/index\.md$/.exec(path);
 
   return match?.[1];
-}
-
-function findThumbnailLoader(slug: string): (() => Promise<string>) | undefined {
-  for (const extension of THUMBNAIL_EXTENSIONS) {
-    const loader = thumbnailModules[`/articles/${slug}/thumbnail.${extension}`];
-    if (loader) {
-      return loader;
-    }
-  }
-
-  return undefined;
 }
 
 async function getArticleContent(slug: Article['slug']): Promise<string> {
