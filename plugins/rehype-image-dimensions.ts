@@ -4,6 +4,8 @@ import path from 'node:path';
 import { imageSize } from 'image-size';
 import { visit } from 'unist-util-visit';
 
+import { ARTICLES_DIRECTORY_NAME } from './constants';
+
 import type { Element, Root } from 'hast';
 import type { VFile } from 'vfile';
 
@@ -54,7 +56,7 @@ export function rehypeImageDimensions() {
       const slug = path.basename(srcDirectory);
       const filename = path.basename(src);
 
-      node.properties.src = `/articles/${slug}/${filename}`;
+      node.properties.src = path.join(ARTICLES_DIRECTORY_NAME, slug, filename);
       node.properties.width = width;
       node.properties.height = height;
     });
