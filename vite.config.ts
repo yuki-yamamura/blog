@@ -1,7 +1,6 @@
 import path from 'node:path';
 
-import { defineConfig } from 'vitest/config';
-import { playwright } from '@vitest/browser-playwright';
+import { defineConfig } from 'vite';
 import adapter from '@sveltejs/adapter-cloudflare';
 import { sveltekit } from '@sveltejs/kit/vite';
 import rehypeShikiFromHighlighter from '@shikijs/rehype/core';
@@ -46,7 +45,7 @@ const SHIKI_LANGUAGES = [
 ] as const;
 
 const shikiEngine = await createOnigurumaEngine(import('shiki/wasm'));
-const shikiLangs = await Promise.all(
+const shikiLanguages = await Promise.all(
   SHIKI_LANGUAGES.filter((language) => language !== 'text').map(
     async (language) => (await import(`shiki/langs/${language}.mjs`)).default,
   ),
@@ -55,13 +54,9 @@ const shikiTheme = (await import(`shiki/themes/${SHIKI_THEME}.mjs`)).default;
 
 const highlighter = createHighlighterCoreSync({
   engine: shikiEngine,
-  langs: shikiLangs,
+  langs: shikiLanguages,
   themes: [shikiTheme],
 });
-
-function rehypeShiki(options: RehypeShikiCoreOptions) {
-  return rehypeShikiFromHighlighter(highlighter, options);
-}
 
 export default defineConfig({
   plugins: [
@@ -87,7 +82,7 @@ export default defineConfig({
           rehypePlugins: [
             rehypeImageDimensions,
             [
-              rehypeShiki,
+              (options: RehypeShikiCoreOptions) => rehypeShikiFromHighlighter(highlighter, options),
               {
                 theme: SHIKI_THEME,
                 transformers: [
@@ -109,33 +104,5 @@ export default defineConfig({
     fs: {
       allow: ['articles'],
     },
-  },
-  test: {
-    expect: { requireAssertions: true },
-    projects: [
-      {
-        extends: './vite.config.ts',
-        test: {
-          name: 'client',
-          browser: {
-            enabled: true,
-            provider: playwright(),
-            instances: [{ browser: 'chromium', headless: true }],
-          },
-          include: ['src/**/*.svelte.{test,spec}.{js,ts}'],
-          exclude: ['src/lib/server/**'],
-        },
-      },
-
-      {
-        extends: './vite.config.ts',
-        test: {
-          name: 'server',
-          environment: 'node',
-          include: ['src/**/*.{test,spec}.{js,ts}'],
-          exclude: ['src/**/*.svelte.{test,spec}.{js,ts}'],
-        },
-      },
-    ],
   },
 });
