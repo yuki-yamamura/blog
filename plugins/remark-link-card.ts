@@ -4,7 +4,7 @@ import type { Html, Paragraph, Parent, Root } from 'mdast';
 
 // Generous, because the network of a build environment can be far slower than a local one.
 const FETCH_TIMEOUT_MS = 15_000;
-const USER_AGENT = 'blog3-link-card-bot/1.0';
+const USER_AGENT = 'blog-link-card-bot/1.0';
 
 type OgData = {
   description: string;
