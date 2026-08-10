@@ -7,7 +7,7 @@
   import '../styles/reset.css';
   import '../styles/globals.css';
 
-  let { children } = $props();
+  const { children } = $props();
 </script>
 
 <svelte:head>

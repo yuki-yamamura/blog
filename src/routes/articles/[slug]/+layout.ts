@@ -1,11 +1,10 @@
 import { error } from '@sveltejs/kit';
 
+import { articleModules } from '$lib/server/article';
+
 import type { ArticleDetail } from '$lib/models/article';
-import type { ArticleModule } from '$lib/server/article';
 import type { LayoutLoadEvent } from './$types';
 import type { Component } from 'svelte';
-
-const articleModules = import.meta.glob<ArticleModule>('/articles/*/index.md');
 
 export async function load({
   data,
