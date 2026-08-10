@@ -24,7 +24,7 @@ export type ArticleModule = {
   metadata: ArticleMetadataInFrontMatter;
 };
 
-export const articleModules = import.meta.glob<ArticleModule>('/articles/*/index.md');
+const articleModules = import.meta.glob<ArticleModule>('/articles/*/index.md');
 
 const rawArticleModules = import.meta.glob('/articles/*/index.md', {
   import: 'default',
