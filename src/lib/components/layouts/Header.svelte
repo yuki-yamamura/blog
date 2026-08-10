@@ -1,10 +1,11 @@
 <script>
+  import { SITE_NAME } from '$lib/constants';
   import { pathMap } from '$lib/utils/path';
 </script>
 
 <header class="base">
   <div class="inner">
-    <a href={pathMap['/'].get()} class="logo link"> ymmr.dev</a>
+    <a href={pathMap['/'].get()} class="logo link"> {SITE_NAME}</a>
     <nav class="navigation">
       <a href={pathMap['/articles'].get()} class="navigation-item link">Articles</a>
       <a href={pathMap['/about'].get()} class="navigation-item link">About</a>

@@ -6,9 +6,13 @@
   import Seo from '$lib/components/Seo.svelte';
   import Image from '$lib/components/ui/Image.svelte';
   import Link from '$lib/components/ui/Link.svelte';
+  import { SITE_NAME } from '$lib/constants';
 </script>
 
-<Seo title="About | ymmr.dev" description="About Yuki Yamamura, a software engineer in Japan." />
+<Seo
+  title={`About | ${SITE_NAME}`}
+  description="About Yuki Yamamura, a software engineer in Japan."
+/>
 
 <PageContainer>
   <div class="inner">

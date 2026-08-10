@@ -3,6 +3,7 @@
   import PageContainer from '$lib/components/layouts/PageContainer.svelte';
   import Seo from '$lib/components/Seo.svelte';
   import ArticlePagination from '$lib/components/ui/Pagination.svelte';
+  import { SITE_NAME } from '$lib/constants';
   import { createArticlePagination } from '$lib/models/article';
   import { pathMap } from '$lib/utils/path';
 
@@ -24,7 +25,7 @@
   });
 </script>
 
-<Seo title="Articles | ymmr.dev" description="All articles on ymmr.dev." />
+<Seo title={`Articles | ${SITE_NAME}`} description={`All articles on ${SITE_NAME}.`} />
 
 <svelte:head>
   <link rel="canonical" href={canonicalUrl} />

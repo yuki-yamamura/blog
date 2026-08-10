@@ -3,10 +3,11 @@
   import { onMount } from 'svelte';
 
   import Seo from '$lib/components/Seo.svelte';
+  import { SITE_NAME } from '$lib/constants';
   import { pathMap } from '$lib/utils/path';
   import { wind } from '$lib/utils/wind.svelte';
 
-  const title = 'ymmr.dev';
+  const title = SITE_NAME;
   const letterAnimationDelayMs = 70;
   const letterDurationMs = 700;
 
@@ -28,7 +29,7 @@
   });
 </script>
 
-<Seo title="ymmr.dev" description="Notes about programming and things on my mind." />
+<Seo title={SITE_NAME} description="Notes about programming and things on my mind." />
 
 <main class="base">
   <div class="hero">

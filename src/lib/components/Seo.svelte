@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { SITE_NAME } from '$lib/constants';
+
   import { page } from '$app/state';
 
   const {
@@ -13,7 +15,7 @@
 <svelte:head>
   <title>{title}</title>
   <meta name="description" content={description} />
-  <meta property="og:site_name" content="ymmr.dev" />
+  <meta property="og:site_name" content={SITE_NAME} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content={ogType} />
