@@ -8,7 +8,7 @@ tags:
 
 Today, I've been doing the [gqlgen tutorial](https://gqlgen.com/getting-started/). During the tutorial, I found that a GraphQL server receives an HTTP POST request, even for queries.
 
-![](./graphql-query-request-headers.png)
+![](./picture_1.png)
 
 After a minute, I understood that it makes sense because a GraphQL request may include a request body like [variables](https://graphql.org/learn/queries/#variables). As shown in the [hurl](https://hurl.dev/) output below, we can query data from a GraphQL API via an HTTP POST request.
 

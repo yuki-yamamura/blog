@@ -7,6 +7,6 @@ tags:
 
 A month ago, I recognized a penguin on the wall in my room. It looks like this:
 
-![A penguin on the wall](./penguin.png)
+![A penguin on the wall](./picture_1.png)
 
 After that, he has been living in my mind, and I can't forget about him.
