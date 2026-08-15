@@ -56,9 +56,39 @@ export function rehypeImageDimensions() {
       const slug = path.basename(srcDirectory);
       const filename = path.basename(src);
 
-      node.properties.src = path.join(ARTICLES_DIRECTORY_NAME, slug, filename);
+      node.properties.src = `/${path.join(ARTICLES_DIRECTORY_NAME, slug, filename)}`;
       node.properties.width = width;
       node.properties.height = height;
     });
   };
 }
+
+type AllOrNone<T extends Record<string, unknown>> =
+  | {
+      [K in keyof T]: T[K];
+    }
+  | {
+      [K in keyof T]?: never;
+    };
+
+type Size = {
+  height: number;
+  width: number;
+};
+
+type Props = AllOrNone<Size>;
+
+const all: Props = {
+  height: 200,
+  width: 200,
+};
+
+const none: Props = {};
+
+const either1: Props = {
+  height: 200,
+};
+
+const either2: Props = {
+  width: 200,
+};
