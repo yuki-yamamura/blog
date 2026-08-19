@@ -31,6 +31,10 @@
       color: 'sky',
       label: 'HTML',
     },
+    playwright: {
+      color: 'green',
+      label: 'Playwright',
+    },
     typescript: {
       color: 'blue',
       label: 'TypeScript',

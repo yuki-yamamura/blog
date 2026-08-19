@@ -12,6 +12,7 @@ export const tagSchema = z.enum([
   'go',
   'graphql',
   'html',
+  'playwright',
   'typescript',
   'vitest',
 ]);
