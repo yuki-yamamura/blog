@@ -11,6 +11,7 @@
       color: {
         azure: 'azure',
         blue: 'blue',
+        cyan: 'cyan',
         gray: 'gray',
         green: 'green',
         orange: 'orange',
@@ -40,6 +41,10 @@
 
   .blue {
     background-color: var(--color-badge-blue);
+  }
+
+  .cyan {
+    background-color: var(--color-badge-cyan);
   }
 
   .gray {

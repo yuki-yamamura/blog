@@ -35,6 +35,10 @@
       color: 'green',
       label: 'Playwright',
     },
+    react: {
+      color: 'cyan',
+      label: 'React',
+    },
     typescript: {
       color: 'blue',
       label: 'TypeScript',

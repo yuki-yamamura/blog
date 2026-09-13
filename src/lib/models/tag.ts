@@ -13,6 +13,7 @@ export const tagSchema = z.enum([
   'graphql',
   'html',
   'playwright',
+  'react',
   'typescript',
   'vitest',
 ]);
