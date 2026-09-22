@@ -38,6 +38,7 @@ export function rehypeImageDimensions() {
       return;
     }
     const srcDirectory = path.dirname(file.filename);
+    let imageIndex = 0;
 
     visit(tree, 'element', (node: Element) => {
       if (node.tagName !== 'img') {
@@ -59,6 +60,15 @@ export function rehypeImageDimensions() {
       node.properties.src = `/${path.join(ARTICLES_DIRECTORY_NAME, slug, filename)}`;
       node.properties.width = width;
       node.properties.height = height;
+      // Article photos keep their own aspect ratio, so there is nothing to crop. `scale-down` also
+      // caps the requested size at the intrinsic size, which stops the 2x candidate from asking
+      // Cloudflare to upscale sources that are already smaller than the display box.
+      node.properties.fit = 'scale-down';
+      // Only the first image can be above the fold regardless of how the article is written.
+      node.properties.loading = imageIndex === 0 ? 'eager' : 'lazy';
+      node.properties.decoding = 'async';
+
+      imageIndex += 1;
     });
   };
 }
