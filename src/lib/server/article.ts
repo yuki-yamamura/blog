@@ -31,7 +31,7 @@ const rawArticleModules = import.meta.glob('/articles/*/index.md', {
   query: '?raw',
 });
 
-const thumbnailModules = import.meta.glob<string>('/articles/*/thumbnail.svg', {
+const thumbnailModules = import.meta.glob<string>('/articles/*/thumbnail.png', {
   import: 'default',
   query: '?url',
 });
@@ -52,7 +52,7 @@ async function getArticle(
   }
   const { metadata } = articleModule;
 
-  const thumbnailLoader = thumbnailModules[`/articles/${slug}/thumbnail.svg`];
+  const thumbnailLoader = thumbnailModules[`/articles/${slug}/thumbnail.png`];
   if (!thumbnailLoader) {
     return err(new Error(`Thumbnail not found for article: ${slug}`));
   }
