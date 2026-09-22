@@ -10,7 +10,7 @@ function copyArticleContentImages(articleDirectory: string, slug: string): void 
     const extension = path.extname(filename).slice(1).toLocaleLowerCase();
     const imageExtensions = ['png', 'jpg', 'jpeg', 'svg'];
 
-    return imageExtensions.includes(extension) && filename !== 'thumbnail.svg';
+    return imageExtensions.includes(extension) && filename !== 'thumbnail.png';
   });
 
   if (contentImages.length === 0) {
