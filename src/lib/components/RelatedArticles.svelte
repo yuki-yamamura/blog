@@ -95,7 +95,7 @@
             aria-roledescription="slide"
             aria-label={`${index + 1} / ${articles.length}`}
           >
-            <ArticleCard {article} />
+            <ArticleCard {article} loading="lazy" />
           </li>
         {/each}
       </ul>

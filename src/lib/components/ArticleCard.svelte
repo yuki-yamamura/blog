@@ -4,8 +4,10 @@
   import { pathMap } from '$lib/utils/path';
 
   import type { Article } from '$lib/models/article';
+  import type { HTMLImgAttributes } from 'svelte/elements';
 
-  const { article }: { article: Article } = $props();
+  const { article, loading = 'eager' }: { article: Article } & Pick<HTMLImgAttributes, 'loading'> =
+    $props();
 </script>
 
 <a href={pathMap['/articles/:slug'].get(article.slug)} class="base">
@@ -17,6 +19,7 @@
       width="200"
       height="200"
       class="thumbnail"
+      {loading}
     />
     <div class="card-info">
       <div class="title">{article.title}</div>

@@ -38,6 +38,7 @@ export function rehypeImageDimensions() {
       return;
     }
     const srcDirectory = path.dirname(file.filename);
+    let imageIndex = 0;
 
     visit(tree, 'element', (node: Element) => {
       if (node.tagName !== 'img') {
@@ -59,6 +60,12 @@ export function rehypeImageDimensions() {
       node.properties.src = `/${path.join(ARTICLES_DIRECTORY_NAME, slug, filename)}`;
       node.properties.width = width;
       node.properties.height = height;
+      node.properties.fit = 'scale-down';
+      node.properties.decoding = 'async';
+      // Only the first image can be above the fold to decrease extra network requests for images
+      node.properties.loading = imageIndex === 0 ? 'eager' : 'lazy';
+
+      imageIndex += 1;
     });
   };
 }
