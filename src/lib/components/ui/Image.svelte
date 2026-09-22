@@ -9,7 +9,7 @@
 
   const {
     fit = 'cover',
-    ...imgProps
+    ...props
   }: AllNonNullable<Pick<HTMLImgAttributes, 'alt' | 'height' | 'src' | 'width'>> &
     Omit<HTMLImgAttributes, 'alt' | 'height' | 'src' | 'width'> &
     Pick<BasicImageTransformations, 'fit'> = $props();
@@ -18,22 +18,22 @@
   const src1x = $derived(
     transformImageUrl({
       fit,
-      height: Number(imgProps.height),
+      height: Number(props.height),
       hostname,
-      src: imgProps.src,
-      width: Number(imgProps.width),
+      src: props.src,
+      width: Number(props.width),
     }),
   );
   const src2x = $derived(
     transformImageUrl({
       fit,
-      height: Number(imgProps.height) * 2,
+      height: Number(props.height) * 2,
       hostname,
-      src: imgProps.src,
-      width: Number(imgProps.width) * 2,
+      src: props.src,
+      width: Number(props.width) * 2,
     }),
   );
   const srcset = $derived(`${src2x} 2x`);
 </script>
 
-<img {...imgProps} src={src1x} {srcset} />
+<img {...props} src={src1x} {srcset} />

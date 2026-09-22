@@ -6,10 +6,8 @@
   import type { Article } from '$lib/models/article';
   import type { HTMLImgAttributes } from 'svelte/elements';
 
-  const {
-    article,
-    loading = 'eager',
-  }: { article: Article; loading?: HTMLImgAttributes['loading'] } = $props();
+  const { article, loading = 'eager' }: { article: Article } & Pick<HTMLImgAttributes, 'loading'> =
+    $props();
 </script>
 
 <a href={pathMap['/articles/:slug'].get(article.slug)} class="base">
