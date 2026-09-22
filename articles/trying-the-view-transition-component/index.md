@@ -8,11 +8,11 @@ tags:
 React 19.3 introduced [the `<ViewTransition>` component](https://react.dev/blog/2026/09/09/react-19-3#view-transition) as a stable API. ViewTransition is part of the [Async React](https://www.youtube.com/watch?v=B_2E96URooA) concept, and the `<ViewTransition>` component makes it easy to animate elements between the render and commit phases in React.
 
 ```tsx
-import { Suspense, ViewTransition } from "react";
+import { Suspense, ViewTransition } from 'react';
 
-import { listComments } from "@features/comments/api/list-comments";
+import { listComments } from '@features/comments/api/list-comments';
 
-import styles from "comment-list.module.css";
+import styles from 'comment-list.module.css';
 
 type CommentListProps = {
   postId: string;

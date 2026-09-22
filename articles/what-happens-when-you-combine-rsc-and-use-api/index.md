@@ -9,12 +9,12 @@ Learning the [use API](https://react.dev/reference/react/use#use-promise) with a
 
 ```tsx
 // in todo-list/container.tsx
-import { Suspense } from "react";
-import { TodoListPresenter } from "./presenter";
-import type { GetTodosResponse } from "@/features/todo/types/todo";
+import { Suspense } from 'react';
+import { TodoListPresenter } from './presenter';
+import type { GetTodosResponse } from '@/features/todo/types/todo';
 
 export function TodoListContainer() {
-  const todosPromise = fetch("https://dummyjson.com/todos").then(
+  const todosPromise = fetch('https://dummyjson.com/todos').then(
     (res) => res.json() as unknown as GetTodosResponse,
   );
 
@@ -28,10 +28,10 @@ export function TodoListContainer() {
 
 ```tsx
 // in todo-list/presenter.tsx
-"use client";
+'use client';
 
-import { use } from "react";
-import type { GetTodosResponse } from "@/features/todo/types/todo";
+import { use } from 'react';
+import type { GetTodosResponse } from '@/features/todo/types/todo';
 
 type Props = {
   todosPromise: Promise<GetTodosResponse>;
@@ -53,10 +53,7 @@ While the Promise is pending, `<Suspense />` renders the fallback UI and React s
 
 ```html
 <script>
-  self.__next_f.push([
-    1,
-    'a0:I["children":["$","$La0",null,{"todosPromise":"$@a1"}',
-  ]);
+  self.__next_f.push([1, 'a0:I["children":["$","$La0",null,{"todosPromise":"$@a1"}']);
 </script>
 ```
 
@@ -74,8 +71,8 @@ If we use an async component and it waits for the Promise on the server, the RSC
 ```
 
 ```tsx
-import { Suspense } from "react";
-import type { GetTodosResponse } from "@/features/todo/types/todo";
+import { Suspense } from 'react';
+import type { GetTodosResponse } from '@/features/todo/types/todo';
 
 export function TodoList() {
   return (
@@ -86,9 +83,8 @@ export function TodoList() {
 }
 
 async function _TodoList() {
-  const res = await fetch("https://dummyjson.com/todos");
-  const { todos: todoItems } =
-    (await res.json()) as unknown as GetTodosResponse;
+  const res = await fetch('https://dummyjson.com/todos');
+  const { todos: todoItems } = (await res.json()) as unknown as GetTodosResponse;
 
   return (
     <ul>
