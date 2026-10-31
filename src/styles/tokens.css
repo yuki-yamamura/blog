@@ -13,6 +13,7 @@
   --color-badge-orange: oklch(90% 0.04 54deg);
   --color-badge-sky: oklch(90% 0.04 215deg);
   --color-badge-yellow: oklch(90% 0.04 90deg);
+  --color-badge-tomato: oklch(90% 0.04 32deg);
 
   /* Semantic colors */
   --color-bg: var(--color-neutral-50);

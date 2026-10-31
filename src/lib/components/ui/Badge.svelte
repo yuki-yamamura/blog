@@ -17,6 +17,7 @@
         orange: 'orange',
         pink: 'pink',
         sky: 'sky',
+        tomato: 'tomato',
         yellow: 'yellow',
       },
     },
@@ -65,6 +66,10 @@
 
   .sky {
     background-color: var(--color-badge-sky);
+  }
+
+  .tomato {
+    background-color: var(--color-badge-tomato);
   }
 
   .yellow {

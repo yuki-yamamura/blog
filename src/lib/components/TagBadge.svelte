@@ -15,6 +15,10 @@
       color: 'yellow',
       label: 'Cooking',
     },
+    devtools: {
+      color: 'tomato',
+      label: 'DevTools',
+    },
     diary: {
       color: 'gray',
       label: 'Diary',
